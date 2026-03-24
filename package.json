@@ -1,0 +1,15 @@
+{
+  "name": "ai-resume-checker-root",
+  "private": true,
+  "description": "Wrapper folder — the real app is in ./AI-Resume-Checker-main. Use scripts below or cd into that folder.",
+  "scripts": {
+    "install:app": "npm install --prefix AI-Resume-Checker-main",
+    "install:server": "npm install --prefix AI-Resume-Checker-main/server",
+    "install:all": "npm run install:app && npm run install:server",
+    "dev": "npm run dev --prefix AI-Resume-Checker-main",
+    "dev:all": "npm run dev:all --prefix AI-Resume-Checker-main",
+    "api:dev": "npm run api:dev --prefix AI-Resume-Checker-main",
+    "build": "npm run build --prefix AI-Resume-Checker-main",
+    "typecheck": "npm run typecheck --prefix AI-Resume-Checker-main"
+  }
+}

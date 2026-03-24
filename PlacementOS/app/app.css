@@ -1,0 +1,230 @@
+/* =========================================================
+   IMPORTS
+   ========================================================= */
+
+/* Google Font */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap");
+
+/* Tailwind Core */
+@import "tailwindcss";
+
+/* Animation Utilities */
+@import "tw-animate-css";
+
+/* =========================================================
+   THEME TOKENS (Tailwind v4)
+   ========================================================= */
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  /* Brand colors */
+  --color-primary:   #7C3AED;
+  --color-primary-light: #8B5CF6;
+  --color-primary-dark:  #6D28D9;
+  --color-secondary: #3B82F6;
+  --color-success:   #10B981;
+  --color-warning:   #F59E0B;
+  --color-danger:    #EF4444;
+  --color-dark:      #0F0F0F;
+  --color-surface:   #1a1a2e;
+
+  /* Light mode neutrals */
+  --color-light-blue-100: #c1d3f81a;
+  --color-light-blue-200: #a7bff14d;
+
+  /* Badge Backgrounds */
+  --color-badge-green:  #d5faf1;
+  --color-badge-red:    #f9e3e2;
+  --color-badge-yellow: #fceed8;
+
+  /* Badge Text */
+  --color-badge-green-text:  #254d4a;
+  --color-badge-red-text:    #752522;
+  --color-badge-yellow-text: #73321b;
+}
+
+/* Enable class-based dark mode overriding default media query */
+@custom-variant dark (&:is(.dark *));
+
+/* =========================================================
+   BASE STYLES
+   ========================================================= */
+@layer base {
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html, body {
+    @apply font-sans text-gray-900 bg-slate-50 dark:bg-gray-950 dark:text-gray-100;
+  }
+
+  h1 { @apply font-bold tracking-tight dark:text-white; }
+  h2 { @apply font-semibold dark:text-white; }
+
+  input, textarea, select {
+    @apply w-full px-4 py-3 rounded-xl border border-gray-200 bg-white dark:bg-gray-900 dark:border-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent transition-all duration-200;
+  }
+}
+
+/* =========================================================
+   COMPONENTS
+   ========================================================= */
+@layer components {
+  .gradient-border {
+    @apply p-4 rounded-2xl bg-gradient-to-b
+      from-[var(--color-light-blue-100)]
+      to-[var(--color-light-blue-200)]
+      transition-all duration-300;
+  }
+
+  /* Primary Button */
+  .primary-button {
+    @apply px-4 py-2 rounded-full primary-gradient text-white cursor-pointer w-full font-medium transition-all duration-200;
+  }
+
+  /* Resume navigation header */
+  .resume-nav {
+    @apply flex flex-row justify-between items-center p-4 border-b border-gray-200 dark:border-gray-800 dark:bg-gray-900;
+  }
+
+  /* Resume Summary Section */
+  .resume-summary {
+    @apply flex flex-row items-center justify-center p-4 gap-4;
+  }
+
+  /* Nested Category Cards */
+  .category {
+    @apply flex flex-row gap-2 items-center bg-gray-50 dark:bg-gray-800 dark:text-gray-200 rounded-2xl p-4 w-full justify-between;
+  }
+
+  /* Back-Button */
+  .back-button {
+    @apply flex flex-row items-center gap-2 border border-gray-200 dark:border-gray-700 dark:text-gray-200 rounded-lg p-2 shadow-sm;
+  }
+
+  /* Authentication Button (Login/Signup) */
+  .auth-button {
+    @apply primary-gradient rounded-full py-4 px-8 cursor-pointer w-[600px] max-md:w-full text-3xl font-semibold text-white;
+  }
+
+  /* Main Page Section Wrapper */
+  .main-section {
+    @apply flex flex-col items-center gap-6 pt-6 md:pt-8 max-sm:mx-2 mx-4 md:mx-15 pb-4;
+  }
+
+  /* Page Heading Wrapper */
+  .page-heading {
+    @apply flex flex-col items-center gap-4 md:gap-6 max-w-4xl text-center max-sm:gap-4 px-4;
+  }
+
+  /* Resume Cards Grid */
+  .resumes-section {
+    @apply flex flex-wrap gap-6 max-md:flex-col max-md:gap-4 items-start max-md:items-center w-full max-w-[1850px] justify-evenly;
+  }
+
+  /* Resume Section */
+  .resume-section {
+    @apply w-full;
+  }
+
+  /* Individual Resume Card */
+  .resume-card {
+    @apply flex flex-col gap-6 bg-white dark:bg-gray-900 rounded-2xl p-6 shadow-md border border-gray-100 dark:border-gray-800 hover:border-violet-500 dark:hover:border-violet-400 cursor-pointer transition-colors;
+  }
+
+  /* Resume Card Header */
+  .resume-card-header {
+    @apply flex flex-row gap-4 justify-between items-start;
+  }
+
+  /* Feedback Panel */
+  .feedback-section {
+    @apply flex flex-col gap-8 w-1/2 px-8 py-6 max-lg:w-full;
+  }
+
+  /* General Card */
+  .card {
+    @apply bg-white dark:bg-gray-900 rounded-2xl p-6 shadow-sm border border-gray-100 dark:border-gray-800 transition-colors;
+  }
+
+  /* Stat Card */
+  .stat-card {
+    @apply flex flex-col bg-white dark:bg-gray-900 rounded-2xl p-5 shadow-sm border border-gray-100 dark:border-gray-800 transition-colors;
+  }
+
+  /* Navbar */
+  .navbar {
+    @apply flex flex-row justify-between items-center bg-white dark:bg-gray-900 rounded-full p-4 px-6 md:px-10 w-full max-w-[1200px] mx-auto shadow-sm border border-gray-100 dark:border-gray-800;
+  }
+
+  /* Score Badge */
+  .score-badge {
+    @apply flex items-center justify-center py-1 px-2 gap-4 rounded-[96px];
+  }
+
+  /* Form Input Wrapper */
+  .form-div {
+    @apply flex flex-col gap-2 w-full items-start;
+  }
+
+  /* Drag and Drop Uploader */
+  .uploader-drag-area {
+    @apply relative p-7 text-center transition-all duration-700 cursor-pointer bg-white rounded-2xl min-h-[208px];
+  }
+
+  /* Selected File Display */
+  .uploader-selected-file {
+    @apply flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800 rounded-2xl;
+  }
+}
+
+/* =========================================================
+   CUSTOM UTILITIES
+   ========================================================= */
+@utility bg-gradient {
+  background: linear-gradient(135deg, #0f0c29 0%, #1a1040 40%, #24243e 70%, #0f0c29 100%);
+}
+
+/* Text Gradient Utility */
+@utility text-gradient {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-[#a78bfa] via-[#818cf8] to-[#60a5fa];
+}
+
+/* Hover Gradient */
+@utility gradient-hover {
+  @apply bg-gradient-to-b from-light-blue-100 to-light-blue-200;
+}
+
+/* Primary Button Gradient */
+@utility primary-gradient {
+  background: linear-gradient(to bottom, #8e98ff, #606beb);
+  box-shadow: 0px 74px 21px 0px #6678ef00;
+}
+
+/* Primary Hover State */
+@utility primary-gradient-hover {
+  background: linear-gradient(to bottom, #717dff, #4957eb);
+}
+
+/* Inset glass-like-shadow */
+@utility inset-shadow {
+  box-shadow: inset 0 0 12px 0 rgba(36, 99, 235, 0.2);
+  backdrop-filter: blur(10px);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Smooth transitions for interactive elements */
+@layer utilities {
+  .transition-smooth {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
