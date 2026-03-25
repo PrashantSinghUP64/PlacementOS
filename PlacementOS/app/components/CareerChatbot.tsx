@@ -139,7 +139,7 @@ Answer this specific question based on context above.`;
       setMessages(updated);
       saveHistory(updated);
     } catch (error) {
-      console.error('Chatbot error:', error);
+      console.error(error);
       const errMsg: Message = {
         role: "assistant",
         content: "Thoda network issue hua. Dobara try karo! 😊",

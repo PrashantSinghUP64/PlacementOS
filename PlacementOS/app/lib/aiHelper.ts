@@ -9,18 +9,20 @@ import { getApiBase } from "./api";
  */
 export async function callAI(prompt: string): Promise<string> {
   try {
-    const res = await fetch(`${getApiBase()}/api/ai/chat`, {
+    const VITE_API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "https://placementos-2q42.onrender.com";
+    const res = await fetch(`${VITE_API_BASE_URL}/api/ai/chat`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ prompt }),
+      body: JSON.stringify({ message: prompt }),
     });
 
     if (!res.ok) {
-      let errMsg = "AI request failed";
+      let errMsg = `AI request failed with status ${res.status}`;
       try {
         const body = await res.json();
         errMsg = body.error ?? errMsg;
       } catch {}
+      console.error(errMsg);
       throw new Error(errMsg);
     }
 
@@ -28,7 +30,7 @@ export async function callAI(prompt: string): Promise<string> {
     if (!data.text) throw new Error("Empty response from AI");
     return data.text as string;
   } catch (error: any) {
-    console.error("AI Error:", error);
+    console.error(error);
     throw new Error("AI call failed: " + (error.message ?? "Unknown error"));
   }
 }

@@ -1,7 +1,7 @@
-/** Backend API base (set in `.env` as `VITE_API_URL`). */
+/** Backend API base (set in `.env` as `VITE_API_BASE_URL`). */
 export function getApiBase(): string {
-  const base = import.meta.env.VITE_API_URL as string | undefined;
-  return (base?.replace(/\/$/, "") || "http://localhost:5000") as string;
+  const base = import.meta.env.VITE_API_BASE_URL as string | undefined;
+  return (base?.replace(/\/$/, "") || "https://placementos-2q42.onrender.com") as string;
 }
 
 export async function apiFetch(

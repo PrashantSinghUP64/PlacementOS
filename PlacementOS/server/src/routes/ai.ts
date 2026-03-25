@@ -25,7 +25,7 @@ function getGenAI(): GoogleGenerativeAI {
  */
 router.post("/chat", async (req, res) => {
   try {
-    const { prompt } = req.body as { prompt?: string };
+    const prompt = (req.body.message || req.body.prompt) as string | undefined;
 
     if (!prompt || typeof prompt !== "string" || !prompt.trim()) {
       return res.status(400).json({ error: "prompt is required and must be a non-empty string" });
