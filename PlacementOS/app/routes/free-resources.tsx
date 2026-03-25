@@ -77,9 +77,9 @@ const QUICK_SEARCHES = ["DSA Course", "Full Stack", "Machine Learning", "System 
 const COLOR_MAP: Record<string, { bg: string; border: string; text: string; badge: string }> = {
   indigo: { bg: "bg-indigo-50", border: "border-indigo-200", text: "text-indigo-700", badge: "bg-indigo-100 text-indigo-700" },
   emerald: { bg: "bg-emerald-50", border: "border-emerald-200", text: "text-emerald-700", badge: "bg-emerald-100 text-emerald-700" },
-  violet: { bg: "bg-violet-50", border: "border-violet-200", text: "text-violet-700", badge: "bg-violet-100 text-violet-700" },
+  violet: { bg: "bg-violet-50 dark:bg-violet-900/20", border: "border-violet-200 dark:border-violet-800", text: "text-violet-700", badge: "bg-violet-100 text-violet-700" },
   orange: { bg: "bg-orange-50", border: "border-orange-200", text: "text-orange-700", badge: "bg-orange-100 text-orange-700" },
-  amber: { bg: "bg-amber-50", border: "border-amber-200", text: "text-amber-700", badge: "bg-amber-100 text-amber-700" },
+  amber: { bg: "bg-amber-50 dark:bg-amber-900/20", border: "border-amber-200", text: "text-amber-700", badge: "bg-amber-100 text-amber-700" },
 };
 
 export default function FreeResources() {
@@ -129,7 +129,7 @@ Give 4-6 real, accurate results. Only include real working links.`;
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 pb-20 font-sans">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 pb-20 font-sans">
       <Navbar />
 
       {/* Hero */}
@@ -140,14 +140,14 @@ Give 4-6 real, accurate results. Only include real working links.`;
           <p className="text-indigo-200 text-xl font-medium mb-10">Koi bhi paid course ka free alternative dhundho — instantly</p>
 
           {/* Search */}
-          <div className="bg-white rounded-2xl p-2 flex gap-2 shadow-2xl max-w-2xl mx-auto">
+          <div className="bg-white dark:bg-gray-900 rounded-2xl p-2 flex gap-2 shadow-2xl max-w-2xl mx-auto">
             <input
               type="text"
               value={search}
               onChange={e => setSearch(e.target.value)}
               onKeyDown={e => e.key === "Enter" && findFreeAlternatives(search)}
               placeholder="Search any course... eg React course, DSA bootcamp"
-              className="flex-1 px-4 py-3 text-gray-800 font-medium focus:outline-none text-base rounded-xl"
+              className="flex-1 px-4 py-3 text-gray-800 dark:text-gray-200 font-medium focus:outline-none text-base rounded-xl"
             />
             <button
               onClick={() => findFreeAlternatives(search)}
@@ -162,7 +162,7 @@ Give 4-6 real, accurate results. Only include real working links.`;
           <div className="flex flex-wrap justify-center gap-2 mt-5">
             {QUICK_SEARCHES.map(q => (
               <button key={q} onClick={() => findFreeAlternatives(q)}
-                className="px-3 py-1.5 bg-white/20 hover:bg-white/30 border border-white/30 text-white text-sm font-bold rounded-full transition-all">
+                className="px-3 py-1.5 bg-white dark:bg-gray-900/20 hover:bg-white dark:bg-gray-900/30 border border-white/30 text-white text-sm font-bold rounded-full transition-all">
                 {q}
               </button>
             ))}
@@ -174,28 +174,28 @@ Give 4-6 real, accurate results. Only include real working links.`;
 
         {/* AI Results */}
         {(loading || results || error) && (
-          <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-6">
-            <h2 className="text-xl font-black text-gray-900 mb-4">🤖 AI Found These Free Alternatives</h2>
+          <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-800 p-6">
+            <h2 className="text-xl font-black text-gray-900 dark:text-white mb-4">🤖 AI Found These Free Alternatives</h2>
             {loading && (
               <div className="space-y-3">
                 {[1, 2, 3].map(i => <div key={i} className="h-16 bg-gray-100 animate-pulse rounded-xl" />)}
               </div>
             )}
-            {error && <p className="text-amber-600 font-bold text-sm bg-amber-50 p-4 rounded-xl">{error}</p>}
+            {error && <p className="text-amber-600 font-bold text-sm bg-amber-50 dark:bg-amber-900/20 p-4 rounded-xl">{error}</p>}
             {results && (
               <>
                 <div className="space-y-3">
                   {results.map((r, i) => (
-                    <div key={i} className="flex items-start gap-4 p-4 border border-gray-200 rounded-xl hover:border-indigo-200 hover:bg-indigo-50/30 transition-all">
+                    <div key={i} className="flex items-start gap-4 p-4 border border-gray-200 dark:border-gray-800 rounded-xl hover:border-indigo-200 hover:bg-indigo-50/30 transition-all">
                       <div className="w-10 h-10 bg-indigo-100 text-indigo-600 rounded-xl flex items-center justify-center font-black text-lg flex-shrink-0">{i + 1}</div>
                       <div className="flex-1 min-w-0">
                         <div className="flex flex-wrap items-center gap-2 mb-1">
-                          <h3 className="font-black text-gray-900">{r.name}</h3>
-                          <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-gray-100 text-gray-600">{r.platform}</span>
+                          <h3 className="font-black text-gray-900 dark:text-white">{r.name}</h3>
+                          <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-gray-100 text-gray-600 dark:text-gray-400">{r.platform}</span>
                           <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${r.isFree ? "bg-green-100 text-green-700" : "bg-yellow-100 text-yellow-700"}`}>{r.isFree ? "✓ FREE" : "Freemium"}</span>
                           <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-blue-100 text-blue-700">{r.type}</span>
                         </div>
-                        <p className="text-sm text-gray-600 font-medium">{r.whyGood}</p>
+                        <p className="text-sm text-gray-600 dark:text-gray-400 font-medium">{r.whyGood}</p>
                         <p className="text-xs text-gray-400 mt-0.5">{"⭐".repeat(r.rating)}</p>
                       </div>
                       <a href={r.link} target="_blank" rel="noreferrer"
@@ -220,23 +220,23 @@ Give 4-6 real, accurate results. Only include real working links.`;
         {CURATED.map(cat => {
           const c = COLOR_MAP[cat.color];
           return (
-            <div key={cat.category} className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+            <div key={cat.category} className="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 overflow-hidden">
               <div className={`p-5 ${c.bg} border-b ${c.border}`}>
                 <h2 className={`font-black text-lg flex items-center gap-2 ${c.text}`}>{cat.icon} {cat.category}</h2>
               </div>
               <div className="divide-y divide-gray-50">
                 {cat.items.map(item => (
-                  <div key={item.name} className="flex items-center gap-4 p-4 hover:bg-gray-50 transition-colors">
+                  <div key={item.name} className="flex items-center gap-4 p-4 hover:bg-gray-50 dark:bg-gray-950 transition-colors">
                     <div className="flex-1 min-w-0">
                       <div className="flex flex-wrap items-center gap-2 mb-0.5">
-                        <h3 className="font-bold text-gray-900 text-sm">{item.name}</h3>
+                        <h3 className="font-bold text-gray-900 dark:text-white text-sm">{item.name}</h3>
                         <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-gray-100 text-gray-500">{item.platform}</span>
                         <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded-full ${item.isFree ? "bg-green-100 text-green-700" : "bg-yellow-100 text-yellow-700"}`}>{item.isFree ? "FREE" : "Freemium"}</span>
                       </div>
                       <p className="text-xs text-gray-500 font-medium">{item.whyGood}</p>
                     </div>
                     <a href={item.link} target="_blank" rel="noreferrer"
-                      className="flex-shrink-0 px-3 py-1.5 text-xs font-bold border border-gray-200 hover:border-indigo-400 hover:text-indigo-600 rounded-lg transition-all">
+                      className="flex-shrink-0 px-3 py-1.5 text-xs font-bold border border-gray-200 dark:border-gray-800 hover:border-indigo-400 hover:text-indigo-600 rounded-lg transition-all">
                       Visit ↗
                     </a>
                   </div>

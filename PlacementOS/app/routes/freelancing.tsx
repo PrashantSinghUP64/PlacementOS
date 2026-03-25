@@ -71,7 +71,7 @@ Make it personalized, professional, ~150 words. Start with understanding their p
   const totalIncome = income.reduce((a, b) => a + b.amount, 0);
 
   return (
-    <div className="min-h-screen bg-gray-50 pb-20 font-sans">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 pb-20 font-sans">
       <Navbar />
 
       <div className="bg-gradient-to-br from-emerald-600 to-green-500 text-white pt-16 pb-28">
@@ -89,25 +89,25 @@ Make it personalized, professional, ~150 words. Start with understanding their p
       <div className="max-w-6xl mx-auto px-6 -mt-14 relative z-10 space-y-8">
 
         {/* Platforms */}
-        <div className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
+        <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-800 overflow-hidden">
           <div className="p-5 bg-emerald-50 border-b border-emerald-100">
             <h2 className="text-xl font-black text-emerald-900">Platform Comparison</h2>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full">
-              <thead className="bg-gray-50 border-b border-gray-200">
+              <thead className="bg-gray-50 dark:bg-gray-950 border-b border-gray-200 dark:border-gray-800">
                 <tr>{["Platform", "Best For", "How to Start", "Earning Potential", "Pro Tip"].map(h => <th key={h} className="text-left px-4 py-3 text-xs font-black text-gray-500 uppercase tracking-wider">{h}</th>)}</tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
                 {PLATFORMS.map(p => (
-                  <tr key={p.name} className="hover:bg-gray-50 transition-colors">
+                  <tr key={p.name} className="hover:bg-gray-50 dark:bg-gray-950 transition-colors">
                     <td className="px-4 py-4">
                       <div className="flex items-center gap-2">
                         <span className="text-xl">{p.icon}</span>
-                        {p.link ? <a href={p.link} target="_blank" rel="noreferrer" className="font-black text-gray-900 hover:text-emerald-600 text-sm">{p.name} ↗</a> : <span className="font-black text-gray-900 text-sm">{p.name}</span>}
+                        {p.link ? <a href={p.link} target="_blank" rel="noreferrer" className="font-black text-gray-900 dark:text-white hover:text-emerald-600 text-sm">{p.name} ↗</a> : <span className="font-black text-gray-900 dark:text-white text-sm">{p.name}</span>}
                       </div>
                     </td>
-                    <td className="px-4 py-4 text-sm text-gray-600 font-medium max-w-[150px]">{p.best}</td>
+                    <td className="px-4 py-4 text-sm text-gray-600 dark:text-gray-400 font-medium max-w-[150px]">{p.best}</td>
                     <td className="px-4 py-4"><span className={`text-xs font-bold px-2 py-1 rounded-full ${p.start === "Very Easy" || p.start === "Easy" ? "bg-green-100 text-green-700" : "bg-yellow-100 text-yellow-700"}`}>{p.start}</span></td>
                     <td className="px-4 py-4 text-sm font-black text-emerald-600">{p.earning}</td>
                     <td className="px-4 py-4 text-xs text-gray-500 font-medium max-w-[200px]">{p.tip}</td>
@@ -119,16 +119,16 @@ Make it personalized, professional, ~150 words. Start with understanding their p
         </div>
 
         {/* Skills That Sell */}
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-          <div className="p-5 bg-green-50 border-b border-green-100">
+        <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 overflow-hidden">
+          <div className="p-5 bg-green-50 dark:bg-green-900/20 border-b border-green-100">
             <h2 className="text-xl font-black text-green-900">Skills That Sell 📈 — Demand & Earning</h2>
           </div>
           <div className="grid md:grid-cols-2 gap-0 divide-y md:divide-y-0 md:divide-x divide-gray-100">
             {SKILLS.map(s => (
-              <div key={s.skill} className="px-5 py-4 flex items-center gap-4 border-b border-gray-50 hover:bg-gray-50 transition-colors">
+              <div key={s.skill} className="px-5 py-4 flex items-center gap-4 border-b border-gray-50 hover:bg-gray-50 dark:bg-gray-950 transition-colors">
                 <span className="text-2xl flex-shrink-0">{s.icon}</span>
                 <div className="flex-1 min-w-0">
-                  <h3 className="font-black text-gray-900 text-sm">{s.skill}</h3>
+                  <h3 className="font-black text-gray-900 dark:text-white text-sm">{s.skill}</h3>
                   <div className="flex gap-2 mt-1 flex-wrap">
                     <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded-full ${s.demand === "Very High" ? "bg-red-100 text-red-700" : "bg-orange-100 text-orange-700"}`}>{s.demand} demand</span>
                     <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-emerald-100 text-emerald-700">{s.project}</span>
@@ -140,16 +140,16 @@ Make it personalized, professional, ~150 words. Start with understanding their p
         </div>
 
         {/* First Client */}
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-          <div className="p-5 bg-blue-50 border-b border-blue-100">
+        <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 overflow-hidden">
+          <div className="p-5 bg-blue-50 dark:bg-blue-900/20 border-b border-blue-100">
             <h2 className="text-xl font-black text-blue-900">Get Your First Client 🎯</h2>
             <p className="text-blue-600 text-sm font-medium mt-1">Pehla client sabse mushkil hota hai — but yeh steps follow karo</p>
           </div>
           <div className="divide-y divide-gray-50">
             {FIRST_CLIENT_STEPS.map(s => (
-              <div key={s.step} className="flex gap-4 p-5 hover:bg-gray-50 transition-colors">
+              <div key={s.step} className="flex gap-4 p-5 hover:bg-gray-50 dark:bg-gray-950 transition-colors">
                 <div className="w-8 h-8 bg-blue-100 text-blue-700 rounded-xl flex items-center justify-center font-black text-sm flex-shrink-0">{s.step}</div>
-                <div><h3 className="font-black text-gray-900 mb-1">{s.title}</h3><p className="text-sm text-gray-600 font-medium">{s.desc}</p></div>
+                <div><h3 className="font-black text-gray-900 dark:text-white mb-1">{s.title}</h3><p className="text-sm text-gray-600 dark:text-gray-400 font-medium">{s.desc}</p></div>
               </div>
             ))}
           </div>
@@ -158,13 +158,13 @@ Make it personalized, professional, ~150 words. Start with understanding their p
         {/* AI Tools */}
         <div className="grid md:grid-cols-2 gap-5">
           {/* Gig Generator */}
-          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5">
-            <h2 className="text-xl font-black text-gray-900 mb-4">Fiverr Gig Generator 🤖</h2>
+          <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 p-5">
+            <h2 className="text-xl font-black text-gray-900 dark:text-white mb-4">Fiverr Gig Generator 🤖</h2>
             <div className="space-y-3 mb-4">
-              <div><label className="block text-sm font-bold text-gray-700 mb-1">Your Skills</label><input value={gig.skills} onChange={e => setGig(g => ({ ...g, skills: e.target.value }))} placeholder="React, Node.js, CSS" className="w-full p-2.5 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-emerald-400 focus:outline-none" /></div>
-              <div><label className="block text-sm font-bold text-gray-700 mb-1">Your Niche</label><input value={gig.niche} onChange={e => setGig(g => ({ ...g, niche: e.target.value }))} placeholder="Restaurant websites, SaaS apps..." className="w-full p-2.5 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-emerald-400 focus:outline-none" /></div>
-              <div><label className="block text-sm font-bold text-gray-700 mb-1">Level</label>
-                <select value={gig.level} onChange={e => setGig(g => ({ ...g, level: e.target.value }))} className="w-full p-2.5 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-emerald-400 focus:outline-none">
+              <div><label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">Your Skills</label><input value={gig.skills} onChange={e => setGig(g => ({ ...g, skills: e.target.value }))} placeholder="React, Node.js, CSS" className="w-full p-2.5 border border-gray-200 dark:border-gray-800 rounded-xl text-sm focus:ring-2 focus:ring-emerald-400 focus:outline-none" /></div>
+              <div><label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">Your Niche</label><input value={gig.niche} onChange={e => setGig(g => ({ ...g, niche: e.target.value }))} placeholder="Restaurant websites, SaaS apps..." className="w-full p-2.5 border border-gray-200 dark:border-gray-800 rounded-xl text-sm focus:ring-2 focus:ring-emerald-400 focus:outline-none" /></div>
+              <div><label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">Level</label>
+                <select value={gig.level} onChange={e => setGig(g => ({ ...g, level: e.target.value }))} className="w-full p-2.5 border border-gray-200 dark:border-gray-800 rounded-xl text-sm focus:ring-2 focus:ring-emerald-400 focus:outline-none">
                   {["Beginner", "Intermediate", "Experienced"].map(l => <option key={l}>{l}</option>)}
                 </select>
               </div>
@@ -172,30 +172,30 @@ Make it personalized, professional, ~150 words. Start with understanding their p
             <button onClick={genGig} disabled={loading || !gig.skills.trim()} className="w-full py-2.5 bg-emerald-600 hover:bg-emerald-700 disabled:bg-gray-200 text-white font-black rounded-xl text-sm transition-colors">
               {loading ? "Generating..." : "Generate Gig Content 🚀"}
             </button>
-            {generatedGig && <div className="mt-4 p-4 bg-gray-50 border border-gray-200 rounded-xl text-sm font-medium text-gray-800 whitespace-pre-wrap max-h-64 overflow-y-auto">{generatedGig}</div>}
+            {generatedGig && <div className="mt-4 p-4 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl text-sm font-medium text-gray-800 dark:text-gray-200 whitespace-pre-wrap max-h-64 overflow-y-auto">{generatedGig}</div>}
           </div>
 
           {/* Proposal Generator */}
-          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5">
-            <h2 className="text-xl font-black text-gray-900 mb-4">Proposal Generator ✍️</h2>
+          <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 p-5">
+            <h2 className="text-xl font-black text-gray-900 dark:text-white mb-4">Proposal Generator ✍️</h2>
             <div className="space-y-3 mb-4">
-              <div><label className="block text-sm font-bold text-gray-700 mb-1">Project Description</label><textarea value={proposal.project} onChange={e => setProposal(p => ({ ...p, project: e.target.value }))} rows={3} placeholder="Client needs: React dashboard for sales data with charts..." className="w-full p-2.5 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-blue-400 focus:outline-none resize-none" /></div>
-              <div><label className="block text-sm font-bold text-gray-700 mb-1">Your Relevant Skills</label><input value={proposal.skills} onChange={e => setProposal(p => ({ ...p, skills: e.target.value }))} placeholder="React, Recharts, REST APIs, 2 similar projects" className="w-full p-2.5 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" /></div>
+              <div><label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">Project Description</label><textarea value={proposal.project} onChange={e => setProposal(p => ({ ...p, project: e.target.value }))} rows={3} placeholder="Client needs: React dashboard for sales data with charts..." className="w-full p-2.5 border border-gray-200 dark:border-gray-800 rounded-xl text-sm focus:ring-2 focus:ring-blue-400 focus:outline-none resize-none" /></div>
+              <div><label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">Your Relevant Skills</label><input value={proposal.skills} onChange={e => setProposal(p => ({ ...p, skills: e.target.value }))} placeholder="React, Recharts, REST APIs, 2 similar projects" className="w-full p-2.5 border border-gray-200 dark:border-gray-800 rounded-xl text-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" /></div>
             </div>
             <button onClick={genProposal} disabled={loading || !proposal.project.trim()} className="w-full py-2.5 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-200 text-white font-black rounded-xl text-sm transition-colors">
               {loading ? "Writing..." : "Write Proposal ✍️"}
             </button>
-            {generatedProposal && <div className="mt-4 p-4 bg-gray-50 border border-gray-200 rounded-xl text-sm font-medium text-gray-800 whitespace-pre-wrap max-h-64 overflow-y-auto">{generatedProposal}</div>}
+            {generatedProposal && <div className="mt-4 p-4 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl text-sm font-medium text-gray-800 dark:text-gray-200 whitespace-pre-wrap max-h-64 overflow-y-auto">{generatedProposal}</div>}
           </div>
         </div>
 
         {/* Income Tracker */}
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-          <h2 className="text-xl font-black text-gray-900 mb-2">Income Tracker 📊</h2>
+        <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 p-6">
+          <h2 className="text-xl font-black text-gray-900 dark:text-white mb-2">Income Tracker 📊</h2>
           <p className="text-gray-500 text-sm font-medium mb-4">Track what you earn — motivation boost!</p>
           <div className="flex gap-3 mb-4">
-            <input value={newProject} onChange={e => setNewProject(e.target.value)} placeholder="Project name" className="flex-1 p-2.5 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-emerald-400 focus:outline-none" />
-            <input value={newAmount} onChange={e => setNewAmount(e.target.value)} type="number" placeholder="₹ amount" className="w-32 p-2.5 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-emerald-400 focus:outline-none" />
+            <input value={newProject} onChange={e => setNewProject(e.target.value)} placeholder="Project name" className="flex-1 p-2.5 border border-gray-200 dark:border-gray-800 rounded-xl text-sm focus:ring-2 focus:ring-emerald-400 focus:outline-none" />
+            <input value={newAmount} onChange={e => setNewAmount(e.target.value)} type="number" placeholder="₹ amount" className="w-32 p-2.5 border border-gray-200 dark:border-gray-800 rounded-xl text-sm focus:ring-2 focus:ring-emerald-400 focus:outline-none" />
             <button onClick={() => { if (newProject && newAmount) { setIncome(i => [...i, { project: newProject, amount: parseInt(newAmount) }]); setNewProject(""); setNewAmount(""); } }}
               className="px-4 py-2.5 bg-emerald-600 text-white font-bold rounded-xl text-sm hover:bg-emerald-700 transition-colors">Add</button>
           </div>
@@ -203,8 +203,8 @@ Make it personalized, professional, ~150 words. Start with understanding their p
             <div>
               <div className="space-y-2 mb-4 max-h-40 overflow-y-auto">
                 {income.map((item, i) => (
-                  <div key={i} className="flex justify-between items-center p-3 bg-green-50 border border-green-100 rounded-xl">
-                    <span className="font-bold text-gray-800 text-sm">{item.project}</span>
+                  <div key={i} className="flex justify-between items-center p-3 bg-green-50 dark:bg-green-900/20 border border-green-100 rounded-xl">
+                    <span className="font-bold text-gray-800 dark:text-gray-200 text-sm">{item.project}</span>
                     <span className="font-black text-emerald-700">₹{item.amount.toLocaleString()}</span>
                   </div>
                 ))}

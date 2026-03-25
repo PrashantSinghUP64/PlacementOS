@@ -112,11 +112,11 @@ export default function Profile() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
       <Navbar />
       <div className="max-w-3xl mx-auto px-6 py-10">
         <div className="mb-8 animate-fade-in">
-          <h1 className="text-3xl font-bold text-gray-900">Profile Settings</h1>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Profile Settings</h1>
           <p className="text-gray-500 mt-1">Manage your account and preferences.</p>
         </div>
 
@@ -129,14 +129,14 @@ export default function Profile() {
           </div>
           <div className="stat-card">
             <span className="text-2xl">✉️</span>
-            <p className="text-sm font-bold text-gray-800 truncate">{email}</p>
+            <p className="text-sm font-bold text-gray-800 dark:text-gray-200 truncate">{email}</p>
             <p className="text-sm text-gray-500">Email Address</p>
           </div>
         </div>
 
         {/* Profile form */}
         <div className="card mb-6 animate-fade-in-up">
-          <h2 className="text-lg font-bold text-gray-900 mb-5">Personal Information</h2>
+          <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-5">Personal Information</h2>
           {profileError && <div className="alert-error mb-4">{profileError}</div>}
           {profileSuccess && <div className="alert-success mb-4">{profileSuccess}</div>}
           <form onSubmit={saveProfile} className="space-y-4">
@@ -183,7 +183,7 @@ export default function Profile() {
 
         {/* Change password */}
         <div className="card animate-fade-in-up delay-100">
-          <h2 className="text-lg font-bold text-gray-900 mb-5">Change Password</h2>
+          <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-5">Change Password</h2>
           {pwError && <div className="alert-error mb-4">{pwError}</div>}
           {pwSuccess && <div className="alert-success mb-4">{pwSuccess}</div>}
           <form onSubmit={changePassword} className="space-y-4">

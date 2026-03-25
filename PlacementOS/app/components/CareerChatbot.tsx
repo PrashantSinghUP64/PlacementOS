@@ -116,7 +116,7 @@ export default function CareerChatbot() {
     setLoading(true);
 
     try {
-      if (!window.puter?.ai?.chat) throw new Error("AI not ready");
+
 
       // Build conversation history for context (last 6 messages)
       const recentHistory = newMsgs.slice(-6)
@@ -171,7 +171,7 @@ Answer this specific question based on context above.`;
       <div className="fixed bottom-6 right-6 z-[1000] flex flex-col items-end gap-2">
         {/* Badge */}
         {showBadge && !isOpen && (
-          <div className="bg-white border border-purple-200 text-purple-700 text-xs font-bold px-3 py-1.5 rounded-full shadow-lg animate-bounce">
+          <div className="bg-white dark:bg-gray-900 border border-purple-200 text-purple-700 text-xs font-bold px-3 py-1.5 rounded-full shadow-lg animate-bounce">
             Ask me anything! 💬
           </div>
         )}
@@ -183,7 +183,7 @@ Answer this specific question based on context above.`;
           {isOpen ? "✕" : "🎓"}
           {/* Pulse ring */}
           {!isOpen && (
-            <span className="absolute inset-0 rounded-full bg-purple-500/40 animate-ping" />
+            <span className="absolute inset-0 rounded-full bg-purple-50 dark:bg-purple-900/200/40 animate-ping" />
           )}
         </button>
       </div>
@@ -191,7 +191,7 @@ Answer this specific question based on context above.`;
       {/* Chat Window */}
       {isOpen && (
         <div
-          className="fixed bottom-24 right-6 z-[999] w-[360px] max-w-[calc(100vw-2rem)] bg-white rounded-2xl shadow-2xl border border-purple-100 flex flex-col overflow-hidden"
+          className="fixed bottom-24 right-6 z-[999] w-[360px] max-w-[calc(100vw-2rem)] bg-white dark:bg-gray-900 rounded-2xl shadow-2xl border border-purple-100 dark:border-purple-900/50 flex flex-col overflow-hidden"
           style={{ height: "520px" }}
         >
           {/* Header */}
@@ -204,7 +204,7 @@ Answer this specific question based on context above.`;
               <button
                 onClick={clearHistory}
                 title="Clear chat"
-                className="text-purple-200 hover:text-white text-xs font-bold hover:bg-white/20 px-2 py-1 rounded-lg transition-colors"
+                className="text-purple-200 hover:text-white text-xs font-bold hover:bg-white dark:bg-gray-900/20 px-2 py-1 rounded-lg transition-colors"
               >
                 Clear
               </button>
@@ -215,9 +215,9 @@ Answer this specific question based on context above.`;
           </div>
 
           {/* Messages */}
-          <div className="flex-1 overflow-y-auto p-3 space-y-3 bg-gray-50">
+          <div className="flex-1 overflow-y-auto p-3 space-y-3 bg-gray-50 dark:bg-gray-950">
             {/* Welcome */}
-            <div className="bg-gradient-to-br from-purple-50 to-indigo-50 border border-purple-100 rounded-2xl rounded-tl-none p-3 text-sm text-gray-800 font-medium leading-relaxed whitespace-pre-line">
+            <div className="bg-gradient-to-br from-purple-50 to-indigo-50 dark:from-purple-900/20 dark:to-indigo-900/20 border border-purple-100 dark:border-purple-800/30 rounded-2xl rounded-tl-none p-3 text-sm text-gray-800 dark:text-gray-200 font-medium leading-relaxed whitespace-pre-line">
               {WELCOME_MSG}
             </div>
 
@@ -228,7 +228,7 @@ Answer this specific question based on context above.`;
                   <button
                     key={chip}
                     onClick={() => sendMessage(chip)}
-                    className="text-[11px] font-bold px-2.5 py-1.5 bg-white border border-purple-200 text-purple-700 rounded-full hover:bg-purple-600 hover:text-white hover:border-purple-600 transition-all"
+                    className="text-[11px] font-bold px-2.5 py-1.5 bg-white dark:bg-gray-900 dark:bg-gray-800 border border-purple-200 dark:border-purple-700/50 text-purple-700 dark:text-purple-300 rounded-full hover:bg-purple-600 dark:hover:bg-purple-600 hover:text-white dark:hover:text-white transition-all"
                   >
                     {chip}
                   </button>
@@ -243,7 +243,7 @@ Answer this specific question based on context above.`;
                   className={`max-w-[85%] rounded-2xl px-3 py-2.5 text-sm leading-relaxed whitespace-pre-line ${
                     msg.role === "user"
                       ? "bg-purple-600 text-white rounded-br-none font-medium"
-                      : "bg-white border border-gray-200 text-gray-800 rounded-bl-none font-medium shadow-sm"
+                      : "bg-white dark:bg-gray-900 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-800 dark:text-gray-200 rounded-bl-none font-medium shadow-sm"
                   }`}
                 >
                   {msg.content}
@@ -254,7 +254,7 @@ Answer this specific question based on context above.`;
             {/* Loading */}
             {loading && (
               <div className="flex justify-start">
-                <div className="bg-white border border-gray-200 rounded-2xl rounded-bl-none px-4 py-2.5 shadow-sm">
+                <div className="bg-white dark:bg-gray-900 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl rounded-bl-none px-4 py-2.5 shadow-sm">
                   <span className="flex gap-1 items-center">
                     <span className="w-2 h-2 bg-purple-400 rounded-full animate-bounce [animation-delay:0ms]" />
                     <span className="w-2 h-2 bg-purple-400 rounded-full animate-bounce [animation-delay:150ms]" />
@@ -267,7 +267,7 @@ Answer this specific question based on context above.`;
           </div>
 
           {/* Input */}
-          <div className="p-3 border-t border-gray-100 bg-white flex-shrink-0">
+          <div className="p-3 border-t border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-900 flex-shrink-0">
             <div className="flex gap-2 items-end">
               <div className="flex-1 relative">
                 <textarea
@@ -277,10 +277,10 @@ Answer this specific question based on context above.`;
                   onKeyDown={handleKeyDown}
                   placeholder="Koi bhi sawaal poochho..."
                   rows={2}
-                  className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-xl text-sm font-medium resize-none focus:ring-2 focus:ring-purple-500 focus:outline-none focus:bg-white"
+                  className="w-full px-3 py-2 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-sm font-medium resize-none focus:ring-2 focus:ring-purple-500 focus:outline-none focus:bg-white dark:bg-gray-900 dark:focus:bg-gray-800 dark:text-white"
                   disabled={loading}
                 />
-                <span className="absolute bottom-2 right-2 text-[10px] text-gray-400 font-bold">{input.length}/500</span>
+                <span className="absolute bottom-2 right-2 text-[10px] text-gray-400 dark:text-gray-500 font-bold">{input.length}/500</span>
               </div>
               <button
                 onClick={() => sendMessage(input)}

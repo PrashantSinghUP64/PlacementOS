@@ -106,30 +106,11 @@ export default function UploadRoute() {
   const [result, setResult] = useState<AnalysisResult | null>(null);
   const [jobs, setJobs] = useState<Job[]>([]);
   const [loadingJobs, setLoadingJobs] = useState(false);
-  const [puterReady, setPuterReady] = useState(false);
   const dropRef = useRef<HTMLDivElement>(null);
   const msgIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   useEffect(() => { void validateSession(); }, [validateSession]);
   useEffect(() => { if (!isAuthenticated) navigate("/login"); }, [isAuthenticated, navigate]);
-
-  // Puter.js readiness — listen for event or fall back to 3s timer
-  useEffect(() => {
-    // Already loaded
-    if (typeof window !== "undefined" && (window as any).puter?.ai) {
-      setPuterReady(true);
-      return;
-    }
-    // Listen for Puter.js ready event
-    const onReady = () => setPuterReady(true);
-    window.addEventListener("puter:ready" as any, onReady);
-    // Fallback: after 4 seconds just set ready (script is always in root.tsx)
-    const fallback = setTimeout(() => setPuterReady(true), 4000);
-    return () => {
-      window.removeEventListener("puter:ready" as any, onReady);
-      clearTimeout(fallback);
-    };
-  }, []);
 
   // Rotate loading messages during analysis
   useEffect(() => {
@@ -352,25 +333,16 @@ Analyze carefully and return ONLY valid JSON (no markdown, no explanation):
   const getScoreBg = (s: number) => s >= 70 ? "bg-emerald-100 text-emerald-700" : s >= 40 ? "bg-yellow-100 text-yellow-700" : "bg-red-100 text-red-700";
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
       <Navbar />
       <div className="max-w-4xl mx-auto px-6 py-10">
 
         <div className="mb-8 animate-fade-in">
-          <h1 className="text-3xl font-bold text-gray-900">Analyze Resume</h1>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Analyze Resume</h1>
           <p className="text-gray-500 mt-1">
             Upload your PDF, paste a job description, and get instant
-            <span className="font-semibold text-violet-700"> real AI analysis</span> via Puter.js.
+            <span className="font-semibold text-violet-700"> real AI analysis</span> via Gemini AI.
           </p>
-          {!puterReady ? (
-            <p className="text-sm text-yellow-700 mt-2 bg-yellow-50 border border-yellow-200 px-3 py-2 rounded-lg">
-              ⏳ Loading Puter.js AI… (may take a few seconds)
-            </p>
-          ) : (
-            <p className="text-sm text-emerald-700 mt-2 bg-emerald-50 border border-emerald-200 px-3 py-2 rounded-lg">
-              ✅ Puter.js AI ready — powered by GPT-4o-mini (free, no API key needed)
-            </p>
-          )}
         </div>
 
         <div className="card mb-6 animate-fade-in-up">
@@ -392,11 +364,11 @@ Analyze carefully and return ONLY valid JSON (no markdown, no explanation):
               onChange={(e) => { setFile(e.currentTarget.files?.[0] ?? null); e.currentTarget.value = ""; }}
             />
             {file ? (
-              <div className="flex items-center justify-between bg-violet-50 p-3 rounded-xl border border-violet-200">
+              <div className="flex items-center justify-between bg-violet-50 dark:bg-violet-900/20 p-3 rounded-xl border border-violet-200 dark:border-violet-800">
                 <div className="flex items-center gap-3">
                   <span className="text-3xl">📄</span>
                   <div className="text-left">
-                    <p className="font-semibold text-sm text-gray-800">{file.name}</p>
+                    <p className="font-semibold text-sm text-gray-800 dark:text-gray-200">{file.name}</p>
                     <p className="text-xs text-gray-500">{(file.size / 1024).toFixed(0)} KB</p>
                   </div>
                 </div>
@@ -410,7 +382,7 @@ Analyze carefully and return ONLY valid JSON (no markdown, no explanation):
             ) : (
               <>
                 <div className="text-5xl mb-3">☁️</div>
-                <p className="font-semibold text-gray-700">Drag & drop PDF here</p>
+                <p className="font-semibold text-gray-700 dark:text-gray-300">Drag & drop PDF here</p>
                 <p className="text-sm text-gray-400 mt-1">or click to browse files</p>
               </>
             )}
@@ -445,11 +417,11 @@ Analyze carefully and return ONLY valid JSON (no markdown, no explanation):
           {isAnalyzing ? (
             <div className="flex flex-col items-center gap-4 py-8">
               <div className="relative w-16 h-16">
-                <div className="w-16 h-16 border-4 border-violet-200 rounded-full" />
+                <div className="w-16 h-16 border-4 border-violet-200 dark:border-violet-800 rounded-full" />
                 <div className="absolute inset-0 w-16 h-16 border-4 border-violet-600 border-t-transparent rounded-full animate-spin" />
               </div>
-              <p className="text-gray-700 font-medium text-base animate-fade-in">{loadingMsg}</p>
-              <p className="text-xs text-gray-400">Powered by Puter.js AI (GPT-4o-mini)</p>
+              <p className="text-gray-700 dark:text-gray-300 font-medium text-base animate-fade-in">{loadingMsg}</p>
+              <p className="text-xs text-gray-400">Powered by Google Gemini AI</p>
             </div>
           ) : (
             <button
@@ -477,7 +449,7 @@ Analyze carefully and return ONLY valid JSON (no markdown, no explanation):
                 </div>
                 <div className="flex-1">
                   <div className="flex items-center gap-3 mb-3">
-                    <h2 className="text-2xl font-bold text-gray-900">
+                    <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
                       {result.jobTitle ? `Analysis for: ${result.jobTitle}` : "Analysis Complete"}
                     </h2>
                     <span className={`hidden md:inline text-sm font-bold px-3 py-1 rounded-full ${getScoreBg(result.overallScore)}`}>
@@ -500,7 +472,7 @@ Analyze carefully and return ONLY valid JSON (no markdown, no explanation):
 
             {/* Score Breakdown */}
             <div className="card">
-              <h2 className="text-lg font-bold text-gray-900 mb-5">📊 Score Breakdown</h2>
+              <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-5">📊 Score Breakdown</h2>
               <div className="space-y-4">
                 {([
                   { label: "Skills Match", key: "skills", icon: "⚡" },
@@ -513,7 +485,7 @@ Analyze carefully and return ONLY valid JSON (no markdown, no explanation):
                   return (
                     <div key={dim.key}>
                       <div className="flex justify-between items-center mb-1.5">
-                        <span className="text-sm font-medium text-gray-700">{dim.icon} {dim.label}</span>
+                        <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{dim.icon} {dim.label}</span>
                         <span className="text-sm font-bold" style={{ color: getColor(val) }}>{val}/100</span>
                       </div>
                       <div className="progress-track">
@@ -531,7 +503,7 @@ Analyze carefully and return ONLY valid JSON (no markdown, no explanation):
             {/* Missing Keywords */}
             {result.missingKeywords.length > 0 && (
               <div className="card">
-                <h2 className="text-lg font-bold text-gray-900 mb-2">❌ Missing Keywords</h2>
+                <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-2">❌ Missing Keywords</h2>
                 <p className="text-sm text-gray-500 mb-3">
                   These terms appear in the job description but not in your resume. Add them naturally:
                 </p>
@@ -546,10 +518,10 @@ Analyze carefully and return ONLY valid JSON (no markdown, no explanation):
             {/* Strengths + Improvements */}
             <div className="grid md:grid-cols-2 gap-6">
               <div className="card">
-                <h2 className="text-lg font-bold text-gray-900 mb-3">✅ Strengths</h2>
+                <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-3">✅ Strengths</h2>
                 <ul className="space-y-2">
                   {result.strengths.map((s, i) => (
-                    <li key={i} className="flex items-start gap-2 text-sm text-gray-700">
+                    <li key={i} className="flex items-start gap-2 text-sm text-gray-700 dark:text-gray-300">
                       <span className="text-emerald-500 mt-0.5 shrink-0 font-bold">✓</span>
                       {s}
                     </li>
@@ -557,10 +529,10 @@ Analyze carefully and return ONLY valid JSON (no markdown, no explanation):
                 </ul>
               </div>
               <div className="card">
-                <h2 className="text-lg font-bold text-gray-900 mb-3">⚠️ Improvements</h2>
+                <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-3">⚠️ Improvements</h2>
                 <ul className="space-y-2">
                   {result.improvements.map((s, i) => (
-                    <li key={i} className="flex items-start gap-2 text-sm text-gray-700">
+                    <li key={i} className="flex items-start gap-2 text-sm text-gray-700 dark:text-gray-300">
                       <span className="text-yellow-500 mt-0.5 shrink-0 font-bold">!</span>
                       {s}
                     </li>
@@ -571,10 +543,10 @@ Analyze carefully and return ONLY valid JSON (no markdown, no explanation):
 
             {/* AI Suggestions */}
             <div className="card">
-              <h2 className="text-lg font-bold text-gray-900 mb-4">💡 AI Suggestions</h2>
+              <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-4">💡 AI Suggestions</h2>
               <ol className="space-y-3">
                 {result.suggestions.map((s, i) => (
-                  <li key={i} className="flex items-start gap-3 text-sm text-gray-700">
+                  <li key={i} className="flex items-start gap-3 text-sm text-gray-700 dark:text-gray-300">
                     <span className="w-6 h-6 primary-gradient rounded-full flex items-center justify-center text-white font-bold text-xs shrink-0 mt-0.5">
                       {i + 1}
                     </span>
@@ -586,7 +558,7 @@ Analyze carefully and return ONLY valid JSON (no markdown, no explanation):
 
             {/* Matching Jobs */}
             <div className="card">
-              <h2 className="text-lg font-bold text-gray-900 mb-4">💼 Matching Remote Jobs</h2>
+              <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-4">💼 Matching Remote Jobs</h2>
               {loadingJobs ? (
                 <div className="space-y-3">{[...Array(3)].map((_, i) => <div key={i} className="skeleton h-16" />)}</div>
               ) : jobs.length === 0 ? (
@@ -594,9 +566,9 @@ Analyze carefully and return ONLY valid JSON (no markdown, no explanation):
               ) : (
                 <div className="grid md:grid-cols-2 gap-4">
                   {jobs.slice(0, 6).map((job) => (
-                    <div key={job.id} className="p-4 rounded-xl border border-gray-100 hover:border-violet-200 hover:bg-violet-50 transition-all">
+                    <div key={job.id} className="p-4 rounded-xl border border-gray-100 dark:border-gray-800 hover:border-violet-200 dark:border-violet-800 hover:bg-violet-50 dark:bg-violet-900/20 transition-all">
                       <div className="flex justify-between items-start mb-1">
-                        <p className="font-semibold text-gray-900 text-sm leading-tight">{job.title}</p>
+                        <p className="font-semibold text-gray-900 dark:text-white text-sm leading-tight">{job.title}</p>
                         <span className="chip-green ml-2 shrink-0">{job.matchScore}%</span>
                       </div>
                       <p className="text-xs text-gray-500 mb-1">{job.company} · {job.location}</p>

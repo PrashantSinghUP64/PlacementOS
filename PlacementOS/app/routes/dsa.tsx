@@ -183,7 +183,7 @@ export default function DSATracker() {
   const barData = stats?.topics ? stats.topics.map((t: any) => ({ name: t._id, count: t.count })) : [];
 
   return (
-    <div className="min-h-screen bg-gray-50 pb-20 font-sans">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 pb-20 font-sans">
       {confettiPattern && (
         <ConfettiBurst onDone={() => setConfettiPattern(null)} />
       )}
@@ -199,7 +199,7 @@ export default function DSATracker() {
 
       {/* HEADER */}
       <div className="bg-[#0f172a] text-white pt-16 pb-32 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-500/10 rounded-full blur-3xl" />
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-50 dark:bg-blue-900/200/10 rounded-full blur-3xl" />
         <div className="max-w-7xl mx-auto px-6 relative z-10">
           <h1 className="text-4xl md:text-5xl font-black mb-4 tracking-tight">DSA Practice Tracker 💻</h1>
           <p className="text-xl text-slate-300 font-medium max-w-2xl">
@@ -211,7 +211,7 @@ export default function DSATracker() {
       <div className="max-w-7xl mx-auto px-6 -mt-20 relative z-20">
 
         {/* TABS */}
-        <div className="flex flex-wrap bg-white rounded-2xl shadow-lg border border-gray-100 p-2 mb-8 gap-1">
+        <div className="flex flex-wrap bg-white dark:bg-gray-900 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-800 p-2 mb-8 gap-1">
           {([
             { id: "progress", label: "📊 My Progress" },
             { id: "sheets", label: "📄 DSA Sheets by LPA" },
@@ -221,7 +221,7 @@ export default function DSATracker() {
             <button
               key={t.id}
               onClick={() => setActiveTab(t.id)}
-              className={`px-5 py-2.5 rounded-xl font-bold text-sm transition-all ${activeTab === t.id ? "bg-slate-900 text-white shadow" : "text-gray-500 hover:bg-gray-50"}`}
+              className={`px-5 py-2.5 rounded-xl font-bold text-sm transition-all ${activeTab === t.id ? "bg-slate-900 text-white shadow" : "text-gray-500 hover:bg-gray-50 dark:bg-gray-950"}`}
             >
               {t.label}
             </button>
@@ -232,15 +232,15 @@ export default function DSATracker() {
         {activeTab === "progress" && (
           <div className="animate-fade-in-up space-y-6">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col justify-center items-center text-center">
+              <div className="bg-white dark:bg-gray-900 rounded-2xl p-6 shadow-sm border border-gray-100 dark:border-gray-800 flex flex-col justify-center items-center text-center">
                 <span className="text-3xl font-black text-slate-900">{stats?.totalSolved || 0}</span>
                 <span className="text-sm font-bold text-gray-400 uppercase tracking-wider mt-1">Total Solved</span>
               </div>
-              <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col justify-center items-center text-center">
+              <div className="bg-white dark:bg-gray-900 rounded-2xl p-6 shadow-sm border border-gray-100 dark:border-gray-800 flex flex-col justify-center items-center text-center">
                 <span className="text-3xl font-black text-orange-500">{stats?.currentStreak || 0} 🔥</span>
                 <span className="text-sm font-bold text-gray-400 uppercase tracking-wider mt-1">Current Streak</span>
               </div>
-              <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col justify-center items-center text-center">
+              <div className="bg-white dark:bg-gray-900 rounded-2xl p-6 shadow-sm border border-gray-100 dark:border-gray-800 flex flex-col justify-center items-center text-center">
                 <span className="text-3xl font-black text-emerald-500">{stats?.bestStreak || 0}</span>
                 <span className="text-sm font-bold text-gray-400 uppercase tracking-wider mt-1">Best Streak</span>
               </div>
@@ -252,7 +252,7 @@ export default function DSATracker() {
 
             <div className="grid lg:grid-cols-3 gap-6">
               <div className="lg:col-span-1 space-y-6">
-                <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
+                <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-800 p-6">
                   {!isAdding ? (
                     <button onClick={() => setIsAdding(true)} className="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl shadow-md transition-all">
                       + Log New Problem
@@ -260,37 +260,37 @@ export default function DSATracker() {
                   ) : (
                     <form onSubmit={handleAddProblem} className="animate-fade-in space-y-4">
                       <div className="flex justify-between items-center mb-2">
-                        <h3 className="font-bold text-gray-900">Log Problem</h3>
+                        <h3 className="font-bold text-gray-900 dark:text-white">Log Problem</h3>
                         <button type="button" onClick={() => setIsAdding(false)} className="text-gray-400 hover:text-red-500 font-bold">✕</button>
                       </div>
-                      <input type="text" placeholder="Problem Name (e.g. Two Sum)" required value={formData.name} onChange={e => setFormData({ ...formData, name: e.target.value })} className="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm font-medium" />
+                      <input type="text" placeholder="Problem Name (e.g. Two Sum)" required value={formData.name} onChange={e => setFormData({ ...formData, name: e.target.value })} className="w-full p-2.5 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-lg text-sm font-medium" />
                       <div className="grid grid-cols-2 gap-3">
-                        <select value={formData.platform} onChange={e => setFormData({ ...formData, platform: e.target.value })} className="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm font-medium">
+                        <select value={formData.platform} onChange={e => setFormData({ ...formData, platform: e.target.value })} className="w-full p-2.5 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-lg text-sm font-medium">
                           <option>LeetCode</option><option>GFG</option><option>HackerRank</option><option>Codeforces</option>
                         </select>
-                        <select value={formData.difficulty} onChange={e => setFormData({ ...formData, difficulty: e.target.value })} className="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm font-medium">
+                        <select value={formData.difficulty} onChange={e => setFormData({ ...formData, difficulty: e.target.value })} className="w-full p-2.5 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-lg text-sm font-medium">
                           <option>Easy</option><option>Medium</option><option>Hard</option>
                         </select>
                       </div>
                       <div className="grid grid-cols-2 gap-3">
-                        <select value={formData.topic} onChange={e => setFormData({ ...formData, topic: e.target.value })} className="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm font-medium">
+                        <select value={formData.topic} onChange={e => setFormData({ ...formData, topic: e.target.value })} className="w-full p-2.5 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-lg text-sm font-medium">
                           <option>Array</option><option>String</option><option>Linked List</option><option>Tree</option>
                           <option>Graph</option><option>DP</option><option>Math</option><option>Other</option>
                         </select>
-                        <select value={formData.status} onChange={e => setFormData({ ...formData, status: e.target.value })} className="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm font-medium">
+                        <select value={formData.status} onChange={e => setFormData({ ...formData, status: e.target.value })} className="w-full p-2.5 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-lg text-sm font-medium">
                           <option>Solved</option><option>Attempted</option><option>Revisit</option>
                         </select>
                       </div>
-                      <input type="number" placeholder="Time Taken (mins)" value={formData.timeTaken} onChange={e => setFormData({ ...formData, timeTaken: e.target.value })} className="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm font-medium" />
-                      <textarea placeholder="Notes / Approach..." value={formData.notes} onChange={e => setFormData({ ...formData, notes: e.target.value })} className="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm font-medium h-20 resize-none" />
+                      <input type="number" placeholder="Time Taken (mins)" value={formData.timeTaken} onChange={e => setFormData({ ...formData, timeTaken: e.target.value })} className="w-full p-2.5 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-lg text-sm font-medium" />
+                      <textarea placeholder="Notes / Approach..." value={formData.notes} onChange={e => setFormData({ ...formData, notes: e.target.value })} className="w-full p-2.5 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-lg text-sm font-medium h-20 resize-none" />
                       <button type="submit" className="w-full py-3 bg-slate-900 hover:bg-black text-white font-bold rounded-xl transition-colors">Save Log</button>
                     </form>
                   )}
                 </div>
 
                 {pieData.length > 0 && (
-                  <div className="bg-white w-full rounded-2xl shadow-sm border border-gray-200 p-6">
-                    <h3 className="font-bold text-gray-900 mb-4 text-sm uppercase tracking-widest text-center">Difficulty Split</h3>
+                  <div className="bg-white dark:bg-gray-900 w-full rounded-2xl shadow-sm border border-gray-200 dark:border-gray-800 p-6">
+                    <h3 className="font-bold text-gray-900 dark:text-white mb-4 text-sm uppercase tracking-widest text-center">Difficulty Split</h3>
                     <div className="h-48 w-full">
                       <ResponsiveContainer width="100%" height="100%">
                         <PieChart>
@@ -307,8 +307,8 @@ export default function DSATracker() {
                 )}
 
                 {barData.length > 0 && (
-                  <div className="bg-white w-full rounded-2xl shadow-sm border border-gray-200 p-6">
-                    <h3 className="font-bold text-gray-900 mb-4 text-sm uppercase tracking-widest text-center">Topics Conquered</h3>
+                  <div className="bg-white dark:bg-gray-900 w-full rounded-2xl shadow-sm border border-gray-200 dark:border-gray-800 p-6">
+                    <h3 className="font-bold text-gray-900 dark:text-white mb-4 text-sm uppercase tracking-widest text-center">Topics Conquered</h3>
                     <div className="h-48 w-full">
                       <ResponsiveContainer width="100%" height="100%">
                         <BarChart data={barData}>
@@ -323,9 +323,9 @@ export default function DSATracker() {
                 )}
               </div>
 
-              <div className="lg:col-span-2 bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden flex flex-col h-[800px]">
-                <div className="p-4 border-b border-gray-100 bg-gray-50/50 flex justify-between items-center">
-                  <h3 className="font-bold text-gray-900">Recent Logs</h3>
+              <div className="lg:col-span-2 bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-800 overflow-hidden flex flex-col h-[800px]">
+                <div className="p-4 border-b border-gray-100 dark:border-gray-800 bg-gray-50 dark:bg-gray-950/50 flex justify-between items-center">
+                  <h3 className="font-bold text-gray-900 dark:text-white">Recent Logs</h3>
                   <span className="text-xs font-bold text-gray-500 bg-gray-200 px-2.5 py-1 rounded-full">{problems.length} records</span>
                 </div>
                 <div className="flex-1 overflow-y-auto p-2">
@@ -338,9 +338,9 @@ export default function DSATracker() {
                     <table className="w-full text-left">
                       <tbody className="divide-y divide-gray-100">
                         {problems.map(p => (
-                          <tr key={p._id} className="hover:bg-gray-50 transition-colors group">
+                          <tr key={p._id} className="hover:bg-gray-50 dark:bg-gray-950 transition-colors group">
                             <td className="p-4">
-                              <div className="font-bold text-gray-900 text-[15px] mb-1">{p.name}</div>
+                              <div className="font-bold text-gray-900 dark:text-white text-[15px] mb-1">{p.name}</div>
                               <div className="flex gap-2 text-xs font-medium">
                                 <span className="text-gray-500">{p.platform}</span>
                                 <span className="text-gray-300">•</span>
@@ -373,7 +373,7 @@ export default function DSATracker() {
         {activeTab === "sheets" && (
           <div className="animate-fade-in-up">
             <div className="text-center mb-8">
-              <h2 className="text-2xl font-black text-gray-900 mb-2">Targeted DSA Sheets</h2>
+              <h2 className="text-2xl font-black text-gray-900 dark:text-white mb-2">Targeted DSA Sheets</h2>
               <p className="text-gray-500 font-medium">Which companies ask what — categorized by package tier.</p>
             </div>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -383,13 +383,13 @@ export default function DSATracker() {
                 { lpa: "10-15 LPA", tier: "Good Product (Zomato, Paytm)", color: "purple", emoji: "🚀", topics: ["Basic DP & Backtracking", "Trees & BST", "Graphs (BFS/DFS)", "Stack & Queue Tricks"], count: 40 },
                 { lpa: "15-25 LPA", tier: "Top Product (Flipkart, Swiggy)", color: "amber", emoji: "🔥", topics: ["Advanced DP", "Advanced Graph Algos", "Disjoint Sets & Tries", "System Design Intro"], count: 50 },
               ].map(c => (
-                <div key={c.lpa} className={`bg-white border hover:border-${c.color}-300 transition-all rounded-2xl p-6 shadow-sm group relative overflow-hidden`}>
+                <div key={c.lpa} className={`bg-white dark:bg-gray-900 border hover:border-${c.color}-300 transition-all rounded-2xl p-6 shadow-sm group relative overflow-hidden`}>
                   <div className={`absolute top-0 left-0 w-1 h-full bg-${c.color}-400`} />
                   <div className="text-3xl mb-3">{c.emoji}</div>
-                  <h3 className="text-xl font-black text-gray-900 mb-1">{c.lpa}</h3>
+                  <h3 className="text-xl font-black text-gray-900 dark:text-white mb-1">{c.lpa}</h3>
                   <p className={`text-xs font-bold text-gray-500 uppercase tracking-wider mb-4`}>{c.tier}</p>
                   <div className="space-y-2 mb-6">
-                    {c.topics.map(t => <div key={t} className="text-sm border-b border-gray-100 pb-2"><span className={`text-${c.color}-500 mr-2`}>✓</span>{t}</div>)}
+                    {c.topics.map(t => <div key={t} className="text-sm border-b border-gray-100 dark:border-gray-800 pb-2"><span className={`text-${c.color}-500 mr-2`}>✓</span>{t}</div>)}
                   </div>
                   <button onClick={() => setActiveTab("complete")} className={`w-full py-3 bg-${c.color}-50 text-${c.color}-700 font-bold rounded-xl group-hover:bg-${c.color}-600 group-hover:text-white transition-colors`}>
                     View {c.count} Target Problems →
@@ -405,7 +405,7 @@ export default function DSATracker() {
                     <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-4">MAANG (Google, Meta, Microsoft)</p>
                     <div className="flex flex-wrap gap-2">
                       {["Hard DP", "Segment Trees", "HLD / LLD Design", "Behavioral (STAR)"].map(t =>
-                        <span key={t} className="px-2 py-1 bg-white/10 rounded font-bold text-xs">{t}</span>
+                        <span key={t} className="px-2 py-1 bg-white dark:bg-gray-900/10 rounded font-bold text-xs">{t}</span>
                       )}
                     </div>
                   </div>
@@ -423,7 +423,7 @@ export default function DSATracker() {
           <div className="animate-fade-in-up space-y-6">
 
             {/* Top Stats Bar */}
-            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+            <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 p-6">
               <div className="flex flex-col md:flex-row md:items-center gap-6 mb-4">
                 <div className="flex-1 grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
                   <div>
@@ -454,13 +454,13 @@ export default function DSATracker() {
             </div>
 
             {/* Filter Bar */}
-            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-4 flex flex-col md:flex-row gap-4 items-stretch md:items-center">
+            <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 p-4 flex flex-col md:flex-row gap-4 items-stretch md:items-center">
               <input
                 type="text"
                 placeholder="🔍 Search problem name..."
                 value={searchQuery}
                 onChange={e => setSearchQuery(e.target.value)}
-                className="flex-1 px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm font-medium focus:ring-2 focus:ring-blue-500 outline-none"
+                className="flex-1 px-4 py-2.5 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl text-sm font-medium focus:ring-2 focus:ring-blue-500 outline-none"
               />
               <div className="flex gap-2 flex-wrap">
                 {(["All", "Easy", "Medium", "Hard"] as const).map(d => (
@@ -470,10 +470,10 @@ export default function DSATracker() {
                     className={`px-4 py-2 rounded-xl text-xs font-black transition-all border ${
                       filterDiff === d
                         ? d === "Easy" ? "bg-emerald-500 text-white border-emerald-500"
-                          : d === "Medium" ? "bg-amber-500 text-white border-amber-500"
-                          : d === "Hard" ? "bg-red-500 text-white border-red-500"
+                          : d === "Medium" ? "bg-amber-50 dark:bg-amber-900/200 text-white border-amber-500"
+                          : d === "Hard" ? "bg-red-50 dark:bg-red-900/200 text-white border-red-500"
                           : "bg-slate-900 text-white border-slate-900"
-                        : "bg-white text-gray-600 border-gray-200 hover:bg-gray-50"
+                        : "bg-white dark:bg-gray-900 text-gray-600 dark:text-gray-400 border-gray-200 dark:border-gray-800 hover:bg-gray-50 dark:bg-gray-950"
                     }`}
                   >{d}</button>
                 ))}
@@ -481,7 +481,7 @@ export default function DSATracker() {
               <select
                 value={filterPattern}
                 onChange={e => setFilterPattern(e.target.value)}
-                className="px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm font-medium focus:ring-2 focus:ring-blue-500 outline-none"
+                className="px-4 py-2.5 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl text-sm font-medium focus:ring-2 focus:ring-blue-500 outline-none"
               >
                 <option value="All">All Patterns</option>
                 {DSA_SHEET.map(p => <option key={p.pattern} value={p.pattern}>{p.pattern}</option>)}
@@ -498,24 +498,24 @@ export default function DSATracker() {
                 const isOpen = !!expandedPatterns[pi];
 
                 return (
-                  <div key={pi} className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+                  <div key={pi} className="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 overflow-hidden">
                     {/* Pattern Header */}
                     <button
                       onClick={() => togglePattern(pi)}
-                      className="w-full flex items-center gap-4 p-5 text-left hover:bg-gray-50 transition-colors"
+                      className="w-full flex items-center gap-4 p-5 text-left hover:bg-gray-50 dark:bg-gray-950 transition-colors"
                     >
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-3 mb-2 flex-wrap">
-                          <h3 className="text-base font-black text-gray-900 leading-tight">{pat.pattern}</h3>
+                          <h3 className="text-base font-black text-gray-900 dark:text-white leading-tight">{pat.pattern}</h3>
                           <span className="text-xs font-bold text-gray-400 bg-gray-100 px-2 py-0.5 rounded">{totalInPat} problems</span>
-                          <span className={`text-xs font-black px-2 py-0.5 rounded ${solvedInPat === totalInPat ? 'bg-emerald-100 text-emerald-700' : 'bg-gray-100 text-gray-600'}`}>
+                          <span className={`text-xs font-black px-2 py-0.5 rounded ${solvedInPat === totalInPat ? 'bg-emerald-100 text-emerald-700' : 'bg-gray-100 text-gray-600 dark:text-gray-400'}`}>
                             {solvedInPat}/{totalInPat} solved {solvedInPat === totalInPat ? '✅' : ''}
                           </span>
                         </div>
                         {/* Mini progress bar */}
                         <div className="w-full bg-gray-100 rounded-full h-1.5 overflow-hidden">
                           <div
-                            className={`h-1.5 rounded-full transition-all duration-500 ${solvedInPat === totalInPat ? 'bg-emerald-500' : 'bg-blue-500'}`}
+                            className={`h-1.5 rounded-full transition-all duration-500 ${solvedInPat === totalInPat ? 'bg-emerald-500' : 'bg-blue-50 dark:bg-blue-900/200'}`}
                             style={{ width: `${patPct}%` }}
                           />
                         </div>
@@ -525,9 +525,9 @@ export default function DSATracker() {
 
                     {/* Problems Table */}
                     {isOpen && (
-                      <div className="border-t border-gray-100 overflow-x-auto">
+                      <div className="border-t border-gray-100 dark:border-gray-800 overflow-x-auto">
                         <table className="w-full text-left min-w-[540px]">
-                          <thead className="bg-gray-50 border-b border-gray-100">
+                          <thead className="bg-gray-50 dark:bg-gray-950 border-b border-gray-100 dark:border-gray-800">
                             <tr>
                               <th className="px-4 py-2.5 text-[11px] font-black text-gray-400 uppercase tracking-widest w-10">#</th>
                               <th className="px-4 py-2.5 text-[11px] font-black text-gray-400 uppercase tracking-widest">Problem</th>
@@ -539,7 +539,7 @@ export default function DSATracker() {
                             {pat.filteredProblems.map((p, rowIdx) => {
                               const solved = !!progress[p._key];
                               return (
-                                <tr key={p._key} className={`transition-colors hover:bg-gray-50/80 ${solved ? 'bg-emerald-50/30' : ''}`}>
+                                <tr key={p._key} className={`transition-colors hover:bg-gray-50 dark:bg-gray-950/80 ${solved ? 'bg-emerald-50/30' : ''}`}>
                                   <td className="px-4 py-3 align-middle">
                                     <input
                                       type="checkbox"
@@ -549,16 +549,16 @@ export default function DSATracker() {
                                     />
                                   </td>
                                   <td className="px-4 py-3 align-middle">
-                                    <span className={`font-bold text-sm ${solved ? 'line-through text-gray-400' : 'text-gray-900'}`}>{p.name}</span>
+                                    <span className={`font-bold text-sm ${solved ? 'line-through text-gray-400' : 'text-gray-900 dark:text-white'}`}>{p.name}</span>
                                   </td>
                                   <td className="px-4 py-3 align-middle">
                                     <span className={`text-[11px] font-black px-2 py-1 rounded ${DIFF_STYLE[p.difficulty]}`}>{p.difficulty}</span>
                                   </td>
                                   <td className="px-4 py-3 align-middle">
                                     <div className="flex gap-2 flex-wrap">
-                                      <a href={p.link1} target="_blank" rel="noreferrer" className="text-[11px] font-bold px-2.5 py-1 bg-blue-50 text-blue-700 hover:bg-blue-600 hover:text-white rounded-lg transition-colors">Solve ↗</a>
-                                      {p.link2 && <a href={p.link2} target="_blank" rel="noreferrer" className="text-[11px] font-bold px-2.5 py-1 bg-gray-100 text-gray-600 hover:bg-gray-200 rounded-lg transition-colors">Alt 1</a>}
-                                      {p.link3 && <a href={p.link3} target="_blank" rel="noreferrer" className="text-[11px] font-bold px-2.5 py-1 bg-gray-100 text-gray-600 hover:bg-gray-200 rounded-lg transition-colors">Alt 2</a>}
+                                      <a href={p.link1} target="_blank" rel="noreferrer" className="text-[11px] font-bold px-2.5 py-1 bg-blue-50 dark:bg-blue-900/20 text-blue-700 hover:bg-blue-600 hover:text-white rounded-lg transition-colors">Solve ↗</a>
+                                      {p.link2 && <a href={p.link2} target="_blank" rel="noreferrer" className="text-[11px] font-bold px-2.5 py-1 bg-gray-100 text-gray-600 dark:text-gray-400 hover:bg-gray-200 rounded-lg transition-colors">Alt 1</a>}
+                                      {p.link3 && <a href={p.link3} target="_blank" rel="noreferrer" className="text-[11px] font-bold px-2.5 py-1 bg-gray-100 text-gray-600 dark:text-gray-400 hover:bg-gray-200 rounded-lg transition-colors">Alt 2</a>}
                                     </div>
                                   </td>
                                 </tr>
@@ -574,24 +574,24 @@ export default function DSATracker() {
             </div>
 
             {/* Bottom Stats */}
-            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+            <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 p-6">
               <div className="grid md:grid-cols-2 gap-6 items-center">
                 <div>
-                  <h3 className="font-black text-gray-900 mb-4">Your Breakdown</h3>
+                  <h3 className="font-black text-gray-900 dark:text-white mb-4">Your Breakdown</h3>
                   <div className="grid grid-cols-2 gap-3">
-                    <div className="bg-gray-50 p-3 rounded-xl border border-gray-100 text-center">
-                      <div className="font-black text-gray-700 text-lg">{patternsDone} / {DSA_SHEET.length}</div>
+                    <div className="bg-gray-50 dark:bg-gray-950 p-3 rounded-xl border border-gray-100 dark:border-gray-800 text-center">
+                      <div className="font-black text-gray-700 dark:text-gray-300 text-lg">{patternsDone} / {DSA_SHEET.length}</div>
                       <div className="text-xs text-gray-400 font-bold uppercase tracking-wide mt-1">Patterns Done</div>
                     </div>
                     <div className="bg-emerald-50 p-3 rounded-xl border border-emerald-100 text-center">
                       <div className="font-black text-emerald-700 text-lg">{easySolved}</div>
                       <div className="text-xs text-emerald-500 font-bold uppercase tracking-wide mt-1">Easy Solved</div>
                     </div>
-                    <div className="bg-amber-50 p-3 rounded-xl border border-amber-100 text-center">
+                    <div className="bg-amber-50 dark:bg-amber-900/20 p-3 rounded-xl border border-amber-100 text-center">
                       <div className="font-black text-amber-700 text-lg">{mediumSolved}</div>
                       <div className="text-xs text-amber-500 font-bold uppercase tracking-wide mt-1">Medium Solved</div>
                     </div>
-                    <div className="bg-red-50 p-3 rounded-xl border border-red-100 text-center">
+                    <div className="bg-red-50 dark:bg-red-900/20 p-3 rounded-xl border border-red-100 text-center">
                       <div className="font-black text-red-700 text-lg">{hardSolved}</div>
                       <div className="text-xs text-red-500 font-bold uppercase tracking-wide mt-1">Hard Solved</div>
                     </div>
@@ -616,9 +616,9 @@ export default function DSATracker() {
 
         {/* =============== TAB: STREAK CALENDAR =============== */}
         {activeTab === "calendar" && (
-          <div className="animate-fade-in-up flex flex-col items-center justify-center p-12 bg-white rounded-2xl shadow-sm border border-gray-200 text-center">
+          <div className="animate-fade-in-up flex flex-col items-center justify-center p-12 bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-800 text-center">
             <div className="text-6xl mb-6">📅</div>
-            <h2 className="text-2xl font-black text-gray-900 mb-2">Streak Calendar Coming Soon</h2>
+            <h2 className="text-2xl font-black text-gray-900 dark:text-white mb-2">Streak Calendar Coming Soon</h2>
             <p className="text-gray-500 font-medium max-w-md">
               A GitHub-style contribution calendar will be mounted here to visually track your daily coding hustle. Keep logging problems in the meantime!
             </p>

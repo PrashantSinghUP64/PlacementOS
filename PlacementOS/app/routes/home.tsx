@@ -78,7 +78,7 @@ export default function Home() {
               🚀 Analyze My Resume
             </Link>
             <Link to="/login"
-              className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl border border-white/20 text-white hover:bg-white/10 transition-all duration-200 text-lg font-semibold backdrop-blur">
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl border border-white/20 text-white hover:bg-white dark:bg-gray-900/10 transition-all duration-200 text-lg font-semibold backdrop-blur">
               Sign Up Free
             </Link>
           </div>

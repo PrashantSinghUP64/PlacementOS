@@ -36,17 +36,17 @@ const ResumeCard = ({ resume: { id, companyName, jobTitle, feedback, imagePath }
             <div className="resume-card-header">
                 <div className="flex flex-col gap-2 flex-1 min-w-0">
                     {companyName && (
-                        <h2 className="text-xl font-bold text-gray-900 break-words group-hover:text-blue-600 transition-colors">
+                        <h2 className="text-xl font-bold text-gray-900 dark:text-white break-words group-hover:text-blue-600 transition-colors">
                             {companyName}
                         </h2>
                     )}
                     {jobTitle && (
-                        <h3 className="text-base text-gray-600 break-words">
+                        <h3 className="text-base text-gray-600 dark:text-gray-400 break-words">
                             {jobTitle}
                         </h3>
                     )}
                     {!companyName && !jobTitle && (
-                        <h2 className="text-xl font-bold text-gray-900">Resume</h2>
+                        <h2 className="text-xl font-bold text-gray-900 dark:text-white">Resume</h2>
                     )}
                     <div className="mt-2">
                         <span className={`text-sm font-medium ${getScoreColor(feedback.overallScore)}`}>
@@ -72,8 +72,8 @@ const ResumeCard = ({ resume: { id, companyName, jobTitle, feedback, imagePath }
             )}
 
             {/* Footer with quick stats */}
-            <div className="flex items-center justify-between pt-2 border-t border-gray-100">
-                <div className="flex items-center gap-4 text-sm text-gray-600">
+            <div className="flex items-center justify-between pt-2 border-t border-gray-100 dark:border-gray-800">
+                <div className="flex items-center gap-4 text-sm text-gray-600 dark:text-gray-400">
                     <span className="flex items-center gap-1">
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />

@@ -89,8 +89,6 @@ export default function RoadmapGenerator() {
     setError(null);
 
     try {
-      if (!window.puter?.ai?.chat) throw new Error("AI engine not ready.");
-
       const prompt = `You are an expert career roadmap creator for Indian tech students.
 Create a detailed week-by-week roadmap strictly in JSON format. Do not use markdown backticks around the json.
 
@@ -185,11 +183,11 @@ Return ONLY valid JSON matching this structure perfectly without any markdown bl
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 pb-20 font-sans">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 pb-20 font-sans">
       <Navbar />
 
       <div className="bg-[#4C1D95] text-white py-16 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl translate-y-1/2 translate-x-1/4"></div>
+        <div className="absolute top-0 right-0 w-96 h-96 bg-purple-50 dark:bg-purple-900/200/20 rounded-full blur-3xl translate-y-1/2 translate-x-1/4"></div>
         <div className="max-w-6xl mx-auto px-6 relative z-10">
           <h1 className="text-4xl md:text-5xl font-black mb-4 tracking-tight">AI Roadmap Generator 🗺️</h1>
           <p className="text-xl text-purple-200 font-medium max-w-2xl">
@@ -201,32 +199,32 @@ Return ONLY valid JSON matching this structure perfectly without any markdown bl
       <div className="max-w-6xl mx-auto px-6 -mt-8 relative z-20">
         
         {/* INPUT TILE */}
-        <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-6 md:p-8 mb-8">
+        <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-800 p-6 md:p-8 mb-8">
           <div className="grid md:grid-cols-3 gap-6">
             <div>
-               <label className="block text-sm font-bold text-gray-700 mb-1.5">Target Role</label>
-               <select value={targetRole} onChange={e=>setTargetRole(e.target.value)} className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-purple-500 font-medium font-sans">
+               <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1.5">Target Role</label>
+               <select value={targetRole} onChange={e=>setTargetRole(e.target.value)} className="w-full p-3 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl focus:bg-white dark:bg-gray-900 focus:ring-2 focus:ring-purple-500 font-medium font-sans">
                  <option>Frontend Dev</option><option>Backend Dev</option><option>Full Stack Dev</option>
                  <option>Data Scientist</option><option>AI/ML Engineer</option><option>DevOps</option>
                  <option>Android Dev</option><option>iOS Dev</option><option>Cybersecurity</option>
                </select>
             </div>
             <div>
-               <label className="block text-sm font-bold text-gray-700 mb-1.5">Target Company Tier</label>
-               <select value={targetCompany} onChange={e=>setTargetCompany(e.target.value)} className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-purple-500 font-medium font-sans">
+               <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1.5">Target Company Tier</label>
+               <select value={targetCompany} onChange={e=>setTargetCompany(e.target.value)} className="w-full p-3 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl focus:bg-white dark:bg-gray-900 focus:ring-2 focus:ring-purple-500 font-medium font-sans">
                  <option>Tier 1 (MAANG)</option><option>Tier 2 (Flipkart/Swiggy)</option>
                  <option>Service (TCS/Infosys)</option><option>Startup</option><option>Any</option>
                </select>
             </div>
             <div>
-               <label className="block text-sm font-bold text-gray-700 mb-1.5">Target Package</label>
-               <select value={targetPackage} onChange={e=>setTargetPackage(e.target.value)} className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-purple-500 font-medium font-sans">
+               <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1.5">Target Package</label>
+               <select value={targetPackage} onChange={e=>setTargetPackage(e.target.value)} className="w-full p-3 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl focus:bg-white dark:bg-gray-900 focus:ring-2 focus:ring-purple-500 font-medium font-sans">
                  <option>4-6 LPA</option><option>6-10 LPA</option><option>10-15 LPA</option><option>15-25 LPA</option><option>25+ LPA</option>
                </select>
             </div>
             
             <div className="md:col-span-2">
-              <label className="block text-sm font-bold text-gray-700 mb-1.5">Current Skills (Press Enter)</label>
+              <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1.5">Current Skills (Press Enter)</label>
               <div className="flex flex-wrap gap-2 mb-2">
                 {skills.map(s => (
                   <span key={s} className="px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-sm font-bold flex items-center gap-1">
@@ -234,20 +232,20 @@ Return ONLY valid JSON matching this structure perfectly without any markdown bl
                   </span>
                 ))}
               </div>
-              <input type="text" value={skillInput} onChange={e=>setSkillInput(e.target.value)} onKeyDown={addSkill} placeholder="React, Python, Node..." className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-purple-500 font-medium"/>
+              <input type="text" value={skillInput} onChange={e=>setSkillInput(e.target.value)} onKeyDown={addSkill} placeholder="React, Python, Node..." className="w-full p-3 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl focus:bg-white dark:bg-gray-900 focus:ring-2 focus:ring-purple-500 font-medium"/>
             </div>
 
             <div>
-              <label className="block text-sm font-bold text-gray-700 mb-1.5">Time Available</label>
-               <select value={duration} onChange={e=>setDuration(e.target.value)} className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-purple-500 font-medium font-sans mb-4">
+              <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1.5">Time Available</label>
+               <select value={duration} onChange={e=>setDuration(e.target.value)} className="w-full p-3 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl focus:bg-white dark:bg-gray-900 focus:ring-2 focus:ring-purple-500 font-medium font-sans mb-4">
                  <option>1 month</option><option>2 months</option><option>3 months</option><option>6 months</option>
                </select>
-              <label className="block text-sm font-bold text-gray-700 mb-1.5">Daily Study: {dailyHours} hours</label>
+              <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1.5">Daily Study: {dailyHours} hours</label>
                <input type="range" min="1" max="8" value={dailyHours} onChange={e=>setDailyHours(parseInt(e.target.value))} className="w-full accent-purple-600"/>
             </div>
           </div>
           
-          <div className="mt-6 flex justify-between items-center border-t border-gray-100 pt-6">
+          <div className="mt-6 flex justify-between items-center border-t border-gray-100 dark:border-gray-800 pt-6">
             {error && <p className="text-red-500 font-bold text-sm">{error}</p>}
             {!error && <p className="text-gray-500 font-medium text-sm">Takes ~15 seconds to generate</p>}
             <button 
@@ -264,12 +262,12 @@ Return ONLY valid JSON matching this structure perfectly without any markdown bl
         {roadmap && (
           <div className="animate-fade-in-up space-y-8">
             {/* Stat Card */}
-            <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-6 md:p-8 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-800 p-6 md:p-8 flex flex-col md:flex-row justify-between items-center gap-6">
               <div>
-                <h2 className="text-2xl font-black text-gray-900 mb-2">{roadmap.title}</h2>
-                <div className="flex flex-wrap gap-2 text-sm font-bold text-gray-600">
-                  <span className="bg-purple-50 text-purple-700 px-3 py-1 rounded-lg">Target: {targetRole} ({targetPackage})</span>
-                  <span className="bg-blue-50 text-blue-700 px-3 py-1 rounded-lg">Duration: {roadmap.totalWeeks} Weeks</span>
+                <h2 className="text-2xl font-black text-gray-900 dark:text-white mb-2">{roadmap.title}</h2>
+                <div className="flex flex-wrap gap-2 text-sm font-bold text-gray-600 dark:text-gray-400">
+                  <span className="bg-purple-50 dark:bg-purple-900/20 text-purple-700 px-3 py-1 rounded-lg">Target: {targetRole} ({targetPackage})</span>
+                  <span className="bg-blue-50 dark:bg-blue-900/20 text-blue-700 px-3 py-1 rounded-lg">Duration: {roadmap.totalWeeks} Weeks</span>
                 </div>
               </div>
               <div className="text-center md:text-right w-full md:w-auto">
@@ -286,9 +284,9 @@ Return ONLY valid JSON matching this structure perfectly without any markdown bl
             {/* Phases Visualizer */}
             <div className="flex gap-2 overflow-x-auto hide-scrollbar pb-2">
               {roadmap.phases.map((p, i) => (
-                <div key={i} className="flex-1 min-w-[150px] bg-white p-4 rounded-xl shadow border border-gray-100 border-t-4 border-t-purple-500 text-center">
+                <div key={i} className="flex-1 min-w-[150px] bg-white dark:bg-gray-900 p-4 rounded-xl shadow border border-gray-100 dark:border-gray-800 border-t-4 border-t-purple-500 text-center">
                   <p className="text-xs font-bold text-purple-600 uppercase tracking-widest mb-1">Phase {p.phase}</p>
-                  <p className="font-bold text-gray-900">{p.name}</p>
+                  <p className="font-bold text-gray-900 dark:text-white">{p.name}</p>
                   <p className="text-xs text-gray-500 font-medium">({p.duration})</p>
                 </div>
               ))}
@@ -298,7 +296,7 @@ Return ONLY valid JSON matching this structure perfectly without any markdown bl
             <div>
               {roadmap.phases.map((phase, pIdx) => (
                 <div key={phase.phase} className="mb-6">
-                  <h3 className="text-lg font-black text-gray-800 mb-4 pl-2 border-l-4 border-purple-500">Phase {phase.phase}: {phase.name}</h3>
+                  <h3 className="text-lg font-black text-gray-800 dark:text-gray-200 mb-4 pl-2 border-l-4 border-purple-500">Phase {phase.phase}: {phase.name}</h3>
                   <div className="space-y-3">
                     {phase.weeks.map((week, wIdx) => {
                       const id = `${phase.phase}-${week.week}`;
@@ -309,10 +307,10 @@ Return ONLY valid JSON matching this structure perfectly without any markdown bl
                       const isWeekDone = completedTopics === week.topics.length && week.topics.length > 0;
 
                       return (
-                        <div key={id} className={`bg-white rounded-xl shadow-sm border transition-all ${isWeekDone ? 'border-green-200 bg-green-50/30' : 'border-gray-200'}`}>
+                        <div key={id} className={`bg-white dark:bg-gray-900 rounded-xl shadow-sm border transition-all ${isWeekDone ? 'border-green-200 bg-green-50 dark:bg-green-900/20/30' : 'border-gray-200 dark:border-gray-800'}`}>
                           {/* Accordion Header */}
                           <div 
-                            className="p-4 flex items-center justify-between cursor-pointer hover:bg-gray-50/50"
+                            className="p-4 flex items-center justify-between cursor-pointer hover:bg-gray-50 dark:bg-gray-950/50"
                             onClick={() => setExpandedWeek(isExpanded ? null : id)}
                           >
                             <div className="flex items-center gap-4">
@@ -320,7 +318,7 @@ Return ONLY valid JSON matching this structure perfectly without any markdown bl
                                 {isWeekDone ? '✓' : `W${week.week}`}
                               </div>
                               <div>
-                                <h4 className={`font-bold text-[15px] ${isWeekDone ? 'text-gray-500 line-through' : 'text-gray-900'}`}>{week.theme}</h4>
+                                <h4 className={`font-bold text-[15px] ${isWeekDone ? 'text-gray-500 line-through' : 'text-gray-900 dark:text-white'}`}>{week.theme}</h4>
                                 <p className="text-xs text-gray-500 font-medium">{week.hours} hrs expected</p>
                               </div>
                             </div>
@@ -332,10 +330,10 @@ Return ONLY valid JSON matching this structure perfectly without any markdown bl
                           
                           {/* Accordion Body */}
                           {isExpanded && (
-                            <div className="p-4 border-t border-gray-100 bg-gray-50/30">
+                            <div className="p-4 border-t border-gray-100 dark:border-gray-800 bg-gray-50 dark:bg-gray-950/30">
                               <div className="space-y-4">
                                 {week.topics.map((topic, tIdx) => (
-                                  <div key={tIdx} className={`p-4 rounded-xl border flex items-start gap-4 transition-all ${topic.completed ? 'bg-white border-green-200' : 'bg-white border-gray-200'}`}>
+                                  <div key={tIdx} className={`p-4 rounded-xl border flex items-start gap-4 transition-all ${topic.completed ? 'bg-white dark:bg-gray-900 border-green-200' : 'bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-800'}`}>
                                     <div className="mt-1">
                                       <input 
                                         type="checkbox" 
@@ -345,17 +343,17 @@ Return ONLY valid JSON matching this structure perfectly without any markdown bl
                                       />
                                     </div>
                                     <div className="flex-1">
-                                      <h5 className={`font-bold text-[15px] mb-1 ${topic.completed ? 'text-gray-400 line-through' : 'text-gray-900'}`}>{topic.name} <span className="text-xs text-purple-500 font-bold ml-2">~{topic.hours}h</span></h5>
-                                      <p className="text-sm text-gray-600 mb-2 font-medium">{topic.practice}</p>
+                                      <h5 className={`font-bold text-[15px] mb-1 ${topic.completed ? 'text-gray-400 line-through' : 'text-gray-900 dark:text-white'}`}>{topic.name} <span className="text-xs text-purple-500 font-bold ml-2">~{topic.hours}h</span></h5>
+                                      <p className="text-sm text-gray-600 dark:text-gray-400 mb-2 font-medium">{topic.practice}</p>
                                       
                                       <div className="flex flex-wrap gap-2">
                                         {topic.youtubeLink && (
-                                          <a href={`https://www.youtube.com/results?search_query=${encodeURIComponent(topic.youtubeLink)}`} target="_blank" rel="noreferrer" className="text-xs px-2.5 py-1.5 bg-red-50 text-red-600 hover:bg-red-100 rounded-lg font-bold flex items-center gap-1 transition-colors">
+                                          <a href={`https://www.youtube.com/results?search_query=${encodeURIComponent(topic.youtubeLink)}`} target="_blank" rel="noreferrer" className="text-xs px-2.5 py-1.5 bg-red-50 dark:bg-red-900/20 text-red-600 hover:bg-red-100 rounded-lg font-bold flex items-center gap-1 transition-colors">
                                             ▶️ {topic.youtubeLink}
                                           </a>
                                         )}
                                         {topic.docLink && (
-                                          <a href={`https://www.google.com/search?q=${encodeURIComponent(topic.docLink)}`} target="_blank" rel="noreferrer" className="text-xs px-2.5 py-1.5 bg-blue-50 text-blue-600 hover:bg-blue-100 rounded-lg font-bold flex items-center gap-1 transition-colors">
+                                          <a href={`https://www.google.com/search?q=${encodeURIComponent(topic.docLink)}`} target="_blank" rel="noreferrer" className="text-xs px-2.5 py-1.5 bg-blue-50 dark:bg-blue-900/20 text-blue-600 hover:bg-blue-100 rounded-lg font-bold flex items-center gap-1 transition-colors">
                                             📄 {topic.docLink}
                                           </a>
                                         )}
@@ -364,7 +362,7 @@ Return ONLY valid JSON matching this structure perfectly without any markdown bl
                                   </div>
                                 ))}
                               </div>
-                              <div className="mt-4 p-4 bg-purple-50 border border-purple-100 rounded-xl flex items-start gap-3">
+                              <div className="mt-4 p-4 bg-purple-50 dark:bg-purple-900/20 border border-purple-100 rounded-xl flex items-start gap-3">
                                 <span className="text-xl">🏆</span>
                                 <div>
                                   <p className="text-xs font-bold text-purple-800 uppercase tracking-widest mb-1">Week Milestone</p>

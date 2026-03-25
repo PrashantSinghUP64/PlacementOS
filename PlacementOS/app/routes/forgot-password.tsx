@@ -28,7 +28,7 @@ export default function ForgotPassword() {
       <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center p-6 font-sans">
         <div className="w-full max-w-md bg-gray-900 border border-gray-800 rounded-2xl shadow-2xl p-8 text-center relative overflow-hidden">
             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-violet-600 via-fuchsia-500 to-indigo-600"></div>
-            <div className="w-16 h-16 bg-green-500/20 text-green-500 rounded-full flex items-center justify-center mx-auto text-3xl mb-4">✓</div>
+            <div className="w-16 h-16 bg-green-50 dark:bg-green-900/200/20 text-green-500 rounded-full flex items-center justify-center mx-auto text-3xl mb-4">✓</div>
             <h2 className="text-2xl font-bold mb-2 text-white">Check your email!</h2>
             <p className="text-gray-400 mb-8">A password reset link has been sent to {email}.</p>
             <Link to="/login" className="inline-block bg-gray-800 hover:bg-gray-700 text-white font-medium px-6 py-3 rounded-xl transition-colors">Return to Login</Link>

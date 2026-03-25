@@ -54,9 +54,7 @@ export default function InterviewPrep() {
     setResult(null);
 
     try {
-      if (!window.puter?.ai?.chat) {
-        throw new Error("Puter.js AI is not initialized yet. Please wait a moment.");
-      }
+
 
       const prompt = `You are an expert technical interviewer.
 Generate 20 UNIQUE interview questions based on THIS specific resume
@@ -188,7 +186,7 @@ Return ONLY valid JSON:
     return (
       <div className="mb-10">
         <div className="flex items-center gap-3 mb-4">
-          <h2 className="text-xl font-bold text-gray-900">{title}</h2>
+          <h2 className="text-xl font-bold text-gray-900 dark:text-white">{title}</h2>
           <span className={`px-2.5 py-1 text-xs font-bold rounded-full ${badgeColor}`}>
             {questions.length} Questions
           </span>
@@ -198,17 +196,17 @@ Return ONLY valid JSON:
             const qId = `${title}-${idx}`;
             const isOpen = expandedAnswers[qId];
             return (
-              <div key={qId} className="bg-white border border-gray-100 rounded-xl p-5 shadow-sm hover:shadow-md transition-shadow">
+              <div key={qId} className="bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-xl p-5 shadow-sm hover:shadow-md transition-shadow">
                 <div className="flex gap-4 items-start justify-between">
                   <div className="flex gap-4 items-start flex-1">
                     <div className={`w-8 h-8 rounded-full flex shrink-0 items-center justify-center font-bold text-sm ${badgeColor}`}>
                       {idx + 1}
                     </div>
                     <div className="flex-1">
-                      <h3 className="text-base font-bold text-gray-900 mb-2">{q.question}</h3>
+                      <h3 className="text-base font-bold text-gray-900 dark:text-white mb-2">{q.question}</h3>
                       {isOpen && (
-                        <div className="mt-3 p-4 bg-gray-50 rounded-lg text-sm text-gray-700 border border-gray-100 leading-relaxed whitespace-pre-wrap animate-fade-in">
-                          <span className="font-bold text-gray-900 mr-2">Suggested Answer:</span>
+                        <div className="mt-3 p-4 bg-gray-50 dark:bg-gray-950 rounded-lg text-sm text-gray-700 dark:text-gray-300 border border-gray-100 dark:border-gray-800 leading-relaxed whitespace-pre-wrap animate-fade-in">
+                          <span className="font-bold text-gray-900 dark:text-white mr-2">Suggested Answer:</span>
                           {q.answer}
                         </div>
                       )}
@@ -238,14 +236,14 @@ Return ONLY valid JSON:
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 pb-20">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 pb-20">
       <Navbar />
       
       {/* Header section */}
       <div className="primary-gradient text-white pb-24 pt-12 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+        <div className="absolute top-0 right-0 w-64 h-64 bg-white dark:bg-gray-900/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
         <div className="max-w-4xl mx-auto px-6 relative z-10 text-center">
-          <span className="inline-block px-4 py-1.5 rounded-full bg-white/20 text-white font-semibold text-sm mb-4 backdrop-blur-sm shadow-sm ring-1 ring-white/30">
+          <span className="inline-block px-4 py-1.5 rounded-full bg-white dark:bg-gray-900/20 text-white font-semibold text-sm mb-4 backdrop-blur-sm shadow-sm ring-1 ring-white/30">
             🤖 AI-Powered Mentorship
           </span>
           <h1 className="text-4xl md:text-5xl font-black mb-4 tracking-tight">
@@ -258,34 +256,34 @@ Return ONLY valid JSON:
       </div>
 
       <div className="max-w-4xl mx-auto px-6 -mt-16 relative z-20">
-        <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-6 md:p-8 mb-8 animate-fade-in-up">
+        <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-800 p-6 md:p-8 mb-8 animate-fade-in-up">
           <div className="grid md:grid-cols-3 gap-6 mb-6">
             <div className="md:col-span-2">
-              <label className="block text-sm font-bold text-gray-700 mb-2">
+              <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">
                 Paste your Resume Text
               </label>
               <textarea
                 value={resumeText}
                 onChange={(e) => setResumeText(e.target.value)}
                 placeholder="Paste your entire resume content here..."
-                className="w-full h-40 p-4 rounded-xl border-gray-200 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-violet-500 focus:border-transparent transition-all resize-none text-sm"
+                className="w-full h-40 p-4 rounded-xl border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-950 focus:bg-white dark:bg-gray-900 focus:ring-2 focus:ring-violet-500 focus:border-transparent transition-all resize-none text-sm"
               />
             </div>
             <div>
-              <label className="block text-sm font-bold text-gray-700 mb-2">
+              <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">
                 Target Job Role
               </label>
               <select
                 value={jobRole}
                 onChange={(e) => setJobRole(e.target.value)}
-                className="w-full p-3.5 rounded-xl border-gray-200 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-violet-500 focus:border-transparent transition-all text-sm font-medium"
+                className="w-full p-3.5 rounded-xl border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-950 focus:bg-white dark:bg-gray-900 focus:ring-2 focus:ring-violet-500 focus:border-transparent transition-all text-sm font-medium"
               >
                 {ROLES.map(role => (
                   <option key={role} value={role}>{role}</option>
                 ))}
               </select>
               
-              <div className="mt-4 p-4 bg-violet-50 rounded-xl border border-violet-100">
+              <div className="mt-4 p-4 bg-violet-50 dark:bg-violet-900/20 rounded-xl border border-violet-100">
                 <p className="text-xs text-violet-800 font-medium">
                   💡 Tips: A complete resume gives better, more personalized questions.
                 </p>
@@ -294,7 +292,7 @@ Return ONLY valid JSON:
           </div>
 
           {error && (
-            <div className="mb-6 p-4 bg-red-50 text-red-600 rounded-xl border border-red-100 flex items-center gap-3 animate-fade-in text-sm">
+            <div className="mb-6 p-4 bg-red-50 dark:bg-red-900/20 text-red-600 rounded-xl border border-red-100 flex items-center gap-3 animate-fade-in text-sm">
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
               {error}
             </div>
@@ -323,10 +321,10 @@ Return ONLY valid JSON:
         {result && (
           <div className="animate-fade-in-up delay-100">
             <div className="flex items-center justify-between mb-8">
-              <h2 className="text-2xl font-black text-gray-900">Your Custom Q&A</h2>
+              <h2 className="text-2xl font-black text-gray-900 dark:text-white">Your Custom Q&A</h2>
               <button 
                 onClick={downloadPDF}
-                className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 shadow-sm rounded-lg text-sm font-bold text-gray-700 hover:bg-gray-50 transition-all"
+                className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 shadow-sm rounded-lg text-sm font-bold text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:bg-gray-950 transition-all"
               >
                 <svg className="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 16l-5-5h3V4h4v7h3l-5 5zm9-5v10H3V11h2v8h14v-8h2z"/></svg>
                 Download PDF

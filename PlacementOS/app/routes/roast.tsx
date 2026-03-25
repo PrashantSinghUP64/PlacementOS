@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { usePuterStore } from "~/lib/puter";
 import pdfWorkerUrl from "pdfjs-dist/build/pdf.worker.min.mjs?url";
 import { Link } from "react-router";
 import { useAppAuthStore } from "~/lib/app-auth";
@@ -7,7 +6,6 @@ import { callAIForJSON } from "~/lib/aiHelper";
 import { apiFetch } from "~/lib/api";
 
 export default function Roast() {
-  const puterReady = usePuterStore((s) => s.puterReady);
   const token = useAppAuthStore((s) => s.token);
   
   const [resumeText, setResumeText] = useState("");
@@ -70,14 +68,8 @@ export default function Roast() {
       setError("Please upload a resume first.");
       return;
     }
-    if (!puterReady || !(window as any).puter?.ai?.chat) {
-      setError("AI model is not ready yet. Please wait a moment.");
-      return;
-    }
-
     setIsRoasting(true);
     setError(null);
-    const chat = (window as any).puter.ai.chat;
 
     const prompt = `You are a brutally honest senior software engineer 
 reviewing this SPECIFIC resume. Be savage but helpful.
@@ -178,7 +170,7 @@ Return ONLY valid JSON:
   };
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a] text-gray-200 pb-20 font-sans selection:bg-red-500/30">
+    <div className="min-h-screen bg-[#0a0a0a] text-gray-200 pb-20 font-sans selection:bg-red-50 dark:bg-red-900/200/30">
       
       {/* Header */}
       <div className="bg-gradient-to-b from-red-950/40 to-transparent border-b border-red-900/30 pt-16 pb-12">
@@ -270,7 +262,7 @@ Return ONLY valid JSON:
                 <span className={`text-7xl font-black ${getScoreColor(roastData.overallScore)} leading-none`}>
                   {roastData.overallScore}
                 </span>
-                <span className="text-3xl font-bold text-gray-600 mb-2">/100</span>
+                <span className="text-3xl font-bold text-gray-600 dark:text-gray-400 mb-2">/100</span>
               </div>
               
               <h2 className="text-2xl md:text-3xl font-bold text-gray-100 max-w-3xl mx-auto leading-tight mb-8">

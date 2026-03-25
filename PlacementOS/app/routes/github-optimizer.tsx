@@ -85,7 +85,7 @@ Give: 2-3 sentence description (what + how + impact), features list (5 bullets),
   const copy = (text: string) => navigator.clipboard.writeText(text);
 
   return (
-    <div className="min-h-screen bg-gray-50 pb-20 font-sans">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 pb-20 font-sans">
       <Navbar />
 
       <div className="bg-gradient-to-br from-gray-900 to-gray-700 text-white pt-16 pb-28">
@@ -98,10 +98,10 @@ Give: 2-3 sentence description (what + how + impact), features list (5 bullets),
       <div className="max-w-5xl mx-auto px-6 -mt-14 relative z-10 space-y-8">
 
         {/* Score */}
-        <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-6">
+        <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-800 p-6">
           <div className="flex items-center justify-between mb-5">
             <div>
-              <h2 className="text-xl font-black text-gray-900">Profile Score</h2>
+              <h2 className="text-xl font-black text-gray-900 dark:text-white">Profile Score</h2>
               <p className="text-sm text-gray-500 font-medium">Rate your GitHub profile honestly</p>
             </div>
             <div className="text-center">
@@ -110,14 +110,14 @@ Give: 2-3 sentence description (what + how + impact), features list (5 bullets),
             </div>
           </div>
           <div className="w-full h-3 bg-gray-100 rounded-full overflow-hidden mb-6">
-            <div className={`h-full transition-all duration-500 ${totalScore >= 80 ? "bg-green-500" : totalScore >= 60 ? "bg-yellow-500" : "bg-red-500"}`} style={{ width: `${totalScore}%` }} />
+            <div className={`h-full transition-all duration-500 ${totalScore >= 80 ? "bg-green-50 dark:bg-green-900/200" : totalScore >= 60 ? "bg-yellow-500" : "bg-red-50 dark:bg-red-900/200"}`} style={{ width: `${totalScore}%` }} />
           </div>
           <div className="space-y-4">
             {SCORE_CRITERIA.map(c => (
               <div key={c.key}>
                 <div className="flex justify-between items-center mb-1.5">
-                  <label className="font-bold text-gray-800 text-sm">{c.label}</label>
-                  <span className="font-black text-gray-900 text-sm">{scores[c.key] || 0}/{c.max}</span>
+                  <label className="font-bold text-gray-800 dark:text-gray-200 text-sm">{c.label}</label>
+                  <span className="font-black text-gray-900 dark:text-white text-sm">{scores[c.key] || 0}/{c.max}</span>
                 </div>
                 <input type="range" min="0" max={c.max} value={scores[c.key] || 0} onChange={e => setScores(s => ({ ...s, [c.key]: parseInt(e.target.value) }))}
                   className="w-full accent-gray-800 mb-1" />
@@ -128,8 +128,8 @@ Give: 2-3 sentence description (what + how + impact), features list (5 bullets),
         </div>
 
         {/* README Generator */}
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-          <h2 className="text-xl font-black text-gray-900 mb-1">AI README Generator ✨</h2>
+        <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 p-6">
+          <h2 className="text-xl font-black text-gray-900 dark:text-white mb-1">AI README Generator ✨</h2>
           <p className="text-gray-500 text-sm font-medium mb-5">Info bharo → beautiful GitHub README auto-generate. Copy and paste.</p>
           <div className="grid md:grid-cols-2 gap-4 mb-4">
             {[
@@ -143,9 +143,9 @@ Give: 2-3 sentence description (what + how + impact), features list (5 bullets),
               ["LinkedIn URL", "linkedin", "linkedin.com/in/prashant"],
             ].map(([label, key, ph]) => (
               <div key={key}>
-                <label className="block text-sm font-bold text-gray-700 mb-1.5">{label}</label>
+                <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1.5">{label}</label>
                 <input value={readmeInputs[key as keyof typeof readmeInputs]} onChange={e => setReadmeInputs(r => ({ ...r, [key]: e.target.value }))}
-                  placeholder={ph} className="w-full p-2.5 border border-gray-200 rounded-xl text-sm font-medium focus:ring-2 focus:ring-gray-800 focus:outline-none" />
+                  placeholder={ph} className="w-full p-2.5 border border-gray-200 dark:border-gray-800 rounded-xl text-sm font-medium focus:ring-2 focus:ring-gray-800 focus:outline-none" />
               </div>
             ))}
           </div>
@@ -162,48 +162,48 @@ Give: 2-3 sentence description (what + how + impact), features list (5 bullets),
         </div>
 
         {/* Repo Checklist */}
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-          <h2 className="text-xl font-black text-gray-900 mb-1">Repository Best Practices ✅</h2>
+        <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 p-6">
+          <h2 className="text-xl font-black text-gray-900 dark:text-white mb-1">Repository Best Practices ✅</h2>
           <p className="text-gray-500 text-sm mb-4">{repoChecks.filter(Boolean).length}/{REPO_CHECKLIST.length} done — check off as you improve each repo</p>
           <div className="grid md:grid-cols-2 gap-2">
             {REPO_CHECKLIST.map((item, i) => (
-              <label key={i} className={`flex items-center gap-3 p-3 rounded-xl cursor-pointer transition-colors ${repoChecks[i] ? "bg-green-50 border border-green-200" : "bg-gray-50 border border-gray-200 hover:border-green-200"}`}>
+              <label key={i} className={`flex items-center gap-3 p-3 rounded-xl cursor-pointer transition-colors ${repoChecks[i] ? "bg-green-50 dark:bg-green-900/20 border border-green-200" : "bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 hover:border-green-200"}`}>
                 <input type="checkbox" checked={repoChecks[i]} onChange={() => { const r = [...repoChecks]; r[i] = !r[i]; setRepoChecks(r); }} className="w-4 h-4 text-green-600" />
-                <span className={`text-sm font-medium ${repoChecks[i] ? "line-through text-gray-400" : "text-gray-700"}`}>{item}</span>
+                <span className={`text-sm font-medium ${repoChecks[i] ? "line-through text-gray-400" : "text-gray-700 dark:text-gray-300"}`}>{item}</span>
               </label>
             ))}
           </div>
         </div>
 
         {/* Project Description Generator */}
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-          <h2 className="text-xl font-black text-gray-900 mb-4">Project Description Generator 🚀</h2>
+        <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 p-6">
+          <h2 className="text-xl font-black text-gray-900 dark:text-white mb-4">Project Description Generator 🚀</h2>
           <div className="grid md:grid-cols-3 gap-3 mb-4">
-            <div><label className="block text-sm font-bold text-gray-700 mb-1.5">Project Name</label><input value={projectIn.name} onChange={e => setProjectIn(p => ({ ...p, name: e.target.value }))} placeholder="PlacementOS" className="w-full p-2.5 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-gray-800 focus:outline-none" /></div>
-            <div><label className="block text-sm font-bold text-gray-700 mb-1.5">Tech Stack</label><input value={projectIn.tech} onChange={e => setProjectIn(p => ({ ...p, tech: e.target.value }))} placeholder="React, Node, MongoDB" className="w-full p-2.5 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-gray-800 focus:outline-none" /></div>
-            <div><label className="block text-sm font-bold text-gray-700 mb-1.5">What it does</label><input value={projectIn.desc} onChange={e => setProjectIn(p => ({ ...p, desc: e.target.value }))} placeholder="Analyzes resumes and gives ATS score" className="w-full p-2.5 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-gray-800 focus:outline-none" /></div>
+            <div><label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1.5">Project Name</label><input value={projectIn.name} onChange={e => setProjectIn(p => ({ ...p, name: e.target.value }))} placeholder="PlacementOS" className="w-full p-2.5 border border-gray-200 dark:border-gray-800 rounded-xl text-sm focus:ring-2 focus:ring-gray-800 focus:outline-none" /></div>
+            <div><label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1.5">Tech Stack</label><input value={projectIn.tech} onChange={e => setProjectIn(p => ({ ...p, tech: e.target.value }))} placeholder="React, Node, MongoDB" className="w-full p-2.5 border border-gray-200 dark:border-gray-800 rounded-xl text-sm focus:ring-2 focus:ring-gray-800 focus:outline-none" /></div>
+            <div><label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1.5">What it does</label><input value={projectIn.desc} onChange={e => setProjectIn(p => ({ ...p, desc: e.target.value }))} placeholder="Analyzes resumes and gives ATS score" className="w-full p-2.5 border border-gray-200 dark:border-gray-800 rounded-xl text-sm focus:ring-2 focus:ring-gray-800 focus:outline-none" /></div>
           </div>
           <button onClick={generateProjectDesc} disabled={loading || !projectIn.name.trim()} className="px-6 py-3 bg-gray-900 hover:bg-gray-800 disabled:bg-gray-300 text-white font-black rounded-xl transition-colors">
             {loading ? "Writing..." : "Generate Description 🚀"}
           </button>
           {projectOut && (
             <div className="mt-4 relative">
-              <div className="bg-gray-50 border border-gray-200 rounded-xl p-4 text-sm font-medium text-gray-800 whitespace-pre-wrap">{projectOut}</div>
+              <div className="bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl p-4 text-sm font-medium text-gray-800 dark:text-gray-200 whitespace-pre-wrap">{projectOut}</div>
               <button onClick={() => copy(projectOut)} className="absolute top-3 right-3 px-3 py-1.5 bg-gray-800 text-white text-xs font-bold rounded-lg">Copy</button>
             </div>
           )}
         </div>
 
         {/* Contribution Tips */}
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+        <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 overflow-hidden">
           <div className="p-5 bg-gray-900 border-b border-gray-800">
             <h2 className="text-xl font-black text-white">Contribution Graph Tips 📈</h2>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-0 p-0">
             {CONTRIBUTION_TIPS.map(tip => (
-              <div key={tip.t} className="p-5 border-b border-r border-gray-100 last:border-r-0">
-                <h3 className="font-black text-gray-900 mb-2 text-sm">{tip.t}</h3>
-                <p className="text-xs text-gray-600 font-medium">{tip.desc}</p>
+              <div key={tip.t} className="p-5 border-b border-r border-gray-100 dark:border-gray-800 last:border-r-0">
+                <h3 className="font-black text-gray-900 dark:text-white mb-2 text-sm">{tip.t}</h3>
+                <p className="text-xs text-gray-600 dark:text-gray-400 font-medium">{tip.desc}</p>
               </div>
             ))}
           </div>

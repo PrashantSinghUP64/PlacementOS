@@ -98,17 +98,17 @@ export default function Register() {
   return (
     <main className="bg-[url('/images/bg-main.svg')] bg-cover bg-center bg-no-repeat min-h-screen flex items-center justify-center p-4">
       <div className="gradient-border-shadow-lg w-full max-w-md">
-        <section className="flex flex-col gap-6 bg-white rounded-2xl p-8 md:p-10">
+        <section className="flex flex-col gap-6 bg-white dark:bg-gray-900 rounded-2xl p-8 md:p-10">
           <div className="text-center space-y-2">
-            <h1 className="text-2xl font-bold text-gray-900">Create account</h1>
-            <p className="text-gray-600 text-sm">
+            <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Create account</h1>
+            <p className="text-gray-600 dark:text-gray-400 text-sm">
               Use your own email and password — no third-party signup modal.
             </p>
           </div>
 
           {serverError && (
             <div
-              className="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-800"
+              className="rounded-lg border border-red-200 bg-red-50 dark:bg-red-900/20 px-3 py-2 text-sm text-red-800"
               role="alert"
             >
               {serverError}
@@ -117,7 +117,7 @@ export default function Register() {
 
           <form onSubmit={onSubmit} className="flex flex-col gap-4" noValidate>
             <div>
-              <label htmlFor="reg-name" className="block text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="reg-name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                 Username
               </label>
               <input
@@ -133,7 +133,7 @@ export default function Register() {
             </div>
 
             <div>
-              <label htmlFor="reg-email" className="block text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="reg-email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                 Email
               </label>
               <input
@@ -150,7 +150,7 @@ export default function Register() {
             </div>
 
             <div>
-              <label htmlFor="reg-password" className="block text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="reg-password" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                 Password
               </label>
               <div className="relative">
@@ -176,7 +176,7 @@ export default function Register() {
             </div>
 
             <div>
-              <label htmlFor="reg-confirm" className="block text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="reg-confirm" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                 Confirm password
               </label>
               <div className="relative">
@@ -210,14 +210,14 @@ export default function Register() {
             </button>
           </form>
 
-          <p className="text-center text-sm text-gray-600">
+          <p className="text-center text-sm text-gray-600 dark:text-gray-400">
             Already have an account?{" "}
             <Link to="/login" className="text-blue-600 font-medium hover:underline">
               Log in
             </Link>
           </p>
 
-          <p className="text-xs text-gray-500 text-center border-t border-gray-100 pt-4">
+          <p className="text-xs text-gray-500 text-center border-t border-gray-100 dark:border-gray-800 pt-4">
             The Puter “Create Free Account” popup is hosted by Puter — use this form instead to avoid
             its validation quirks.
           </p>

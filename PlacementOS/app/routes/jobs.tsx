@@ -105,7 +105,7 @@ export default function JobsBoard() {
   };
 
   const getDeadlineColor = (deadline: string | null) => {
-    if (!deadline) return "bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300";
+    if (!deadline) return "bg-gray-100 text-gray-700 dark:text-gray-300 dark:bg-gray-800 dark:text-gray-300";
     const diff = new Date(deadline).getTime() - new Date().getTime();
     const days = Math.ceil(diff / (1000 * 3600 * 24));
     if (days <= 1) return "bg-red-100 text-red-700 dark:bg-red-900/50 dark:text-red-300";
@@ -194,7 +194,7 @@ export default function JobsBoard() {
                     onClick={() => handleBookmark(job._id)}
                     className="absolute top-4 right-4 p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
                   >
-                    <span className={`text-xl ${isSaved ? "text-yellow-500 drop-shadow-sm" : "text-gray-300 dark:text-gray-600 grayscale"}`}>
+                    <span className={`text-xl ${isSaved ? "text-yellow-500 drop-shadow-sm" : "text-gray-300 dark:text-gray-600 dark:text-gray-400 grayscale"}`}>
                       🔖
                     </span>
                   </button>
@@ -213,7 +213,7 @@ export default function JobsBoard() {
                     <span className="px-2.5 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-lg">
                       📍 {job.location}
                     </span>
-                    <span className="px-2.5 py-1 bg-violet-50 dark:bg-violet-900/40 text-violet-700 dark:text-violet-300 rounded-lg">
+                    <span className="px-2.5 py-1 bg-violet-50 dark:bg-violet-900/20 dark:bg-violet-900/40 text-violet-700 dark:text-violet-300 rounded-lg">
                       👔 {job.jobType}
                     </span>
                     <span className="px-2.5 py-1 bg-indigo-50 dark:bg-indigo-900/40 text-indigo-700 dark:text-indigo-300 rounded-lg">
@@ -252,7 +252,7 @@ export default function JobsBoard() {
                       href={job.url} 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className={`px-4 py-2 rounded-xl text-sm font-bold shadow-sm transition-transform hover:-translate-y-0.5 ${isApplied ? 'bg-gray-100 text-gray-600 cursor-default' : 'bg-blue-600 text-white hover:bg-blue-700'}`}
+                      className={`px-4 py-2 rounded-xl text-sm font-bold shadow-sm transition-transform hover:-translate-y-0.5 ${isApplied ? 'bg-gray-100 text-gray-600 dark:text-gray-400 cursor-default' : 'bg-blue-600 text-white hover:bg-blue-700'}`}
                     >
                       {isApplied ? 'Applied ✓' : 'Apply Now ↗'}
                     </a>

@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from "react";
-import { usePuterStore } from "~/lib/puter";
 import { useAppAuthStore } from "~/lib/app-auth";
 import jsPDF from "jspdf";
 import { callAIForJSON } from "~/lib/aiHelper";
@@ -18,7 +17,6 @@ interface QnA {
 }
 
 export default function MockInterview() {
-  const puterReady = usePuterStore((s) => s.puterReady);
   const token = useAppAuthStore((s) => s.token);
   const user = useAppAuthStore((s) => s.user);
 
@@ -47,12 +45,6 @@ export default function MockInterview() {
 
   // Start Interview
   const startInterview = async () => {
-    if (!puterReady || !(window as any).puter?.ai?.chat) {
-      setError("AI is not ready. Please wait.");
-      return;
-    }
-    const chat = (window as any).puter.ai.chat;
-    
     setIsLoading(true);
     setError(null);
 
@@ -106,9 +98,6 @@ export default function MockInterview() {
   };
 
   const submitAnswer = async (skipped: boolean) => {
-    if (!(window as any).puter?.ai?.chat) return;
-    const chat = (window as any).puter.ai.chat;
-    
     setIsLoading(true);
     if (timerRef.current) clearInterval(timerRef.current);
 
@@ -161,8 +150,6 @@ Return ONLY JSON:
   };
 
   const generateFinalResults = async (finalQnA: QnA[]) => {
-    if (!(window as any).puter?.ai?.chat) return;
-    const chat = (window as any).puter.ai.chat;
     setIsLoading(true);
     
     const finalPrompt = `Evaluate this complete mock interview.
@@ -259,7 +246,7 @@ Return ONLY JSON:
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 pb-20 font-sans">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 pb-20 font-sans">
       <div className="bg-indigo-900 text-white pt-16 pb-12 px-6">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-4xl md:text-5xl font-black mb-4">Mock Interview Simulator 🗣️</h1>
@@ -271,19 +258,19 @@ Return ONLY JSON:
 
       <div className="max-w-5xl mx-auto px-6 -mt-8">
         {error && (
-          <div className="bg-red-50 text-red-600 p-4 rounded-xl mb-6 shadow-sm border border-red-100">
+          <div className="bg-red-50 dark:bg-red-900/20 text-red-600 p-4 rounded-xl mb-6 shadow-sm border border-red-100">
             {error}
           </div>
         )}
 
         {/* ================= SETUP PHASE ================= */}
         {phase === "setup" && (
-          <div className="bg-white rounded-3xl shadow-xl p-8 md:p-12 border border-gray-100 max-w-3xl mx-auto">
-            <h2 className="text-2xl font-bold text-gray-900 mb-8 border-b pb-4">Setup Your Interview</h2>
+          <div className="bg-white dark:bg-gray-900 rounded-3xl shadow-xl p-8 md:p-12 border border-gray-100 dark:border-gray-800 max-w-3xl mx-auto">
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-8 border-b pb-4">Setup Your Interview</h2>
 
             <div className="space-y-6">
               <div>
-                <label className="block text-sm font-bold text-gray-700 mb-2">Target Job Role</label>
+                <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">Target Job Role</label>
                 <input 
                   type="text" 
                   value={jobRole} 
@@ -295,7 +282,7 @@ Return ONLY JSON:
 
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-sm font-bold text-gray-700 mb-2">Difficulty Level</label>
+                  <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">Difficulty Level</label>
                   <select 
                     value={difficulty} 
                     onChange={(e: any) => setDifficulty(e.target.value)}
@@ -308,7 +295,7 @@ Return ONLY JSON:
                 </div>
 
                 <div>
-                  <label className="block text-sm font-bold text-gray-700 mb-2">Interview Type</label>
+                  <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">Interview Type</label>
                   <select 
                     value={type} 
                     onChange={(e: any) => setType(e.target.value)}
@@ -322,13 +309,13 @@ Return ONLY JSON:
               </div>
 
               <div>
-                <label className="block text-sm font-bold text-gray-700 mb-2">Number of Questions</label>
+                <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">Number of Questions</label>
                 <div className="flex gap-4">
                   {[5, 10, 15].map(num => (
                     <button
                       key={num}
                       onClick={() => setTotalQuestions(num)}
-                      className={`flex-1 py-3 rounded-xl border-2 transition-all font-bold ${totalQuestions === num ? 'border-indigo-600 bg-indigo-50 text-indigo-700' : 'border-gray-200 text-gray-600 hover:border-indigo-300'}`}
+                      className={`flex-1 py-3 rounded-xl border-2 transition-all font-bold ${totalQuestions === num ? 'border-indigo-600 bg-indigo-50 text-indigo-700' : 'border-gray-200 dark:border-gray-800 text-gray-600 dark:text-gray-400 hover:border-indigo-300'}`}
                     >
                       {num}
                     </button>
@@ -349,16 +336,16 @@ Return ONLY JSON:
 
         {/* ================= INTERVIEW PHASE ================= */}
         {phase === "interview" && (
-          <div className="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden flex flex-col h-[700px] max-w-5xl mx-auto">
+          <div className="bg-white dark:bg-gray-900 rounded-3xl shadow-xl border border-gray-100 dark:border-gray-800 overflow-hidden flex flex-col h-[700px] max-w-5xl mx-auto">
             {/* Top Bar */}
-            <div className="bg-gray-50 border-b border-gray-200 p-4 flex justify-between items-center">
+            <div className="bg-gray-50 dark:bg-gray-950 border-b border-gray-200 dark:border-gray-800 p-4 flex justify-between items-center">
               <div>
                 <span className="bg-indigo-100 text-indigo-800 text-sm font-bold px-3 py-1 rounded-full">
                   Question {questionNum} of {totalQuestions}
                 </span>
                 <span className="ml-3 text-sm font-medium text-gray-500">{currentCategory}</span>
               </div>
-              <div className={`font-mono text-lg font-bold flex items-center gap-2 ${timeLeft < 30 ? 'text-red-500 animate-pulse' : 'text-gray-700'}`}>
+              <div className={`font-mono text-lg font-bold flex items-center gap-2 ${timeLeft < 30 ? 'text-red-500 animate-pulse' : 'text-gray-700 dark:text-gray-300'}`}>
                 ⏱️ {formatTime(timeLeft)}
               </div>
             </div>
@@ -370,7 +357,7 @@ Return ONLY JSON:
 
             <div className="flex flex-1 overflow-hidden flex-col md:flex-row">
               {/* Left Side: AI Interviewer */}
-              <div className="w-full md:w-1/3 bg-gray-50 border-r border-gray-100 p-6 flex flex-col items-center justify-center text-center">
+              <div className="w-full md:w-1/3 bg-gray-50 dark:bg-gray-950 border-r border-gray-100 dark:border-gray-800 p-6 flex flex-col items-center justify-center text-center">
                 <div className="w-32 h-32 bg-indigo-100 rounded-full flex items-center justify-center text-6xl shadow-inner mb-6 relative">
                   🤖
                   {isLoading && <span className="absolute -top-2 -right-2 flex h-6 w-6">
@@ -378,9 +365,9 @@ Return ONLY JSON:
                     <span className="relative inline-flex rounded-full h-6 w-6 bg-indigo-500"></span>
                   </span>}
                 </div>
-                <div className="bg-white p-5 rounded-2xl shadow-sm border border-gray-200 text-left w-full relative">
-                  <div className="absolute -right-3 top-1/2 -mt-3 w-6 h-6 bg-white border-r border-b border-gray-200 transform -rotate-45 hidden md:block"></div>
-                  <p className="text-gray-800 font-medium leading-relaxed">
+                <div className="bg-white dark:bg-gray-900 p-5 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-800 text-left w-full relative">
+                  <div className="absolute -right-3 top-1/2 -mt-3 w-6 h-6 bg-white dark:bg-gray-900 border-r border-b border-gray-200 dark:border-gray-800 transform -rotate-45 hidden md:block"></div>
+                  <p className="text-gray-800 dark:text-gray-200 font-medium leading-relaxed">
                     {isLoading ? "Thinking..." : currentQuestion}
                   </p>
                 </div>
@@ -388,7 +375,7 @@ Return ONLY JSON:
 
               {/* Right Side: User Answer */}
               <div className="w-full md:w-2/3 p-6 flex flex-col">
-                <label className="block text-sm font-bold text-gray-700 mb-2 flex justify-between items-center">
+                <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2 flex justify-between items-center">
                   Your Answer
                   {allQnA.length > 0 && questionNum > 1 && !isLoading && (
                     <span className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded text-right max-w-[200px] truncate">
@@ -401,14 +388,14 @@ Return ONLY JSON:
                   onChange={e => setUserAnswer(e.target.value)}
                   disabled={isLoading}
                   placeholder="Type your detailed answer here... (Tip: Use the STAR method for behavioral questions)"
-                  className="flex-1 w-full text-input resize-none p-4 font-medium text-gray-800 disabled:bg-gray-50"
+                  className="flex-1 w-full text-input resize-none p-4 font-medium text-gray-800 dark:text-gray-200 disabled:bg-gray-50 dark:bg-gray-950"
                 ></textarea>
                 
                 <div className="mt-4 flex gap-4">
                   <button 
                     onClick={handleSkip} 
                     disabled={isLoading}
-                    className="px-6 py-3 rounded-xl border border-gray-300 text-gray-600 font-semibold hover:bg-gray-50 disabled:opacity-50 transition-colors"
+                    className="px-6 py-3 rounded-xl border border-gray-300 text-gray-600 dark:text-gray-400 font-semibold hover:bg-gray-50 dark:bg-gray-950 disabled:opacity-50 transition-colors"
                   >
                     Skip (-5 pts)
                   </button>
@@ -429,7 +416,7 @@ Return ONLY JSON:
         {phase === "results" && resultsData && (
           <div className="animate-fade-in-up space-y-8">
             {/* Top Score Card */}
-            <div className="bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100 p-8 text-center relative">
+            <div className="bg-white dark:bg-gray-900 rounded-3xl shadow-xl overflow-hidden border border-gray-100 dark:border-gray-800 p-8 text-center relative">
               <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-indigo-500 via-purple-500 to-indigo-500"></div>
               <h2 className="text-xl font-bold text-gray-500 uppercase tracking-widest mb-4">Overall Interview Score</h2>
               <div className="flex justify-center items-end gap-2 mb-4">
@@ -438,7 +425,7 @@ Return ONLY JSON:
                 </span>
                 <span className="text-3xl font-bold text-gray-400 mb-1">/100</span>
               </div>
-              <p className="text-xl font-medium text-gray-800 max-w-2xl mx-auto">
+              <p className="text-xl font-medium text-gray-800 dark:text-gray-200 max-w-2xl mx-auto">
                 "{resultsData.verdict}"
               </p>
 
@@ -453,7 +440,7 @@ Return ONLY JSON:
               {Object.entries(resultsData.performance).map(([key, score]: [string, any]) => {
                 const names: any = { communication: "Communication", technicalAccuracy: "Tech Accuracy", confidence: "Confidence", answerStructure: "Structure", problemSolving: "Problem Solving" };
                 return (
-                  <div key={key} className="bg-white border border-gray-100 rounded-2xl p-4 text-center shadow-sm">
+                  <div key={key} className="bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-2xl p-4 text-center shadow-sm">
                     <p className="text-xs text-gray-500 font-bold uppercase mb-2">{names[key]}</p>
                     <div className="text-2xl font-black text-indigo-900">{score}/10</div>
                   </div>
@@ -462,7 +449,7 @@ Return ONLY JSON:
             </div>
 
             <div className="grid md:grid-cols-2 gap-8">
-              <div className="bg-green-50/50 border border-green-100 rounded-3xl p-8">
+              <div className="bg-green-50 dark:bg-green-900/20/50 border border-green-100 rounded-3xl p-8">
                 <h3 className="text-xl font-bold text-green-800 mb-4 flex items-center gap-2">⭐ Strengths</h3>
                 <ul className="space-y-3">
                   {resultsData.strengths.map((s: string, i: number) => (
@@ -470,7 +457,7 @@ Return ONLY JSON:
                   ))}
                 </ul>
               </div>
-              <div className="bg-red-50/50 border border-red-100 rounded-3xl p-8">
+              <div className="bg-red-50 dark:bg-red-900/20/50 border border-red-100 rounded-3xl p-8">
                 <h3 className="text-xl font-bold text-red-800 mb-4 flex items-center gap-2">📈 Areas to Improve</h3>
                 <ul className="space-y-3">
                   {resultsData.improvements.map((s: string, i: number) => (
@@ -481,10 +468,10 @@ Return ONLY JSON:
             </div>
 
             {/* Q&A Breakdown */}
-            <h3 className="text-2xl font-black text-gray-900 mt-12 mb-6">Question by Question Breakdown</h3>
+            <h3 className="text-2xl font-black text-gray-900 dark:text-white mt-12 mb-6">Question by Question Breakdown</h3>
             <div className="space-y-6">
               {allQnA.map((q, i) => (
-                <div key={i} className="bg-white border border-gray-200 rounded-3xl p-6 shadow-sm flex flex-col md:flex-row gap-6">
+                <div key={i} className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-3xl p-6 shadow-sm flex flex-col md:flex-row gap-6">
                   <div className="md:w-16 flex-shrink-0 flex md:flex-col items-center md:items-start justify-between md:justify-start gap-2">
                     <span className="bg-indigo-100 text-indigo-800 font-bold px-3 py-1 rounded-lg">Q{i + 1}</span>
                     <span className={`font-black text-xl ${q.score >= 7 ? 'text-green-500' : q.score >= 4 ? 'text-yellow-500' : 'text-red-500'}`}>
@@ -493,20 +480,20 @@ Return ONLY JSON:
                   </div>
                   <div className="flex-1 space-y-4">
                     <div>
-                      <h4 className="font-bold text-gray-900 text-lg mb-1">{q.question}</h4>
+                      <h4 className="font-bold text-gray-900 dark:text-white text-lg mb-1">{q.question}</h4>
                       <p className="text-xs text-gray-500 font-medium bg-gray-100 inline-block px-2 py-1 rounded">{q.category}</p>
                     </div>
-                    <div className="bg-gray-50 p-4 rounded-xl border border-gray-100">
+                    <div className="bg-gray-50 dark:bg-gray-950 p-4 rounded-xl border border-gray-100 dark:border-gray-800">
                       <span className="text-xs font-bold text-gray-500 uppercase tracking-wider block mb-1">Your Answer</span>
-                      <p className="text-gray-800">{q.userAnswer}</p>
+                      <p className="text-gray-800 dark:text-gray-200">{q.userAnswer}</p>
                     </div>
-                    <div className="bg-green-50 p-4 rounded-xl border border-green-100">
+                    <div className="bg-green-50 dark:bg-green-900/20 p-4 rounded-xl border border-green-100">
                       <span className="text-xs font-bold text-green-700 uppercase tracking-wider block mb-1">Ideal Answer</span>
                       <p className="text-green-900">{q.idealAnswer}</p>
                     </div>
                     <div>
                       <span className="text-xs font-bold text-indigo-500 uppercase tracking-wider block mb-1">Feedback</span>
-                      <p className="text-gray-700 font-medium">{q.feedback}</p>
+                      <p className="text-gray-700 dark:text-gray-300 font-medium">{q.feedback}</p>
                     </div>
                   </div>
                 </div>

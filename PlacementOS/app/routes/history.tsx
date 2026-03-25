@@ -75,12 +75,12 @@ export default function History() {
   const getScoreBg = (s: number) => s >= 70 ? "bg-emerald-100" : s >= 40 ? "bg-yellow-100" : "bg-red-100";
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
       <Navbar />
 
       <div className="max-w-5xl mx-auto px-6 py-10">
         <div className="mb-8 animate-fade-in">
-          <h1 className="text-3xl font-bold text-gray-900">Analysis History</h1>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Analysis History</h1>
           <p className="text-gray-500 mt-1">Track your resume improvement over time.</p>
         </div>
 
@@ -95,7 +95,7 @@ export default function History() {
             ].map((s) => (
               <div key={s.label} className="stat-card">
                 <span className="text-xl">{s.icon}</span>
-                <p className="text-xl font-black text-gray-900">{s.value}</p>
+                <p className="text-xl font-black text-gray-900 dark:text-white">{s.value}</p>
                 <p className="text-xs text-gray-500">{s.label}</p>
               </div>
             ))}
@@ -105,7 +105,7 @@ export default function History() {
         {/* Chart */}
         {stats && stats.scoreHistory.length > 1 && (
           <div className="card mb-8 animate-fade-in-up">
-            <h2 className="text-lg font-bold text-gray-900 mb-4">Score Trend</h2>
+            <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-4">Score Trend</h2>
             <ProgressChart data={stats.scoreHistory} />
           </div>
         )}
@@ -118,7 +118,7 @@ export default function History() {
         ) : analyses.length === 0 ? (
           <div className="card text-center py-16">
             <p className="text-5xl mb-4">📄</p>
-            <p className="text-xl font-bold text-gray-700">No analyses yet</p>
+            <p className="text-xl font-bold text-gray-700 dark:text-gray-300">No analyses yet</p>
             <p className="text-gray-400 mt-2">Upload and analyze your first resume to see it here.</p>
             <button onClick={() => navigate("/upload")} className="btn-primary mt-6 inline-flex">
               Analyze Now
@@ -136,7 +136,7 @@ export default function History() {
 
                   {/* Info */}
                   <div className="flex-1 min-w-0">
-                    <p className="font-bold text-gray-900 truncate">{a.jobTitle || "Resume Analysis"}</p>
+                    <p className="font-bold text-gray-900 dark:text-white truncate">{a.jobTitle || "Resume Analysis"}</p>
                     <p className="text-sm text-gray-500">
                       {new Date(a.createdAt).toLocaleDateString("en-IN", { day: "numeric", month: "long", year: "numeric" })}
                     </p>
@@ -170,9 +170,9 @@ export default function History() {
 
                 {/* Expanded detail */}
                 {expanded === a._id && (
-                  <div className="mt-4 pt-4 border-t border-gray-100 space-y-3 animate-fade-in">
+                  <div className="mt-4 pt-4 border-t border-gray-100 dark:border-gray-800 space-y-3 animate-fade-in">
                     <div>
-                      <p className="text-xs font-bold text-gray-600 mb-2">Score Breakdown</p>
+                      <p className="text-xs font-bold text-gray-600 dark:text-gray-400 mb-2">Score Breakdown</p>
                       <div className="grid grid-cols-2 md:grid-cols-5 gap-2 text-center">
                         {[
                           ["Skills", a.dimensions.skillsMatch],
@@ -190,10 +190,10 @@ export default function History() {
                     </div>
                     {a.improvements.length > 0 && (
                       <div>
-                        <p className="text-xs font-bold text-gray-600 mb-1">Improvements</p>
+                        <p className="text-xs font-bold text-gray-600 dark:text-gray-400 mb-1">Improvements</p>
                         <ul className="space-y-1">
                           {a.improvements.slice(0, 3).map((item, i) => (
-                            <li key={i} className="text-xs text-gray-600 flex items-start gap-1">
+                            <li key={i} className="text-xs text-gray-600 dark:text-gray-400 flex items-start gap-1">
                               <span className="text-yellow-500">●</span> {item}
                             </li>
                           ))}

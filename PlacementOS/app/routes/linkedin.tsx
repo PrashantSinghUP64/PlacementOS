@@ -82,7 +82,7 @@ export default function LinkedInOptimizer() {
     setActiveTab(1);
 
     try {
-      if (!window.puter?.ai?.chat) throw new Error("AI not ready yet. Please wait a moment.");
+
 
       const prompt = `You are a LinkedIn optimization expert and career coach. Analyze this LinkedIn profile.
 
@@ -138,7 +138,7 @@ Return ONLY valid JSON:
     const cls = score >= 17 ? "text-emerald-500" : score >= 12 ? "text-yellow-500" : "text-red-500";
     return (
       <div className="flex flex-col items-center">
-        <div className={`w-14 h-14 rounded-full border-4 flex items-center justify-center font-black ${cls} border-current bg-white shadow-sm mb-2`}>
+        <div className={`w-14 h-14 rounded-full border-4 flex items-center justify-center font-black ${cls} border-current bg-white dark:bg-gray-900 shadow-sm mb-2`}>
           {score}/20
         </div>
         <span className="text-xs font-bold text-gray-500">{label}</span>
@@ -152,7 +152,7 @@ Return ONLY valid JSON:
 
       <div className="bg-[#0A66C2] text-white pb-32 pt-12 relative overflow-hidden">
         <div className="max-w-4xl mx-auto px-6 relative z-10 text-center">
-           <span className="inline-block px-4 py-1.5 rounded-full bg-white text-[#0A66C2] font-black tracking-widest text-[10px] mb-4 shadow-sm uppercase">
+           <span className="inline-block px-4 py-1.5 rounded-full bg-white dark:bg-gray-900 text-[#0A66C2] font-black tracking-widest text-[10px] mb-4 shadow-sm uppercase">
              Profile Scanner
            </span>
            <h1 className="text-4xl md:text-5xl font-black mb-4 tracking-tight">
@@ -168,39 +168,39 @@ Return ONLY valid JSON:
         <div className="grid lg:grid-cols-12 gap-8 items-start">
           
           {/* Left Form */}
-          <div className="lg:col-span-4 bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
+          <div className="lg:col-span-4 bg-white dark:bg-gray-900 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-800 overflow-hidden">
             <div className="p-6">
-              <h2 className="text-lg font-bold text-gray-900 mb-6 flex items-center gap-2">
+              <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
                 <svg className="w-5 h-5 text-[#0A66C2]" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
                 Your Profile Data
               </h2>
 
               <div className="space-y-5">
                 <div>
-                  <label className="block text-sm font-bold text-gray-700 mb-2">Current Job Title</label>
-                  <input value={currentTitle} onChange={e => setCurrentTitle(e.target.value)} placeholder="e.g. Frontend Developer" className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:border-[#0A66C2] focus:ring-1 focus:ring-[#0A66C2] outline-none transition-all text-sm"/>
+                  <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">Current Job Title</label>
+                  <input value={currentTitle} onChange={e => setCurrentTitle(e.target.value)} placeholder="e.g. Frontend Developer" className="w-full p-3 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl focus:bg-white dark:bg-gray-900 focus:border-[#0A66C2] focus:ring-1 focus:ring-[#0A66C2] outline-none transition-all text-sm"/>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-bold text-gray-700 mb-2">Target Role</label>
-                  <select value={targetRole} onChange={e => setTargetRole(e.target.value)} className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:border-[#0A66C2] focus:ring-1 focus:ring-[#0A66C2] outline-none transition-all text-sm font-medium">
+                  <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">Target Role</label>
+                  <select value={targetRole} onChange={e => setTargetRole(e.target.value)} className="w-full p-3 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl focus:bg-white dark:bg-gray-900 focus:border-[#0A66C2] focus:ring-1 focus:ring-[#0A66C2] outline-none transition-all text-sm font-medium">
                     {ROLES.map(r => <option key={r} value={r}>{r}</option>)}
                   </select>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-bold text-gray-700 mb-2 pr-2">LinkedIn About Section</label>
-                  <textarea value={aboutText} onChange={e => setAboutText(e.target.value)} placeholder="Paste your current About / Summary section here..." className="w-full h-32 p-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:border-[#0A66C2] focus:ring-1 focus:ring-[#0A66C2] outline-none transition-all resize-none text-sm leading-relaxed"/>
+                  <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2 pr-2">LinkedIn About Section</label>
+                  <textarea value={aboutText} onChange={e => setAboutText(e.target.value)} placeholder="Paste your current About / Summary section here..." className="w-full h-32 p-3 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl focus:bg-white dark:bg-gray-900 focus:border-[#0A66C2] focus:ring-1 focus:ring-[#0A66C2] outline-none transition-all resize-none text-sm leading-relaxed"/>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-bold text-gray-700 mb-2">Top Skills Listed</label>
-                  <textarea value={skills} onChange={e => setSkills(e.target.value)} placeholder="e.g. React, Node.js, Leadership, Agile..." className="w-full h-24 p-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:border-[#0A66C2] focus:ring-1 focus:ring-[#0A66C2] outline-none transition-all resize-none text-sm leading-relaxed"/>
+                  <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">Top Skills Listed</label>
+                  <textarea value={skills} onChange={e => setSkills(e.target.value)} placeholder="e.g. React, Node.js, Leadership, Agile..." className="w-full h-24 p-3 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl focus:bg-white dark:bg-gray-900 focus:border-[#0A66C2] focus:ring-1 focus:ring-[#0A66C2] outline-none transition-all resize-none text-sm leading-relaxed"/>
                 </div>
               </div>
 
               {error && (
-                <div className="mt-5 p-3 bg-red-50 text-red-600 rounded-lg text-sm font-medium">
+                <div className="mt-5 p-3 bg-red-50 dark:bg-red-900/20 text-red-600 rounded-lg text-sm font-medium">
                   {error}
                 </div>
               )}
@@ -220,10 +220,10 @@ Return ONLY valid JSON:
           {/* Right Results */}
           <div className="lg:col-span-8">
             {result ? (
-              <div className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden animate-fade-in-up delay-100 flex flex-col min-h-[600px]">
+              <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-800 overflow-hidden animate-fade-in-up delay-100 flex flex-col min-h-[600px]">
                 
                 {/* Tabs */}
-                <div className="flex bg-gray-50 border-b border-gray-200 overflow-x-auto hide-scrollbar">
+                <div className="flex bg-gray-50 dark:bg-gray-950 border-b border-gray-200 dark:border-gray-800 overflow-x-auto hide-scrollbar">
                   {[
                     { id: 1, label: "Score" },
                     { id: 2, label: "Headline" },
@@ -235,7 +235,7 @@ Return ONLY valid JSON:
                       key={t.id}
                       onClick={() => setActiveTab(t.id)}
                       className={`flex-1 min-w-[100px] py-4 text-sm font-bold border-b-2 transition-all ${
-                        activeTab === t.id ? "border-[#0A66C2] text-[#0A66C2] bg-white" : "border-transparent text-gray-500 hover:text-gray-900 hover:bg-gray-100"
+                        activeTab === t.id ? "border-[#0A66C2] text-[#0A66C2] bg-white dark:bg-gray-900" : "border-transparent text-gray-500 hover:text-gray-900 dark:text-white hover:bg-gray-100"
                       }`}
                     >
                       {t.label}
@@ -248,7 +248,7 @@ Return ONLY valid JSON:
                   {/* TAB 1: Score */}
                   {activeTab === 1 && (
                     <div className="animate-fade-in text-center h-full flex flex-col justify-center">
-                      <h3 className="text-xl font-bold text-gray-900 mb-8">Profile Optimization Score</h3>
+                      <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-8">Profile Optimization Score</h3>
                       
                       <div className="flex justify-center mb-12">
                         <div className="relative">
@@ -261,7 +261,7 @@ Return ONLY valid JSON:
                                    className="transition-all duration-1000 ease-out" />
                           </svg>
                           <div className="absolute inset-0 flex flex-col items-center justify-center">
-                            <span className="text-5xl font-black text-gray-900">{result.overallScore}</span>
+                            <span className="text-5xl font-black text-gray-900 dark:text-white">{result.overallScore}</span>
                             <span className="text-sm font-bold text-gray-500 mt-1">/ 100</span>
                           </div>
                         </div>
@@ -282,7 +282,7 @@ Return ONLY valid JSON:
                     <div className="animate-fade-in space-y-8">
                        <div>
                          <h3 className="text-sm font-black text-gray-400 uppercase tracking-wider mb-3">Your Current Headline</h3>
-                         <div className="p-4 bg-gray-50 rounded-xl border border-gray-200 text-gray-600 line-through decoration-red-400/50">
+                         <div className="p-4 bg-gray-50 dark:bg-gray-950 rounded-xl border border-gray-200 dark:border-gray-800 text-gray-600 dark:text-gray-400 line-through decoration-red-400/50">
                            {currentTitle}
                          </div>
                        </div>
@@ -292,7 +292,7 @@ Return ONLY valid JSON:
                            ✨ Top Recommendation
                          </h3>
                          <div className="p-5 bg-[#E1F0FE] rounded-xl border border-blue-200">
-                           <p className="text-lg font-bold text-gray-900 mb-4">{result.optimizedHeadline}</p>
+                           <p className="text-lg font-bold text-gray-900 dark:text-white mb-4">{result.optimizedHeadline}</p>
                            <button onClick={() => copyToClipboard(result.optimizedHeadline, 'head-main')} className="text-sm font-bold text-[#0A66C2] flex items-center gap-1 hover:underline">
                              {copiedStates['head-main'] ? "✓ Copied" : "📋 Copy Headline"}
                            </button>
@@ -303,8 +303,8 @@ Return ONLY valid JSON:
                          <h3 className="text-sm font-black text-gray-400 uppercase tracking-wider mb-3">Alternative Options</h3>
                          <div className="space-y-3">
                            {result.alternativeHeadlines.map((h, i) => (
-                             <div key={i} className="p-4 bg-white border border-gray-200 rounded-xl flex justify-between items-center group hover:border-[#0A66C2] transition-colors">
-                               <p className="font-medium text-gray-800 text-sm whitespace-pre-wrap flex-1 pr-4">{h}</p>
+                             <div key={i} className="p-4 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl flex justify-between items-center group hover:border-[#0A66C2] transition-colors">
+                               <p className="font-medium text-gray-800 dark:text-gray-200 text-sm whitespace-pre-wrap flex-1 pr-4">{h}</p>
                                <button onClick={() => copyToClipboard(h, `head-alt-${i}`)} className="text-gray-400 hover:text-[#0A66C2] transition-colors">
                                  {copiedStates[`head-alt-${i}`] ? "✓" : "📋"}
                                </button>
@@ -323,18 +323,18 @@ Return ONLY valid JSON:
                           <h3 className="text-sm font-black text-[#0A66C2] uppercase tracking-wider">✨ Optimized About Section</h3>
                           <p className="text-xs text-blue-700 mt-1">Structured for readability and rich in ATS keywords.</p>
                         </div>
-                        <button onClick={() => copyToClipboard(result.improvedAbout, 'about')} className="bg-white px-4 py-2 rounded-lg text-sm font-bold text-[#0A66C2] shadow-sm hover:shadow">
+                        <button onClick={() => copyToClipboard(result.improvedAbout, 'about')} className="bg-white dark:bg-gray-900 px-4 py-2 rounded-lg text-sm font-bold text-[#0A66C2] shadow-sm hover:shadow">
                           {copiedStates['about'] ? "✓ Copied" : "📋 Copy HTML/Text"}
                         </button>
                       </div>
 
-                      <div className="p-6 bg-white border border-gray-200 rounded-xl shadow-sm text-[15px] leading-relaxed text-gray-800 whitespace-pre-wrap font-serif">
+                      <div className="p-6 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl shadow-sm text-[15px] leading-relaxed text-gray-800 dark:text-gray-200 whitespace-pre-wrap font-serif">
                         {result.improvedAbout}
                       </div>
 
-                      <div className="pt-6 border-t border-gray-100">
+                      <div className="pt-6 border-t border-gray-100 dark:border-gray-800">
                          <h3 className="text-sm font-black text-gray-400 uppercase tracking-wider mb-3">Original Version</h3>
-                         <div className="p-4 bg-gray-50 rounded-xl border border-gray-200 text-sm text-gray-500 whitespace-pre-wrap">
+                         <div className="p-4 bg-gray-50 dark:bg-gray-950 rounded-xl border border-gray-200 dark:border-gray-800 text-sm text-gray-500 whitespace-pre-wrap">
                            {aboutText}
                          </div>
                       </div>
@@ -352,7 +352,7 @@ Return ONLY valid JSON:
                            </h3>
                            <div className="flex flex-wrap gap-2">
                              {result.skillsToAdd.map((s,i) => (
-                               <span key={i} className="bg-white text-emerald-700 border border-emerald-200 px-3 py-1.5 rounded-lg text-sm font-bold shadow-sm">
+                               <span key={i} className="bg-white dark:bg-gray-900 text-emerald-700 border border-emerald-200 px-3 py-1.5 rounded-lg text-sm font-bold shadow-sm">
                                  + {s}
                                </span>
                              ))}
@@ -360,13 +360,13 @@ Return ONLY valid JSON:
                            </div>
                          </div>
 
-                         <div className="bg-red-50 rounded-xl border border-red-100 p-5">
+                         <div className="bg-red-50 dark:bg-red-900/20 rounded-xl border border-red-100 p-5">
                            <h3 className="text-sm font-black text-red-700 uppercase tracking-wider mb-4 flex items-center gap-2">
                              ❌ Skills to Remove
                            </h3>
                            <div className="flex flex-wrap gap-2">
                              {result.skillsToRemove.map((s,i) => (
-                               <span key={i} className="bg-white text-red-700 border border-red-200 px-3 py-1.5 rounded-lg text-sm font-bold shadow-sm line-through">
+                               <span key={i} className="bg-white dark:bg-gray-900 text-red-700 border border-red-200 px-3 py-1.5 rounded-lg text-sm font-bold shadow-sm line-through">
                                  {s}
                                </span>
                              ))}
@@ -376,7 +376,7 @@ Return ONLY valid JSON:
 
                        </div>
 
-                       <div className="bg-blue-50 rounded-xl border border-blue-100 p-5">
+                       <div className="bg-blue-50 dark:bg-blue-900/20 rounded-xl border border-blue-100 p-5">
                          <h3 className="text-sm font-black text-[#0A66C2] uppercase tracking-wider mb-4 flex items-center gap-2">
                            📈 Trending in your industry
                          </h3>
@@ -394,9 +394,9 @@ Return ONLY valid JSON:
                   {/* TAB 5: Action Items */}
                   {activeTab === 5 && (
                     <div className="animate-fade-in space-y-4">
-                      <div className="flex justify-between items-center mb-6 border-b border-gray-100 pb-4">
+                      <div className="flex justify-between items-center mb-6 border-b border-gray-100 dark:border-gray-800 pb-4">
                         <div>
-                          <h3 className="text-lg font-bold text-gray-900">Your Action Checklist</h3>
+                          <h3 className="text-lg font-bold text-gray-900 dark:text-white">Your Action Checklist</h3>
                           <p className="text-sm text-gray-500">Complete these items to boost your profile views.</p>
                         </div>
                         <div className="text-3xl font-black text-[#0A66C2]">
@@ -412,16 +412,16 @@ Return ONLY valid JSON:
                               key={i} 
                               onClick={() => toggleCheck(ai.item)}
                               className={`flex items-start gap-4 p-4 rounded-xl border cursor-pointer transition-all ${
-                                isChecked ? "bg-gray-50 border-gray-200 opacity-70" : "bg-white border-gray-200 hover:border-[#0A66C2] shadow-sm"
+                                isChecked ? "bg-gray-50 dark:bg-gray-950 border-gray-200 dark:border-gray-800 opacity-70" : "bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-800 hover:border-[#0A66C2] shadow-sm"
                               }`}
                             >
                               <div className={`mt-0.5 w-6 h-6 rounded-full flex items-center justify-center shrink-0 border-2 transition-colors ${
-                                isChecked ? "bg-emerald-500 border-emerald-500" : "bg-white border-gray-300"
+                                isChecked ? "bg-emerald-500 border-emerald-500" : "bg-white dark:bg-gray-900 border-gray-300"
                               }`}>
                                 {isChecked && <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>}
                               </div>
                               <div className="flex-1">
-                                <p className={`text-sm font-semibold transition-colors ${isChecked ? "text-gray-400 line-through" : "text-gray-900"}`}>
+                                <p className={`text-sm font-semibold transition-colors ${isChecked ? "text-gray-400 line-through" : "text-gray-900 dark:text-white"}`}>
                                   {ai.item}
                                 </p>
                               </div>
@@ -440,11 +440,11 @@ Return ONLY valid JSON:
                 </div>
               </div>
             ) : (
-              <div className="h-[600px] flex flex-col items-center justify-center text-center p-8 bg-white rounded-2xl shadow-sm border border-gray-200">
+              <div className="h-[600px] flex flex-col items-center justify-center text-center p-8 bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-800">
                 <div className="w-20 h-20 bg-[#E1F0FE] rounded-full flex items-center justify-center text-[#0A66C2] mb-6">
                   <svg className="w-10 h-10" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-2">Optimize Your Profile</h3>
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Optimize Your Profile</h3>
                 <p className="text-gray-500 text-sm max-w-sm">
                   Provide your current LinkedIn details on the left, and our AI will restructure your headline, rewrite your summary, and give you an actionable checklist to improve your visibility.
                 </p>

@@ -94,8 +94,6 @@ export default function ResumeBuilder() {
     }
 
     try {
-      if (!window.puter?.ai?.chat) throw new Error("AI not ready");
-      
       const prompt = `Rewrite this ${type.replace('project', 'project description').replace('experience', 'job description')} to be ATS-friendly and impactful. Use strong action verbs and quantify achievements if possible.
 Original: ${text}
 Return ONLY the improved description, formatted as 2-3 short bullet points starting with '•'. No extra text.`;
@@ -128,7 +126,6 @@ Return ONLY the improved description, formatted as 2-3 short bullet points start
     
     setSuggestingSkills(true);
     try {
-      if (!window.puter?.ai?.chat) throw new Error("AI not ready");
       const prompt = `Based on this experience, suggest 5-8 relevant technical and hard skills.
 EXPERIENCE: ${context}
 Return ONLY a comma-separated list of skills. No extra text, no bullet points.`;
@@ -303,7 +300,7 @@ Return ONLY a comma-separated list of skills. No extra text, no bullet points.`;
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 flex flex-col">
       <Navbar />
 
       <div className="bg-emerald-600 text-white flex-shrink-0 pt-8 pb-32">
@@ -316,10 +313,10 @@ Return ONLY a comma-separated list of skills. No extra text, no bullet points.`;
       <div className="flex-1 w-full max-w-6xl mx-auto px-6 -mt-24 pb-20 flex gap-8 flex-col lg:flex-row items-stretch relative z-10">
         
         {/* LEFT COLUMN: Form Steps */}
-        <div className="flex-1 w-full lg:w-1/2 bg-white rounded-2xl shadow-xl border border-gray-100 flex flex-col overflow-hidden">
+        <div className="flex-1 w-full lg:w-1/2 bg-white dark:bg-gray-900 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-800 flex flex-col overflow-hidden">
           
           {/* Form Header / Progress */}
-          <div className="bg-gray-50 border-b border-gray-100 p-4 flex gap-2 overflow-x-auto hide-scrollbar">
+          <div className="bg-gray-50 dark:bg-gray-950 border-b border-gray-100 dark:border-gray-800 p-4 flex gap-2 overflow-x-auto hide-scrollbar">
             {["Personal", "Experience", "Education", "Skills", "Projects", "Preview"].map((name, i) => (
                <button
                  key={name}
@@ -343,14 +340,14 @@ Return ONLY a comma-separated list of skills. No extra text, no bullet points.`;
             {/* STEP 1: Personal Info */}
             {step === 1 && (
               <div className="animate-fade-in space-y-4">
-                <h2 className="text-xl font-bold text-gray-900 mb-6">Personal details</h2>
+                <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-6">Personal details</h2>
                 <div className="grid grid-cols-2 gap-4">
-                  <div><label className="text-xs font-bold text-gray-500">FULL NAME</label><input value={personal.fullName} onChange={e=>setPersonal({...personal, fullName:e.target.value})} className="mt-1 w-full p-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-emerald-500 transition-all font-medium"/></div>
-                  <div><label className="text-xs font-bold text-gray-500">EMAIL</label><input type="email" value={personal.email} onChange={e=>setPersonal({...personal, email:e.target.value})} className="mt-1 w-full p-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-emerald-500 transition-all"/></div>
-                  <div><label className="text-xs font-bold text-gray-500">PHONE</label><input value={personal.phone} onChange={e=>setPersonal({...personal, phone:e.target.value})} className="mt-1 w-full p-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-emerald-500 transition-all"/></div>
-                  <div><label className="text-xs font-bold text-gray-500">LOCATION</label><input value={personal.location} onChange={e=>setPersonal({...personal, location:e.target.value})} className="mt-1 w-full p-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-emerald-500 transition-all"/></div>
-                  <div><label className="text-xs font-bold text-gray-500">LINKEDIN URL</label><input value={personal.linkedin} onChange={e=>setPersonal({...personal, linkedin:e.target.value})} className="mt-1 w-full p-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-emerald-500 transition-all"/></div>
-                  <div><label className="text-xs font-bold text-gray-500">GITHUB URL</label><input value={personal.github} onChange={e=>setPersonal({...personal, github:e.target.value})} className="mt-1 w-full p-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-emerald-500 transition-all"/></div>
+                  <div><label className="text-xs font-bold text-gray-500">FULL NAME</label><input value={personal.fullName} onChange={e=>setPersonal({...personal, fullName:e.target.value})} className="mt-1 w-full p-3 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl focus:bg-white dark:bg-gray-900 focus:ring-2 focus:ring-emerald-500 transition-all font-medium"/></div>
+                  <div><label className="text-xs font-bold text-gray-500">EMAIL</label><input type="email" value={personal.email} onChange={e=>setPersonal({...personal, email:e.target.value})} className="mt-1 w-full p-3 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl focus:bg-white dark:bg-gray-900 focus:ring-2 focus:ring-emerald-500 transition-all"/></div>
+                  <div><label className="text-xs font-bold text-gray-500">PHONE</label><input value={personal.phone} onChange={e=>setPersonal({...personal, phone:e.target.value})} className="mt-1 w-full p-3 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl focus:bg-white dark:bg-gray-900 focus:ring-2 focus:ring-emerald-500 transition-all"/></div>
+                  <div><label className="text-xs font-bold text-gray-500">LOCATION</label><input value={personal.location} onChange={e=>setPersonal({...personal, location:e.target.value})} className="mt-1 w-full p-3 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl focus:bg-white dark:bg-gray-900 focus:ring-2 focus:ring-emerald-500 transition-all"/></div>
+                  <div><label className="text-xs font-bold text-gray-500">LINKEDIN URL</label><input value={personal.linkedin} onChange={e=>setPersonal({...personal, linkedin:e.target.value})} className="mt-1 w-full p-3 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl focus:bg-white dark:bg-gray-900 focus:ring-2 focus:ring-emerald-500 transition-all"/></div>
+                  <div><label className="text-xs font-bold text-gray-500">GITHUB URL</label><input value={personal.github} onChange={e=>setPersonal({...personal, github:e.target.value})} className="mt-1 w-full p-3 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl focus:bg-white dark:bg-gray-900 focus:ring-2 focus:ring-emerald-500 transition-all"/></div>
                 </div>
               </div>
             )}
@@ -359,20 +356,20 @@ Return ONLY a comma-separated list of skills. No extra text, no bullet points.`;
             {step === 2 && (
               <div className="animate-fade-in space-y-6">
                 <div className="flex justify-between items-center mb-2">
-                  <h2 className="text-xl font-bold text-gray-900">Work Experience</h2>
+                  <h2 className="text-xl font-bold text-gray-900 dark:text-white">Work Experience</h2>
                   <button onClick={addExperience} className="text-sm font-bold text-emerald-600 hover:text-emerald-700">+ Add Job</button>
                 </div>
                 {experiences.map((exp, idx) => (
-                  <div key={exp.id} className="p-5 border border-gray-200 rounded-xl bg-gray-50/50 relative group">
+                  <div key={exp.id} className="p-5 border border-gray-200 dark:border-gray-800 rounded-xl bg-gray-50 dark:bg-gray-950/50 relative group">
                     {experiences.length > 1 && (
                       <button onClick={() => removeExperience(exp.id)} className="absolute top-4 right-4 text-red-400 hover:text-red-600">
                         <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
                       </button>
                     )}
                     <div className="grid grid-cols-2 gap-4 mb-4">
-                      <div><label className="text-xs font-bold text-gray-500">COMPANY</label><input value={exp.company} onChange={e => setExperiences(experiences.map(x => x.id === exp.id ? {...x, company:e.target.value} : x))} className="mt-1 w-full p-2.5 bg-white border border-gray-200 rounded-lg focus:ring-2 focus:ring-emerald-500 text-sm"/></div>
-                      <div><label className="text-xs font-bold text-gray-500">ROLE</label><input value={exp.role} onChange={e => setExperiences(experiences.map(x => x.id === exp.id ? {...x, role:e.target.value} : x))} className="mt-1 w-full p-2.5 bg-white border border-gray-200 rounded-lg focus:ring-2 focus:ring-emerald-500 text-sm"/></div>
-                      <div className="col-span-2"><label className="text-xs font-bold text-gray-500">DURATION</label><input placeholder="e.g. Jan 2020 - Present" value={exp.duration} onChange={e => setExperiences(experiences.map(x => x.id === exp.id ? {...x, duration:e.target.value} : x))} className="mt-1 w-full p-2.5 bg-white border border-gray-200 rounded-lg focus:ring-2 focus:ring-emerald-500 text-sm"/></div>
+                      <div><label className="text-xs font-bold text-gray-500">COMPANY</label><input value={exp.company} onChange={e => setExperiences(experiences.map(x => x.id === exp.id ? {...x, company:e.target.value} : x))} className="mt-1 w-full p-2.5 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg focus:ring-2 focus:ring-emerald-500 text-sm"/></div>
+                      <div><label className="text-xs font-bold text-gray-500">ROLE</label><input value={exp.role} onChange={e => setExperiences(experiences.map(x => x.id === exp.id ? {...x, role:e.target.value} : x))} className="mt-1 w-full p-2.5 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg focus:ring-2 focus:ring-emerald-500 text-sm"/></div>
+                      <div className="col-span-2"><label className="text-xs font-bold text-gray-500">DURATION</label><input placeholder="e.g. Jan 2020 - Present" value={exp.duration} onChange={e => setExperiences(experiences.map(x => x.id === exp.id ? {...x, duration:e.target.value} : x))} className="mt-1 w-full p-2.5 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg focus:ring-2 focus:ring-emerald-500 text-sm"/></div>
                     </div>
                     <div>
                       <div className="flex justify-between items-end mb-1 mt-2">
@@ -389,7 +386,7 @@ Return ONLY a comma-separated list of skills. No extra text, no bullet points.`;
                         value={exp.description} 
                         onChange={e => setExperiences(experiences.map(x => x.id === exp.id ? {...x, description:e.target.value} : x))}
                         placeholder="What did you do? AI will make it sound better."
-                        className="w-full h-32 p-3 bg-white border border-gray-200 rounded-lg focus:ring-2 focus:ring-emerald-500 resize-none text-sm leading-relaxed"
+                        className="w-full h-32 p-3 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg focus:ring-2 focus:ring-emerald-500 resize-none text-sm leading-relaxed"
                       />
                     </div>
                   </div>
@@ -401,21 +398,21 @@ Return ONLY a comma-separated list of skills. No extra text, no bullet points.`;
             {step === 3 && (
               <div className="animate-fade-in space-y-6">
                 <div className="flex justify-between items-center mb-2">
-                  <h2 className="text-xl font-bold text-gray-900">Education</h2>
+                  <h2 className="text-xl font-bold text-gray-900 dark:text-white">Education</h2>
                   <button onClick={addEducation} className="text-sm font-bold text-emerald-600 hover:text-emerald-700">+ Add Education</button>
                 </div>
                 {educations.map((edu, idx) => (
-                  <div key={edu.id} className="p-5 border border-gray-200 rounded-xl bg-gray-50/50 relative group">
+                  <div key={edu.id} className="p-5 border border-gray-200 dark:border-gray-800 rounded-xl bg-gray-50 dark:bg-gray-950/50 relative group">
                     {educations.length > 1 && (
                       <button onClick={() => removeEducation(edu.id)} className="absolute top-4 right-4 text-red-400 hover:text-red-600">
                         <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
                       </button>
                     )}
                     <div className="grid grid-cols-2 gap-4">
-                      <div className="col-span-2"><label className="text-xs font-bold text-gray-500">DEGREE</label><input placeholder="B.Tech Computer Science" value={edu.degree} onChange={e => setEducations(educations.map(x => x.id === edu.id ? {...x, degree:e.target.value} : x))} className="mt-1 w-full p-2.5 bg-white border border-gray-200 rounded-lg focus:ring-2 focus:ring-emerald-500 text-sm"/></div>
-                      <div><label className="text-xs font-bold text-gray-500">INSTITUTION</label><input value={edu.college} onChange={e => setEducations(educations.map(x => x.id === edu.id ? {...x, college:e.target.value} : x))} className="mt-1 w-full p-2.5 bg-white border border-gray-200 rounded-lg focus:ring-2 focus:ring-emerald-500 text-sm"/></div>
-                      <div><label className="text-xs font-bold text-gray-500">YEAR / DURATION</label><input value={edu.year} onChange={e => setEducations(educations.map(x => x.id === edu.id ? {...x, year:e.target.value} : x))} className="mt-1 w-full p-2.5 bg-white border border-gray-200 rounded-lg focus:ring-2 focus:ring-emerald-500 text-sm"/></div>
-                      <div><label className="text-xs font-bold text-gray-500">CGPA / GRADE</label><input value={edu.cgpa} onChange={e => setEducations(educations.map(x => x.id === edu.id ? {...x, cgpa:e.target.value} : x))} className="mt-1 w-full p-2.5 bg-white border border-gray-200 rounded-lg focus:ring-2 focus:ring-emerald-500 text-sm"/></div>
+                      <div className="col-span-2"><label className="text-xs font-bold text-gray-500">DEGREE</label><input placeholder="B.Tech Computer Science" value={edu.degree} onChange={e => setEducations(educations.map(x => x.id === edu.id ? {...x, degree:e.target.value} : x))} className="mt-1 w-full p-2.5 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg focus:ring-2 focus:ring-emerald-500 text-sm"/></div>
+                      <div><label className="text-xs font-bold text-gray-500">INSTITUTION</label><input value={edu.college} onChange={e => setEducations(educations.map(x => x.id === edu.id ? {...x, college:e.target.value} : x))} className="mt-1 w-full p-2.5 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg focus:ring-2 focus:ring-emerald-500 text-sm"/></div>
+                      <div><label className="text-xs font-bold text-gray-500">YEAR / DURATION</label><input value={edu.year} onChange={e => setEducations(educations.map(x => x.id === edu.id ? {...x, year:e.target.value} : x))} className="mt-1 w-full p-2.5 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg focus:ring-2 focus:ring-emerald-500 text-sm"/></div>
+                      <div><label className="text-xs font-bold text-gray-500">CGPA / GRADE</label><input value={edu.cgpa} onChange={e => setEducations(educations.map(x => x.id === edu.id ? {...x, cgpa:e.target.value} : x))} className="mt-1 w-full p-2.5 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg focus:ring-2 focus:ring-emerald-500 text-sm"/></div>
                     </div>
                   </div>
                 ))}
@@ -426,7 +423,7 @@ Return ONLY a comma-separated list of skills. No extra text, no bullet points.`;
             {step === 4 && (
               <div className="animate-fade-in space-y-6">
                 <div className="flex justify-between items-center mb-2">
-                  <h2 className="text-xl font-bold text-gray-900">Skills</h2>
+                  <h2 className="text-xl font-bold text-gray-900 dark:text-white">Skills</h2>
                   <button 
                     onClick={suggestSkills} 
                     disabled={suggestingSkills}
@@ -443,7 +440,7 @@ Return ONLY a comma-separated list of skills. No extra text, no bullet points.`;
                     onChange={e => setSkillInput(e.target.value)}
                     onKeyDown={addSkill}
                     placeholder="Type a skill and press Enter..."
-                    className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-emerald-500 transition-all font-medium mb-4"
+                    className="w-full p-3 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl focus:bg-white dark:bg-gray-900 focus:ring-2 focus:ring-emerald-500 transition-all font-medium mb-4"
                   />
                   <div className="flex flex-wrap gap-2">
                     {skills.map(s => (
@@ -453,7 +450,7 @@ Return ONLY a comma-separated list of skills. No extra text, no bullet points.`;
                       </span>
                     ))}
                     {skills.length === 0 && (
-                      <p className="text-sm text-gray-500 italic w-full text-center py-4 bg-gray-50 rounded-xl border border-dashed border-gray-200">
+                      <p className="text-sm text-gray-500 italic w-full text-center py-4 bg-gray-50 dark:bg-gray-950 rounded-xl border border-dashed border-gray-200 dark:border-gray-800">
                         No skills added yet. Press Enter to add.
                       </p>
                     )}
@@ -466,20 +463,20 @@ Return ONLY a comma-separated list of skills. No extra text, no bullet points.`;
             {step === 5 && (
               <div className="animate-fade-in space-y-6">
                  <div className="flex justify-between items-center mb-2">
-                  <h2 className="text-xl font-bold text-gray-900">Projects</h2>
+                  <h2 className="text-xl font-bold text-gray-900 dark:text-white">Projects</h2>
                   <button onClick={addProject} className="text-sm font-bold text-emerald-600 hover:text-emerald-700">+ Add Project</button>
                 </div>
                 {projects.map((proj, idx) => (
-                  <div key={proj.id} className="p-5 border border-gray-200 rounded-xl bg-gray-50/50 relative group">
+                  <div key={proj.id} className="p-5 border border-gray-200 dark:border-gray-800 rounded-xl bg-gray-50 dark:bg-gray-950/50 relative group">
                     {projects.length > 1 && (
                       <button onClick={() => removeProject(proj.id)} className="absolute top-4 right-4 text-red-400 hover:text-red-600">
                         <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
                       </button>
                     )}
                     <div className="grid grid-cols-2 gap-4 mb-4">
-                      <div className="col-span-2"><label className="text-xs font-bold text-gray-500">PROJECT NAME</label><input value={proj.name} onChange={e => setProjects(projects.map(x => x.id === proj.id ? {...x, name:e.target.value} : x))} className="mt-1 w-full p-2.5 bg-white border border-gray-200 rounded-lg focus:ring-2 focus:ring-emerald-500 text-sm"/></div>
-                      <div><label className="text-xs font-bold text-gray-500">TECH STACK</label><input placeholder="React, Node..." value={proj.techStack} onChange={e => setProjects(projects.map(x => x.id === proj.id ? {...x, techStack:e.target.value} : x))} className="mt-1 w-full p-2.5 bg-white border border-gray-200 rounded-lg focus:ring-2 focus:ring-emerald-500 text-sm"/></div>
-                      <div><label className="text-xs font-bold text-gray-500">LINK</label><input placeholder="GitHub URL" value={proj.githubUrl} onChange={e => setProjects(projects.map(x => x.id === proj.id ? {...x, githubUrl:e.target.value} : x))} className="mt-1 w-full p-2.5 bg-white border border-gray-200 rounded-lg focus:ring-2 focus:ring-emerald-500 text-sm"/></div>
+                      <div className="col-span-2"><label className="text-xs font-bold text-gray-500">PROJECT NAME</label><input value={proj.name} onChange={e => setProjects(projects.map(x => x.id === proj.id ? {...x, name:e.target.value} : x))} className="mt-1 w-full p-2.5 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg focus:ring-2 focus:ring-emerald-500 text-sm"/></div>
+                      <div><label className="text-xs font-bold text-gray-500">TECH STACK</label><input placeholder="React, Node..." value={proj.techStack} onChange={e => setProjects(projects.map(x => x.id === proj.id ? {...x, techStack:e.target.value} : x))} className="mt-1 w-full p-2.5 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg focus:ring-2 focus:ring-emerald-500 text-sm"/></div>
+                      <div><label className="text-xs font-bold text-gray-500">LINK</label><input placeholder="GitHub URL" value={proj.githubUrl} onChange={e => setProjects(projects.map(x => x.id === proj.id ? {...x, githubUrl:e.target.value} : x))} className="mt-1 w-full p-2.5 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg focus:ring-2 focus:ring-emerald-500 text-sm"/></div>
                     </div>
                     <div>
                       <div className="flex justify-between items-end mb-1 mt-2">
@@ -495,7 +492,7 @@ Return ONLY a comma-separated list of skills. No extra text, no bullet points.`;
                       <textarea 
                         value={proj.description} 
                         onChange={e => setProjects(projects.map(x => x.id === proj.id ? {...x, description:e.target.value} : x))}
-                        className="w-full h-32 p-3 bg-white border border-gray-200 rounded-lg focus:ring-2 focus:ring-emerald-500 resize-none text-sm leading-relaxed"
+                        className="w-full h-32 p-3 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg focus:ring-2 focus:ring-emerald-500 resize-none text-sm leading-relaxed"
                       />
                     </div>
                   </div>
@@ -507,7 +504,7 @@ Return ONLY a comma-separated list of skills. No extra text, no bullet points.`;
             {step === 6 && (
               <div className="flex flex-col items-center justify-center p-10 h-full text-center space-y-6 animate-fade-in">
                 <div className="w-20 h-20 bg-emerald-100 rounded-full flex items-center justify-center text-4xl shadow-sm border-4 border-white mb-2">🎉</div>
-                <h2 className="text-2xl font-black text-gray-900">Resume Ready!</h2>
+                <h2 className="text-2xl font-black text-gray-900 dark:text-white">Resume Ready!</h2>
                 <p className="text-gray-500 max-w-sm mx-auto">
                   Your resume data is compiled. Check the live preview on the right. You can download it as PDF or send it directly for deeper ATS analysis.
                 </p>
@@ -520,7 +517,7 @@ Return ONLY a comma-separated list of skills. No extra text, no bullet points.`;
                       await saveResumeData();
                       navigate("/upload");
                     }} 
-                    className="px-4 py-3 bg-white border-2 border-emerald-100 text-emerald-700 rounded-xl font-bold hover:bg-emerald-50 hover:border-emerald-200 transition-all shadow-sm"
+                    className="px-4 py-3 bg-white dark:bg-gray-900 border-2 border-emerald-100 text-emerald-700 rounded-xl font-bold hover:bg-emerald-50 hover:border-emerald-200 transition-all shadow-sm"
                   >
                     🤖 Analyze this Resume
                   </button>
@@ -531,11 +528,11 @@ Return ONLY a comma-separated list of skills. No extra text, no bullet points.`;
           </div>
 
           {/* Form Footer / Nav */}
-          <div className="border-t border-gray-100 p-4 bg-gray-50 flex justify-between items-center rounded-b-2xl">
+          <div className="border-t border-gray-100 dark:border-gray-800 p-4 bg-gray-50 dark:bg-gray-950 flex justify-between items-center rounded-b-2xl">
             <button 
               onClick={() => setStep(step - 1)} 
               disabled={step === 1}
-              className={`px-4 py-2 text-sm font-bold rounded-lg transition-colors ${step === 1 ? 'text-gray-300' : 'text-gray-600 hover:bg-gray-200'}`}
+              className={`px-4 py-2 text-sm font-bold rounded-lg transition-colors ${step === 1 ? 'text-gray-300' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-200'}`}
             >
               ← Back
             </button>
@@ -552,7 +549,7 @@ Return ONLY a comma-separated list of skills. No extra text, no bullet points.`;
 
 
         {/* RIGHT COLUMN: Live Preview */}
-        <div className="flex-[1.5] bg-gray-200 p-4 sm:p-8 rounded-2xl shadow-inner border border-gray-200 flex flex-col h-[700px] lg:h-auto lg:min-h-[800px] overflow-y-auto custom-scrollbar relative">
+        <div className="flex-[1.5] bg-gray-200 p-4 sm:p-8 rounded-2xl shadow-inner border border-gray-200 dark:border-gray-800 flex flex-col h-[700px] lg:h-auto lg:min-h-[800px] overflow-y-auto custom-scrollbar relative">
           
           <div className="absolute top-4 right-8 z-10">
              <span className="bg-gray-900/80 backdrop-blur text-white px-3 py-1.5 rounded-full text-xs font-bold shadow-lg flex items-center gap-1.5">
@@ -561,14 +558,14 @@ Return ONLY a comma-separated list of skills. No extra text, no bullet points.`;
              </span>
           </div>
 
-          <div className="w-full max-w-[800px] mx-auto bg-white shadow-2xl min-h-[1056px] flex flex-col p-10 md:p-14 mb-10 transition-all font-sans">
+          <div className="w-full max-w-[800px] mx-auto bg-white dark:bg-gray-900 shadow-2xl min-h-[1056px] flex flex-col p-10 md:p-14 mb-10 transition-all font-sans">
             
             {/* Header */}
             <header className="border-b-2 border-gray-900 pb-4 mb-6">
-              <h1 className="text-3xl font-black text-gray-900 tracking-tight uppercase mb-2">
+              <h1 className="text-3xl font-black text-gray-900 dark:text-white tracking-tight uppercase mb-2">
                 {personal.fullName || "YOUR NAME"}
               </h1>
-              <div className="flex flex-wrap text-sm text-gray-700 gap-x-4 gap-y-1 font-medium">
+              <div className="flex flex-wrap text-sm text-gray-700 dark:text-gray-300 gap-x-4 gap-y-1 font-medium">
                 {personal.email && <span>{personal.email}</span>}
                 {personal.phone && <span>• {personal.phone}</span>}
                 {personal.location && <span>• {personal.location}</span>}
@@ -580,18 +577,18 @@ Return ONLY a comma-separated list of skills. No extra text, no bullet points.`;
             {/* Experience */}
             {experiences.some(e => e.company || e.role) && (
               <section className="mb-6">
-                <h2 className="text-sm font-black text-gray-900 uppercase tracking-widest border-b border-gray-300 pb-1 mb-3">Experience</h2>
+                <h2 className="text-sm font-black text-gray-900 dark:text-white uppercase tracking-widest border-b border-gray-300 pb-1 mb-3">Experience</h2>
                 <div className="space-y-4">
                   {experiences.map(e => {
                     if (!e.company && !e.role) return null;
                     return (
                       <div key={e.id}>
                         <div className="flex justify-between items-baseline mb-1">
-                          <h3 className="font-bold text-gray-900 text-[15px]">{e.role}</h3>
-                          <span className="text-sm text-gray-600 font-medium">{e.duration}</span>
+                          <h3 className="font-bold text-gray-900 dark:text-white text-[15px]">{e.role}</h3>
+                          <span className="text-sm text-gray-600 dark:text-gray-400 font-medium">{e.duration}</span>
                         </div>
-                        <h4 className="italic text-sm text-gray-800 mb-2">{e.company}</h4>
-                        <div className="text-sm text-gray-700 leading-relaxed max-w-[90%] whitespace-pre-wrap">
+                        <h4 className="italic text-sm text-gray-800 dark:text-gray-200 mb-2">{e.company}</h4>
+                        <div className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed max-w-[90%] whitespace-pre-wrap">
                           {e.description}
                         </div>
                       </div>
@@ -604,18 +601,18 @@ Return ONLY a comma-separated list of skills. No extra text, no bullet points.`;
             {/* Projects */}
             {projects.some(p => p.name) && (
               <section className="mb-6">
-                <h2 className="text-sm font-black text-gray-900 uppercase tracking-widest border-b border-gray-300 pb-1 mb-3">Projects</h2>
+                <h2 className="text-sm font-black text-gray-900 dark:text-white uppercase tracking-widest border-b border-gray-300 pb-1 mb-3">Projects</h2>
                 <div className="space-y-4">
                   {projects.map(p => {
                     if (!p.name) return null;
                     return (
                       <div key={p.id}>
                         <div className="flex items-baseline gap-2 mb-1">
-                          <h3 className="font-bold text-gray-900 text-[15px]">{p.name}</h3>
-                          {p.techStack && <span className="text-xs px-1.5 py-0.5 border border-gray-200 rounded text-gray-600 font-medium">{p.techStack}</span>}
+                          <h3 className="font-bold text-gray-900 dark:text-white text-[15px]">{p.name}</h3>
+                          {p.techStack && <span className="text-xs px-1.5 py-0.5 border border-gray-200 dark:border-gray-800 rounded text-gray-600 dark:text-gray-400 font-medium">{p.techStack}</span>}
                           {p.githubUrl && <span className="text-xs text-blue-600 ml-auto">{p.githubUrl}</span>}
                         </div>
-                        <div className="text-sm text-gray-700 leading-relaxed max-w-[90%] whitespace-pre-wrap">
+                        <div className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed max-w-[90%] whitespace-pre-wrap">
                           {p.description}
                         </div>
                       </div>
@@ -628,17 +625,17 @@ Return ONLY a comma-separated list of skills. No extra text, no bullet points.`;
             {/* Education */}
             {educations.some(e => e.degree || e.college) && (
               <section className="mb-6">
-                <h2 className="text-sm font-black text-gray-900 uppercase tracking-widest border-b border-gray-300 pb-1 mb-3">Education</h2>
+                <h2 className="text-sm font-black text-gray-900 dark:text-white uppercase tracking-widest border-b border-gray-300 pb-1 mb-3">Education</h2>
                 <div className="space-y-3">
                   {educations.map(e => {
                     if (!e.degree && !e.college) return null;
                     return (
                       <div key={e.id} className="flex justify-between items-baseline">
                         <div>
-                          <h3 className="font-bold text-gray-900 text-[15px]">{e.degree}</h3>
-                          <div className="text-sm text-gray-700">{e.college} {e.cgpa ? ` • CGPA: ${e.cgpa}` : ''}</div>
+                          <h3 className="font-bold text-gray-900 dark:text-white text-[15px]">{e.degree}</h3>
+                          <div className="text-sm text-gray-700 dark:text-gray-300">{e.college} {e.cgpa ? ` • CGPA: ${e.cgpa}` : ''}</div>
                         </div>
-                        <span className="text-sm text-gray-600 font-medium">{e.year}</span>
+                        <span className="text-sm text-gray-600 dark:text-gray-400 font-medium">{e.year}</span>
                       </div>
                     );
                   })}
@@ -649,8 +646,8 @@ Return ONLY a comma-separated list of skills. No extra text, no bullet points.`;
             {/* Skills */}
             {skills.length > 0 && (
               <section className="mb-6">
-                <h2 className="text-sm font-black text-gray-900 uppercase tracking-widest border-b border-gray-300 pb-1 mb-3">Skills</h2>
-                <p className="text-sm text-gray-800 leading-relaxed font-medium">
+                <h2 className="text-sm font-black text-gray-900 dark:text-white uppercase tracking-widest border-b border-gray-300 pb-1 mb-3">Skills</h2>
+                <p className="text-sm text-gray-800 dark:text-gray-200 leading-relaxed font-medium">
                   {skills.join(" • ")}
                 </p>
               </section>

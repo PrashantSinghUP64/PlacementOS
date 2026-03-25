@@ -1,52 +1,35 @@
-// ============================================
-// PUTER.JS AI HELPER — USE THIS IN ALL FEATURES
-// ============================================
+// ================================================
+// GEMINI AI HELPER — Centralized backend AI calls
+// ================================================
+import { getApiBase } from "./api";
 
-// Main function to call Puter.js AI
+/**
+ * Send a prompt to the backend Gemini AI endpoint.
+ * Replaces all previous window.puter.ai.chat calls.
+ */
 export async function callAI(prompt: string): Promise<string> {
   try {
-    // Wait for puter to load
-    if (!(window as any).puter?.ai?.chat) {
-      // Basic polling if puter is not immediately available
-      for (let i = 0; i < 10; i++) {
-        await new Promise(resolve => setTimeout(resolve, 500));
-        if ((window as any).puter?.ai?.chat) break;
-      }
+    const res = await fetch(`${getApiBase()}/api/ai/chat`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ prompt }),
+    });
+
+    if (!res.ok) {
+      let errMsg = "AI request failed";
+      try {
+        const body = await res.json();
+        errMsg = body.error ?? errMsg;
+      } catch {}
+      throw new Error(errMsg);
     }
-    
-    if (!(window as any).puter?.ai?.chat) {
-      throw new Error("Puter.js AI is not available");
-    }
-    
-    const response = await (window as any).puter.ai.chat(prompt);
-    
-    // Handle ALL possible response formats from Puter.js
-    if (typeof response === 'string') {
-      return response;
-    }
-    
-    if (response?.message?.content) {
-      const content = response.message.content;
-      if (Array.isArray(content)) {
-        return content.map((c: any) => c.text || c.content || '').join('');
-      }
-      return String(content);
-    }
-    
-    if (response?.choices?.[0]?.message?.content) {
-      return response.choices[0].message.content;
-    }
-    
-    if (response?.text) return response.text;
-    if (response?.content) return String(response.content);
-    if (response?.result) return String(response.result);
-    
-    // Last resort
-    return JSON.stringify(response);
-    
+
+    const data = await res.json();
+    if (!data.text) throw new Error("Empty response from AI");
+    return data.text as string;
   } catch (error: any) {
-    console.error('AI Error:', error);
-    throw new Error('AI call failed: ' + error.message);
+    console.error("AI Error:", error);
+    throw new Error("AI call failed: " + (error.message ?? "Unknown error"));
   }
 }
 
@@ -55,19 +38,19 @@ export function parseAIJSON(text: string): any {
   try {
     // Remove markdown code blocks if present
     let cleaned = text
-      .replace(/```json\n?/ig, '')
-      .replace(/```\n?/g, '')
+      .replace(/```json\n?/ig, "")
+      .replace(/```\n?/g, "")
       .trim();
-    
+
     // Find JSON object or array
     const jsonMatch = cleaned.match(/(\{[\s\S]*\}|\[[\s\S]*\])/);
     if (jsonMatch) {
       return JSON.parse(jsonMatch[0]);
     }
-    
+
     return JSON.parse(cleaned);
   } catch (err) {
-    console.error('JSON parse failed, raw text:', text, err);
+    console.error("JSON parse failed, raw text:", text, err);
     return null;
   }
 }
@@ -77,7 +60,8 @@ export async function callAIForJSON(prompt: string): Promise<any> {
   const text = await callAI(prompt);
   const parsed = parseAIJSON(text);
   if (!parsed) {
-    throw new Error('Could not parse AI response as JSON');
+    throw new Error("Could not parse AI response as JSON");
   }
   return parsed;
 }
+

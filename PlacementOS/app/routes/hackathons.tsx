@@ -53,7 +53,7 @@ export default function Hackathons() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 pb-20 font-sans">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 pb-20 font-sans">
       <Navbar />
 
       {/* Hero */}
@@ -72,19 +72,19 @@ export default function Hackathons() {
       <div className="max-w-6xl mx-auto px-6 -mt-14 relative z-10 space-y-8">
 
         {/* Filters */}
-        <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-5 flex flex-col md:flex-row gap-4">
+        <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-800 p-5 flex flex-col md:flex-row gap-4">
           <input type="text" placeholder="🔍 Search hackathon..." value={filter.search} onChange={e => setFilter(f => ({ ...f, search: e.target.value }))}
-            className="flex-1 px-4 py-2.5 border border-gray-200 rounded-xl text-sm font-medium focus:ring-2 focus:ring-orange-400 focus:outline-none" />
+            className="flex-1 px-4 py-2.5 border border-gray-200 dark:border-gray-800 rounded-xl text-sm font-medium focus:ring-2 focus:ring-orange-400 focus:outline-none" />
           <div className="flex gap-2 flex-wrap">
             {["All", "Online", "Offline"].map(m => (
               <button key={m} onClick={() => setFilter(f => ({ ...f, mode: m }))}
-                className={`px-4 py-2 rounded-xl text-sm font-bold border-2 transition-all ${filter.mode === m ? "bg-orange-500 text-white border-orange-500" : "border-gray-200 text-gray-600"}`}>{m}</button>
+                className={`px-4 py-2 rounded-xl text-sm font-bold border-2 transition-all ${filter.mode === m ? "bg-orange-500 text-white border-orange-500" : "border-gray-200 dark:border-gray-800 text-gray-600 dark:text-gray-400"}`}>{m}</button>
             ))}
           </div>
           <div className="flex gap-2 flex-wrap">
             {["All", "Beginner", "Intermediate", "Advanced"].map(d => (
               <button key={d} onClick={() => setFilter(f => ({ ...f, diff: d }))}
-                className={`px-4 py-2 rounded-xl text-sm font-bold border-2 transition-all ${filter.diff === d ? "bg-yellow-500 text-white border-yellow-500" : "border-gray-200 text-gray-600"}`}>{d}</button>
+                className={`px-4 py-2 rounded-xl text-sm font-bold border-2 transition-all ${filter.diff === d ? "bg-yellow-500 text-white border-yellow-500" : "border-gray-200 dark:border-gray-800 text-gray-600 dark:text-gray-400"}`}>{d}</button>
             ))}
           </div>
         </div>
@@ -92,13 +92,13 @@ export default function Hackathons() {
         {/* Hackathon Cards */}
         <div className="grid md:grid-cols-2 gap-5">
           {filtered.map(h => (
-            <div key={h.name} className="bg-white rounded-2xl border border-gray-200 shadow-sm hover:shadow-lg transition-shadow overflow-hidden">
+            <div key={h.name} className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 shadow-sm hover:shadow-lg transition-shadow overflow-hidden">
               <div className="p-5">
                 <div className="flex items-start justify-between gap-3 mb-3">
                   <div className="flex items-center gap-3">
                     <span className="text-3xl">{h.icon}</span>
                     <div>
-                      <h3 className="font-black text-gray-900 text-base leading-tight">{h.name}</h3>
+                      <h3 className="font-black text-gray-900 dark:text-white text-base leading-tight">{h.name}</h3>
                       <p className="text-xs text-gray-500 font-medium">{h.org}</p>
                     </div>
                   </div>
@@ -107,10 +107,10 @@ export default function Hackathons() {
                     <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${h.diff === "Beginner" ? "bg-green-100 text-green-700" : h.diff === "Advanced" ? "bg-red-100 text-red-700" : "bg-yellow-100 text-yellow-700"}`}>{h.diff.split(" ")[0]}</span>
                   </div>
                 </div>
-                <p className="text-sm text-gray-600 font-medium mb-3">{h.desc}</p>
+                <p className="text-sm text-gray-600 dark:text-gray-400 font-medium mb-3">{h.desc}</p>
                 <div className="flex flex-wrap gap-2 mb-4 text-xs font-bold">
                   <span className="px-2 py-1 bg-green-100 text-green-700 rounded-full">💰 {h.prize}</span>
-                  <span className="px-2 py-1 bg-gray-100 text-gray-600 rounded-full">🛠️ {h.tech}</span>
+                  <span className="px-2 py-1 bg-gray-100 text-gray-600 dark:text-gray-400 rounded-full">🛠️ {h.tech}</span>
                   <span className="px-2 py-1 bg-orange-100 text-orange-700 rounded-full">📅 {h.date}</span>
                 </div>
                 <a href={h.link} target="_blank" rel="noreferrer"
@@ -123,7 +123,7 @@ export default function Hackathons() {
         </div>
 
         {/* How to Win */}
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+        <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 overflow-hidden">
           <div className="p-5 bg-yellow-50 border-b border-yellow-100">
             <h2 className="text-xl font-black text-yellow-900">How to Win Hackathons 🏆</h2>
           </div>
@@ -131,8 +131,8 @@ export default function Hackathons() {
             {WIN_TIPS.map(tip => (
               <div key={tip.t} className="p-5">
                 <div className="text-2xl mb-2">{tip.icon}</div>
-                <h3 className="font-black text-gray-900 mb-2">{tip.t}</h3>
-                <p className="text-sm text-gray-600 font-medium">{tip.tip}</p>
+                <h3 className="font-black text-gray-900 dark:text-white mb-2">{tip.t}</h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400 font-medium">{tip.tip}</p>
               </div>
             ))}
           </div>
@@ -145,13 +145,13 @@ export default function Hackathons() {
           <div className="flex gap-3 flex-wrap mb-4">
             {["Web Development", "Machine Learning", "Mobile App", "Blockchain / Web3", "Social Impact", "Competitive Coding"].map(t => (
               <button key={t} onClick={() => setHackType(t)}
-                className={`px-4 py-2 rounded-xl text-sm font-bold border-2 transition-all ${hackType === t ? "bg-white text-orange-600 border-white" : "border-white/40 text-white hover:border-white"}`}>{t}</button>
+                className={`px-4 py-2 rounded-xl text-sm font-bold border-2 transition-all ${hackType === t ? "bg-white dark:bg-gray-900 text-orange-600 border-white" : "border-white/40 text-white hover:border-white"}`}>{t}</button>
             ))}
           </div>
-          <button onClick={getAiTips} disabled={loading} className="px-6 py-2.5 bg-white text-orange-600 font-black rounded-xl text-sm hover:bg-orange-50 disabled:opacity-60 transition-colors mb-4">
+          <button onClick={getAiTips} disabled={loading} className="px-6 py-2.5 bg-white dark:bg-gray-900 text-orange-600 font-black rounded-xl text-sm hover:bg-orange-50 disabled:opacity-60 transition-colors mb-4">
             {loading ? "Getting tips..." : "Get AI Tips 🤖"}
           </button>
-          {aiTips && <div className="bg-white/20 rounded-xl p-4 whitespace-pre-wrap text-sm font-medium">{aiTips}</div>}
+          {aiTips && <div className="bg-white dark:bg-gray-900/20 rounded-xl p-4 whitespace-pre-wrap text-sm font-medium">{aiTips}</div>}
         </div>
 
       </div>
