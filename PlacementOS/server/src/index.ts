@@ -20,12 +20,14 @@ import leaderboardRoutes from "./routes/leaderboard.js";
 import dsaRoutes from "./routes/dsa.js";
 import companyRoutes from "./routes/companyResearch.js";
 import referralRoutes from "./routes/referral.js";
+import aiRoutes from "./routes/ai.js";
 
 const app = express();
+const PORT = process.env.PORT || 5000;
 
 app.use(
   cors({
-    origin: env.clientOrigin,
+    origin: process.env.CLIENT_ORIGIN || env.clientOrigin || "*",
     credentials: true,
   })
 );
@@ -36,7 +38,10 @@ app.get("/", (_req, res) => {
 });
 
 app.get("/health", (_req, res) => {
-  res.json({ ok: true, status: "ok" });
+  res.json({
+    status: "ok",
+    database: "connected"
+  });
 });
 
 app.use("/analyze", analyzeRoutes);
@@ -58,18 +63,27 @@ app.use("/company-research", companyRoutes);
 app.use("/referral", referralRoutes);
 app.use("/jobs-tracker", jobTrackerRoutes);
 app.use("/campus", campusRoutes);
+app.use("/api/ai", aiRoutes);
 
 app.use((err: Error, _req: express.Request, res: express.Response, _next: express.NextFunction) => {
-  console.error(err.message);
+  console.error("Global Error Handler:", err.stack || err.message);
   return res.status(500).json({ message: err.message || "Internal server error" });
 });
 
 async function bootstrap() {
   await connectDb();
-  app.listen(env.port, () => {
-    console.log(`API running on http://localhost:${env.port}`);
+  app.listen(PORT, () => {
+    console.log(`API running on port ${PORT}`);
   });
 }
+
+process.on("unhandledRejection", (err) => {
+  console.error("Unhandled Promise Rejection:", err);
+});
+
+process.on("uncaughtException", (err) => {
+  console.error("Uncaught Exception:", err);
+});
 
 bootstrap().catch((error) => {
   console.error("\n========== API FAILED TO START ==========\n");

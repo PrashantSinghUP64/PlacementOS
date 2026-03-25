@@ -3,13 +3,15 @@ import { env } from "./env.js";
 
 export async function connectDb() {
   try {
+    if (!env.mongoUri) {
+      console.warn("MONGO_URI is not defined in environment variables. Proceeding without DB.");
+      return;
+    }
     await mongoose.connect(env.mongoUri);
+    console.log("MongoDB connected successfully");
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
-    const hint =
-      "\n\nMongoDB connection failed. Common fixes:\n" +
-      "  • Start MongoDB locally, or set MONGO_URI in server/.env (e.g. MongoDB Atlas).\n" +
-      `  • Current MONGO_URI: ${env.mongoUri}\n`;
-    throw new Error(`${message}${hint}`);
+    console.error(`MongoDB connection failed: ${message}`);
+    console.warn("App will continue running, but database features will be unavailable.");
   }
 }
