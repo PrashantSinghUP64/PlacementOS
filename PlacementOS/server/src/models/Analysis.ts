@@ -9,7 +9,7 @@ export interface IDimensions {
 }
 
 export interface IAnalysis {
-  userId: Types.ObjectId;
+  userId: string;
   resumeText: string;
   jobDescription: string;
   jobTitle?: string;
@@ -26,7 +26,7 @@ export interface IAnalysis {
 
 const analysisSchema = new Schema<IAnalysis>(
   {
-    userId: { type: Schema.Types.ObjectId, ref: "User", required: true, index: true },
+    userId: { type: String, required: true, index: true },
     resumeText: { type: String, required: true },
     jobDescription: { type: String, required: true },
     jobTitle: { type: String, default: "" },
