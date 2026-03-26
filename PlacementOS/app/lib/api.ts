@@ -1,5 +1,9 @@
 /** Backend API base (set in `.env` as `VITE_API_BASE_URL`). */
 export function getApiBase(): string {
+  // Safely use localhost in development
+  if (import.meta.env.DEV) {
+    return "http://localhost:5000";
+  }
   const base = import.meta.env.VITE_API_BASE_URL as string | undefined;
   return (base?.replace(/\/$/, "") || "https://placementos-2q42.onrender.com") as string;
 }

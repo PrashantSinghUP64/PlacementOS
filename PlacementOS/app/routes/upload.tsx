@@ -224,19 +224,8 @@ Analyze carefully and return ONLY valid JSON (no markdown, no explanation):
         throw new Error(e instanceof Error ? e.message : "PDF extraction failed.");
       }
 
-      // Step 2: Call Puter.js AI
-      let analysis: AnalysisResult;
-      try {
-        analysis = await runAIAnalysis(resumeText, jobDescription);
-      } catch (e) {
-        throw new Error(
-          e instanceof Error
-            ? `AI Analysis failed: ${e.message}`
-            : "AI Analysis failed. Please try again."
-        );
-      }
-
-      // Step 3: Save to backend MongoDB
+      // Step 2: Call Backend AI Analysis
+      let analysis: AnalysisResult | null = null;
       try {
         const res = await apiFetch("/analyze", {
           method: "POST",
@@ -244,17 +233,45 @@ Analyze carefully and return ONLY valid JSON (no markdown, no explanation):
           body: JSON.stringify({
             resumeText,
             jobDescription,
-            jobTitle: analysis.jobTitle || jobTitle,
-            analysis,
+            jobTitle,
           }),
         });
         if (res.ok) {
-          const saved = await res.json().catch(() => ({})) as { id?: string };
-          analysis.id = saved.id;
+          analysis = await res.json() as AnalysisResult;
+        } else {
+          console.warn("Backend analysis failed, trying UI fallback...", await res.text());
         }
-      } catch {
-        // Backend save failure is non-critical — still show results
-        console.warn("Could not save to backend. Results shown but not persisted.");
+      } catch (e) {
+        console.warn("Backend API not reachable or failed, trying UI fallback...", e);
+      }
+
+      // Step 3: Frontend Fallback (if backend failed)
+      if (!analysis) {
+        try {
+          analysis = await runAIAnalysis(resumeText, jobDescription);
+          
+          // Save the UI-generated fallback result to backend properly
+          const res = await apiFetch("/analyze", {
+            method: "POST",
+            token,
+            body: JSON.stringify({
+              resumeText,
+              jobDescription,
+              jobTitle: analysis.jobTitle || jobTitle,
+              analysis,
+            }),
+          });
+          if (res.ok) {
+            const saved = await res.json().catch(() => ({})) as { id?: string };
+            analysis.id = saved.id;
+          }
+        } catch (e) {
+          throw new Error(
+            e instanceof Error
+              ? `AI Analysis failed: ${e.message}`
+              : "AI Analysis failed. Please try again."
+          );
+        }
       }
 
       setResult(analysis);

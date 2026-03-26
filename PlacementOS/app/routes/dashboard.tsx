@@ -61,6 +61,8 @@ export default function Dashboard() {
           const h = await historyRes.json() as RecentAnalysis[];
           setRecent(h.slice(0, 5));
         }
+      } catch (err) {
+        console.error("Dashboard failed to fetch history APIs:", err);
       } finally {
         setLoading(false);
       }
