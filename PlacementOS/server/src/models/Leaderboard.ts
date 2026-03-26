@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 const leaderboardSchema = new mongoose.Schema({
-  userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true, unique: true },
+  userId: { type: String, ref: 'User', required: true, unique: true },
   name: { type: String, required: true },
   college: { type: String, required: true, index: true },
   bestScore: { type: Number, default: 0, index: -1 },

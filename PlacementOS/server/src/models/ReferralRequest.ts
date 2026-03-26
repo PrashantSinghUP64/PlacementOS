@@ -1,8 +1,8 @@
 import mongoose from 'mongoose';
 
 const referralRequestSchema = new mongoose.Schema({
-  fromUserId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-  toProviderId: { type: mongoose.Schema.Types.ObjectId, ref: 'ReferralProvider', required: true },
+  fromUserId: { type: String, ref: 'User', required: true },
+  toProviderId: { type: String, ref: 'ReferralProvider', required: true },
   requesterName: { type: String, required: true },
   requesterEmail: { type: String, required: true },
   linkedinUrl: { type: String, required: true },

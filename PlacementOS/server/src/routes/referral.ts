@@ -128,7 +128,7 @@ router.get('/incoming-requests', async (req: any, res: any) => {
     const provider = await ReferralProvider.findOne({ userId: req.user.userId });
     if (!provider) return res.status(200).json([]);
 
-    const requests = await ReferralRequest.find({ toProviderId: provider._id })
+    const requests = await ReferralRequest.find({ toProviderId: provider.id })
                                           .sort({ createdAt: -1 });
     res.status(200).json(requests);
   } catch (error) {
@@ -158,7 +158,7 @@ router.put('/request/:id', async (req: any, res: any) => {
     const provider = await ReferralProvider.findOne({ userId: req.user.userId });
     if (!provider) return res.status(401).json({ message: 'Not authorized' });
 
-    const request = await ReferralRequest.findOne({ _id: req.params.id, toProviderId: provider._id });
+    const request = await ReferralRequest.findOne({ _id: req.params.id, toProviderId: provider.id });
     if (!request) return res.status(404).json({ message: 'Request not found' });
 
     request.status = status;

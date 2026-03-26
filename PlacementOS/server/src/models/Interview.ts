@@ -7,7 +7,7 @@ interface Question {
 }
 
 export interface IInterview extends Document {
-  userId: mongoose.Types.ObjectId;
+  userId: string;
   jobRole: string;
   resumeText: string;
   questions: {
@@ -26,7 +26,7 @@ const QuestionSchema = new Schema({
 });
 
 const InterviewSchema = new Schema<IInterview>({
-  userId: { type: Schema.Types.ObjectId, ref: "User", required: true },
+  userId: { type: String, ref: "User", required: true },
   jobRole: { type: String, required: true },
   resumeText: { type: String, required: true },
   questions: {

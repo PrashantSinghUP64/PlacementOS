@@ -1,7 +1,7 @@
 import mongoose, { Document, Schema } from "mongoose";
 
 export interface ICoverLetter extends Document {
-  userId: mongoose.Types.ObjectId;
+  userId: string;
   companyName: string;
   jobDescription: string;
   resumeText: string;
@@ -12,7 +12,7 @@ export interface ICoverLetter extends Document {
 }
 
 const CoverLetterSchema = new Schema<ICoverLetter>({
-  userId: { type: Schema.Types.ObjectId, ref: "User", required: true },
+  userId: { type: String, ref: "User", required: true },
   companyName: { type: String, required: true },
   jobDescription: { type: String, required: true },
   resumeText: { type: String, required: true },

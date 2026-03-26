@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 const dsaProblemSchema = new mongoose.Schema({
-  userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true, index: true },
+  userId: { type: String, ref: 'User', required: true, index: true },
   name: { type: String, required: true },
   platform: { type: String, required: true }, // LeetCode, GFG, HackerRank
   difficulty: { type: String, required: true }, // Easy, Medium, Hard

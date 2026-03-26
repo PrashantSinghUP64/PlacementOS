@@ -31,7 +31,7 @@ interface Project {
 }
 
 export interface IResumeBuilder extends Document {
-  userId: mongoose.Types.ObjectId;
+  userId: string;
   personalInfo: PersonalInfo;
   experience: Experience[];
   education: Education[];
@@ -43,7 +43,7 @@ export interface IResumeBuilder extends Document {
 
 const ResumeBuilderSchema = new Schema<IResumeBuilder>(
   {
-    userId: { type: Schema.Types.ObjectId, ref: "User", required: true },
+    userId: { type: String, ref: "User", required: true },
     personalInfo: {
       fullName: { type: String, default: "" },
       email: { type: String, default: "" },

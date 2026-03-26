@@ -12,8 +12,8 @@ export interface IJob extends Document {
   source: string; // e.g., 'LinkedIn', 'Unstop', 'Internshala'
   category: "SDE" | "Analyst" | "Design" | "Marketing" | "Other";
   jobType: "On-Campus" | "Off-Campus" | "Internship";
-  bookmarkedBy: mongoose.Types.ObjectId[];
-  appliedBy: mongoose.Types.ObjectId[];
+  bookmarkedBy: string[];
+  appliedBy: string[];
   createdAt: Date;
   updatedAt: Date;
 }
@@ -39,8 +39,8 @@ const JobSchema: Schema = new Schema(
       enum: ["On-Campus", "Off-Campus", "Internship"],
       required: true,
     },
-    bookmarkedBy: [{ type: Schema.Types.ObjectId, ref: "User" }],
-    appliedBy: [{ type: Schema.Types.ObjectId, ref: "User" }],
+    bookmarkedBy: [{ type: String, ref: "User" }],
+    appliedBy: [{ type: String, ref: "User" }],
   },
   { timestamps: true }
 );

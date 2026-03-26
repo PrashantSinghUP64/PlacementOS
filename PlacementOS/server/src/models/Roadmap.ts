@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 const roadmapSchema = new mongoose.Schema({
-  userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+  userId: { type: String, ref: 'User', required: true },
   targetRole: String,
   targetCompany: String,
   targetPackage: String,

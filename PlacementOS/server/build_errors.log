@@ -1,0 +1,21 @@
+
+> resume-analyzer-server@1.0.0 build
+> tsc
+
+src/routes/referral.ts(131,51): error TS2769: No overload matches this call.
+  Overload 1 of 4, '(filter?: _QueryFilter<{ createdAt: NativeDate; updatedAt: NativeDate; message: string; targetRole: string; status: NonNullable<"Pending" | "Accepted" | "Declined">; ... 5 more ...; resumeUrl: string; }> | undefined, projection?: ProjectionType<...> | ... 1 more ... | undefined, options?: (QueryOptions<...> & Abortable) | undefined): Query<...>', gave the following error.
+    Type 'ObjectId' is not assignable to type 'Condition<ApplyBasicQueryCasting<string>> | undefined'.
+      Type 'ObjectId' is not assignable to type 'FilterOperators<string | RegExp | string[] | BSONRegExp | null>'.
+        Types of property 'id' are incompatible.
+          Type 'Uint8Array<ArrayBufferLike>' is not assignable to type 'undefined'.
+  Overload 2 of 4, '(filter?: Query<any, any, {}, unknown, "find", Record<string, never>> | undefined, projection?: ProjectionType<{ createdAt: NativeDate; updatedAt: NativeDate; message: string; ... 7 more ...; resumeUrl: string; }> | null | undefined, options?: (QueryOptions<...> & Abortable) | undefined): Query<...>', gave the following error.
+    Object literal may only specify known properties, and 'toProviderId' does not exist in type 'Query<any, any, {}, unknown, "find", Record<string, never>>'.
+src/routes/referral.ts(161,43): error TS2769: No overload matches this call.
+  Overload 1 of 4, '(filter?: _QueryFilter<{ createdAt: NativeDate; updatedAt: NativeDate; message: string; targetRole: string; status: NonNullable<"Pending" | "Accepted" | "Declined">; ... 5 more ...; resumeUrl: string; }> | undefined, projection?: ProjectionType<...> | ... 1 more ... | undefined, options?: (QueryOptions<...> & Abortable) | ... 1 more ... | undefined): Query<...>', gave the following error.
+    Type 'ObjectId' is not assignable to type 'Condition<ApplyBasicQueryCasting<string>> | undefined'.
+      Type 'ObjectId' is not assignable to type 'FilterOperators<string | RegExp | string[] | BSONRegExp | null>'.
+        Types of property 'id' are incompatible.
+          Type 'Uint8Array<ArrayBufferLike>' is not assignable to type 'undefined'.
+  Overload 2 of 4, '(filter?: Query<any, any, {}, unknown, "find", Record<string, never>> | undefined, projection?: ProjectionType<{ createdAt: NativeDate; updatedAt: NativeDate; message: string; ... 7 more ...; resumeUrl: string; }> | null | undefined, options?: (QueryOptions<...> & Abortable) | ... 1 more ... | undefined): Query<...>', gave the following error.
+    Object literal may only specify known properties, and '_id' does not exist in type 'Query<any, any, {}, unknown, "find", Record<string, never>>'.
+src/routes/referral.ts(166,19): error TS2339: Property 'save' does not exist on type '{ createdAt: NativeDate; updatedAt: NativeDate; message: string; targetRole: string; status: "Pending" | "Accepted" | "Declined"; linkedinUrl: string; fromUserId: string; toProviderId: string; requesterName: string; requesterEmail: string; resumeUrl: string; } & { ...; } & { ...; }'.
