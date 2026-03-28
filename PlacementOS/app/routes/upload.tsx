@@ -80,6 +80,29 @@ interface AnalysisResult {
   jobTitle?: string;
 }
 
+// Backend sends `dimensions` instead of `breakdown` — normalize into frontend shape
+function normalizeBackendResult(raw: any): AnalysisResult {
+  const dim = raw?.dimensions ?? {};
+  const bd  = raw?.breakdown  ?? {};
+  return {
+    id:           raw?.id,
+    overallScore: Number(raw?.overallScore ?? raw?.atsScore ?? 0),
+    atsScore:     Number(raw?.atsScore ?? raw?.overallScore ?? 0),
+    jobTitle:     raw?.jobTitle ?? "",
+    breakdown: {
+      skills:     Number(dim.skillsMatch     ?? bd.skills     ?? 0),
+      experience: Number(dim.experienceMatch ?? bd.experience ?? 0),
+      education:  Number(dim.educationMatch  ?? bd.education  ?? 0),
+      keywords:   Number(dim.keywordsMatch   ?? bd.keywords   ?? 0),
+      tone:       Number(dim.toneStyle       ?? bd.tone       ?? 0),
+    },
+    missingKeywords: Array.isArray(raw?.missingKeywords) ? raw.missingKeywords : [],
+    strengths:       Array.isArray(raw?.strengths)       ? raw.strengths       : [],
+    improvements:    Array.isArray(raw?.improvements)    ? raw.improvements    : [],
+    suggestions:     Array.isArray(raw?.suggestions)     ? raw.suggestions     : [],
+  };
+}
+
 interface Job {
   id: string;
   title: string;
@@ -237,7 +260,8 @@ Analyze carefully and return ONLY valid JSON (no markdown, no explanation):
           }),
         });
         if (res.ok) {
-          analysis = await res.json() as AnalysisResult;
+          const raw = await res.json();
+          analysis = normalizeBackendResult(raw);
         } else {
           console.warn("Backend analysis failed, trying UI fallback...", await res.text());
         }
