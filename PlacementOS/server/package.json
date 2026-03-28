@@ -14,6 +14,7 @@
   "license": "ISC",
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
+    "@supabase/supabase-js": "^2.100.1",
     "@types/nodemailer": "^7.0.11",
     "ai-resume-analyzer": "file:..",
     "ai-resume-checker-root": "file:../..",
