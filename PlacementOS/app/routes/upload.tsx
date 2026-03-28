@@ -278,7 +278,7 @@ Analyze carefully and return ONLY valid JSON (no markdown, no explanation):
 
       // Step 4: Load matching jobs
       setLoadingJobs(true);
-      const skillsQuery = (analysis.missingKeywords.slice(0, 5).join(",") || "react,node,javascript");
+      const skillsQuery = ((analysis?.missingKeywords || []).slice(0, 5).join(",") || "react,node,javascript");
       apiFetch(`/jobs?skills=${encodeURIComponent(skillsQuery)}`, { token })
         .then(async (r) => { if (r.ok) setJobs(await r.json()); })
         .catch(() => {})
@@ -329,19 +329,19 @@ Analyze carefully and return ONLY valid JSON (no markdown, no explanation):
     y += 4;
 
     addLine("Missing Keywords", 13, true);
-    addLine(`  ${result.missingKeywords.join(", ") || "None"}`);
+    addLine(`  ${(result?.missingKeywords || []).join(", ") || "None"}`);
     y += 4;
 
     addLine("Strengths", 13, true);
-    result.strengths.forEach((s) => addLine(`  ✓ ${s}`));
+    (result?.strengths || []).forEach((s) => addLine(`  ✓ ${s}`));
     y += 4;
 
     addLine("Improvements", 13, true);
-    result.improvements.forEach((s) => addLine(`  ⚠ ${s}`));
+    (result?.improvements || []).forEach((s) => addLine(`  ⚠ ${s}`));
     y += 4;
 
     addLine("AI Suggestions", 13, true);
-    result.suggestions.forEach((s, i) => addLine(`  ${i + 1}. ${s}`));
+    (result?.suggestions || []).forEach((s, i) => addLine(`  ${i + 1}. ${s}`));
 
     doc.save(`PlacementOS-${new Date().toISOString().split("T")[0]}.pdf`);
   }
@@ -518,14 +518,14 @@ Analyze carefully and return ONLY valid JSON (no markdown, no explanation):
             </div>
 
             {/* Missing Keywords */}
-            {result.missingKeywords.length > 0 && (
+            {(result?.missingKeywords || []).length > 0 && (
               <div className="card">
                 <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-2">❌ Missing Keywords</h2>
                 <p className="text-sm text-gray-500 mb-3">
                   These terms appear in the job description but not in your resume. Add them naturally:
                 </p>
                 <div className="flex flex-wrap gap-2">
-                  {result.missingKeywords.map((kw) => (
+                  {(result?.missingKeywords || []).map((kw) => (
                     <span key={kw} className="chip-red">{kw}</span>
                   ))}
                 </div>
@@ -537,7 +537,7 @@ Analyze carefully and return ONLY valid JSON (no markdown, no explanation):
               <div className="card">
                 <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-3">✅ Strengths</h2>
                 <ul className="space-y-2">
-                  {result.strengths.map((s, i) => (
+                  {(result?.strengths || []).map((s, i) => (
                     <li key={i} className="flex items-start gap-2 text-sm text-gray-700 dark:text-gray-300">
                       <span className="text-emerald-500 mt-0.5 shrink-0 font-bold">✓</span>
                       {s}
@@ -548,7 +548,7 @@ Analyze carefully and return ONLY valid JSON (no markdown, no explanation):
               <div className="card">
                 <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-3">⚠️ Improvements</h2>
                 <ul className="space-y-2">
-                  {result.improvements.map((s, i) => (
+                  {(result?.improvements || []).map((s, i) => (
                     <li key={i} className="flex items-start gap-2 text-sm text-gray-700 dark:text-gray-300">
                       <span className="text-yellow-500 mt-0.5 shrink-0 font-bold">!</span>
                       {s}
@@ -562,7 +562,7 @@ Analyze carefully and return ONLY valid JSON (no markdown, no explanation):
             <div className="card">
               <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-4">💡 AI Suggestions</h2>
               <ol className="space-y-3">
-                {result.suggestions.map((s, i) => (
+                {(result?.suggestions || []).map((s, i) => (
                   <li key={i} className="flex items-start gap-3 text-sm text-gray-700 dark:text-gray-300">
                     <span className="w-6 h-6 primary-gradient rounded-full flex items-center justify-center text-white font-bold text-xs shrink-0 mt-0.5">
                       {i + 1}
