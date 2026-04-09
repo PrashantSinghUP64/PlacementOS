@@ -47,7 +47,7 @@ router.post("/", requireAuth, async (req: AuthRequest, res) => {
         console.log("[Backend Analyze Engine] Missing analysis object, calling Gemini...");
         if (!env.geminiApiKey) throw new Error("GEMINI_API_KEY is not configured in backend");
         const genAI = new GoogleGenerativeAI(env.geminiApiKey);
-        const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
         
         const prompt = `You are an expert ATS resume analyzer.
 Analyze this SPECIFIC resume against this SPECIFIC job description.
