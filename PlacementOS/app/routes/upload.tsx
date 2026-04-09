@@ -260,8 +260,13 @@ Analyze carefully and return ONLY valid JSON (no markdown, no explanation):
           }),
         });
         if (res.ok) {
-          const raw = await res.json();
-          analysis = normalizeBackendResult(raw);
+          const text = await res.text();
+          try {
+            const raw = JSON.parse(text);
+            analysis = normalizeBackendResult(raw);
+          } catch (e) {
+            throw new Error("Invalid response from server. Please try again later.");
+          }
         } else {
           console.warn("Backend analysis failed, trying UI fallback...", await res.text());
         }
@@ -286,8 +291,13 @@ Analyze carefully and return ONLY valid JSON (no markdown, no explanation):
             }),
           });
           if (res.ok) {
-            const saved = await res.json().catch(() => ({})) as { id?: string };
-            analysis.id = saved.id;
+            try {
+              const text = await res.text();
+              const saved = JSON.parse(text) as { id?: string };
+              analysis.id = saved.id;
+            } catch (e) {
+              // Ignore failure on saving fallback
+            }
           }
         } catch (e) {
           throw new Error(
