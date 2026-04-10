@@ -82,6 +82,8 @@ export default function CareerChatbot() {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [showBadge, setShowBadge] = useState(false);
+  const [retryCountdown, setRetryCountdown] = useState<number | null>(null);
+  const [retryPrompt, setRetryPrompt] = useState<string>("");
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
@@ -104,45 +106,46 @@ export default function CareerChatbot() {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, loading]);
 
-  const sendMessage = useCallback(async (userMessage: string) => {
+  const sendMessage = useCallback(async (userMessage: string, isRetry = false) => {
     const trimmed = userMessage.trim();
     if (!trimmed || loading) return;
 
-    const userMsg: Message = { role: "user", content: trimmed, ts: Date.now() };
-    const newMsgs = [...messages, userMsg];
-    setMessages(newMsgs);
-    saveHistory(newMsgs);
-    setInput("");
+    let newMsgs = messages;
+    if (!isRetry) {
+      const userMsg: Message = { role: "user", content: trimmed, ts: Date.now() };
+      newMsgs = [...messages, userMsg];
+      setMessages(newMsgs);
+      saveHistory(newMsgs);
+      setInput("");
+    }
+    
     setLoading(true);
+    setRetryCountdown(null);
 
     try {
-
-
       // Build conversation history for context (last 6 messages)
       const recentHistory = newMsgs.slice(-6)
         .map(m => `${m.role === "user" ? "Student" : "Counselor"}: ${m.content}`)
         .join('\n');
 
-      const fullPrompt = `${systemContext}
-
-Previous conversation:
-${recentHistory}
-
-Student's new question: "${trimmed}"
-
-Answer this specific question based on context above.`;
+      const fullPrompt = `${systemContext}\n\nPrevious conversation:\n${recentHistory}\n\nStudent's new question: "${trimmed}"\n\nAnswer this specific question based on context above.`;
 
       const aiText = await callAI(fullPrompt);
 
-      const assistantMsg: Message = { role: "assistant", content: aiText, ts: Date.now() };
-      const updated = [...newMsgs, assistantMsg];
-      setMessages(updated);
-      saveHistory(updated);
+      if (aiText.includes("⏳ AI service is currently busy")) {
+        setRetryPrompt(trimmed);
+        setRetryCountdown(60);
+      } else {
+        const assistantMsg: Message = { role: "assistant", content: aiText, ts: Date.now() };
+        const updated = [...newMsgs, assistantMsg];
+        setMessages(updated);
+        saveHistory(updated);
+      }
     } catch (error) {
       console.error(error);
       const errMsg: Message = {
         role: "assistant",
-        content: "Thoda network issue hua. Dobara try karo! 😊",
+        content: "🔧 Something went wrong. Please try again in a moment.",
         ts: Date.now()
       };
       const updated = [...newMsgs, errMsg];
@@ -152,6 +155,21 @@ Answer this specific question based on context above.`;
       setLoading(false);
     }
   }, [messages, loading]);
+
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
+    if (retryCountdown !== null && retryCountdown > 0) {
+      timer = setTimeout(() => {
+        setRetryCountdown(prev => prev! - 1);
+      }, 1000);
+    } else if (retryCountdown === 0) {
+      setRetryCountdown(null);
+      // Auto-retry the original prompt
+      sendMessage(retryPrompt, true);
+    }
+    return () => clearTimeout(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [retryCountdown, retryPrompt]);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === "Enter" && !e.shiftKey) {
@@ -263,6 +281,16 @@ Answer this specific question based on context above.`;
                 </div>
               </div>
             )}
+
+            {/* Retry Countdown Tracker */}
+            {retryCountdown !== null && (
+              <div className="flex justify-start">
+                <div className="bg-orange-50 dark:bg-gray-900 border border-orange-200 dark:border-gray-700 text-orange-800 dark:text-orange-200 rounded-2xl rounded-bl-none px-4 py-2.5 shadow-sm text-sm font-medium">
+                  ⏳ AI service is currently busy. Retrying in {retryCountdown}s...
+                </div>
+              </div>
+            )}
+            
             <div ref={messagesEndRef} />
           </div>
 

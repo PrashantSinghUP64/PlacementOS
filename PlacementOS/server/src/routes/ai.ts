@@ -36,7 +36,7 @@ router.post("/chat", async (req, res) => {
     }
 
     const ai = getGenAI();
-    const model = ai.getGenerativeModel({ model: "gemini-2.5-flash" });
+    const model = ai.getGenerativeModel({ model: "gemini-1.5-flash" });
 
     const result = await model.generateContent(prompt);
     const response = result.response;
@@ -46,16 +46,18 @@ router.post("/chat", async (req, res) => {
   } catch (err: any) {
     console.error("[AI Route] Error:", err?.message ?? err);
 
-    // Give a user-friendly error without leaking internals
-    const message =
-      err?.message?.includes("API_KEY") || err?.message?.includes("not configured")
-        ? "Gemini API key is missing or invalid. Please configure it properly."
-        : err?.message?.includes("quota") || err?.message?.includes("RESOURCE_EXHAUSTED")
-        ? "AI service quota exceeded. Please try again later."
-        : "AI request failed. Please try again.";
+    const isRateLimit =
+      err?.status === 429 ||
+      err?.message?.includes("429") ||
+      err?.message?.includes("RESOURCE_EXHAUSTED") ||
+      err?.message?.includes("quota");
 
-    // Provide a fallback response if API fails
-    return res.json({ text: `[Fallback Response] I am currently unable to process your request. ${message}` });
+    let message = "🔧 Something went wrong. Please try again in a moment.";
+    if (isRateLimit) {
+      message = "⏳ AI service is currently busy. Please wait a moment and try again.";
+    }
+
+    return res.json({ text: message });
   }
 });
 
