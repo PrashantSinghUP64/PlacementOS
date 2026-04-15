@@ -1,19 +1,20 @@
 import express from "express";
-import { GoogleGenerativeAI } from "@google/generative-ai";
+import Groq from "groq-sdk";
 import { env } from "../config/env.js";
 
 const router = express.Router();
 
-let genAI: GoogleGenerativeAI | null = null;
+let groqClient: Groq | null = null;
 
-function getGenAI(): GoogleGenerativeAI {
-  if (!genAI) {
-    if (!env.geminiApiKey) {
-      throw new Error("GEMINI_API_KEY is not configured. Please add it to server/.env");
+function getGroqClient(): Groq {
+  if (!groqClient) {
+    const apiKey = env.groqApiKey || process.env.GROQ_API_KEY;
+    if (!apiKey) {
+      throw new Error("GROQ_API_KEY is not configured. Please add it to server/.env");
     }
-    genAI = new GoogleGenerativeAI(env.geminiApiKey);
+    groqClient = new Groq({ apiKey });
   }
-  return genAI;
+  return groqClient;
 }
 
 /**
@@ -35,12 +36,15 @@ router.post("/chat", async (req, res) => {
       return res.status(400).json({ error: "prompt too long (max 30,000 characters)" });
     }
 
-    const ai = getGenAI();
-    const model = ai.getGenerativeModel({ model: "gemini-1.5-flash" });
+    const groq = getGroqClient();
 
-    const result = await model.generateContent(prompt);
-    const response = result.response;
-    const text = response.text();
+    const completion = await groq.chat.completions.create({
+      model: "llama-3.3-70b-versatile",
+      messages: [{ role: "user", content: prompt }],
+      max_tokens: 1000
+    });
+    
+    const text = completion.choices[0].message.content || "";
 
     return res.json({ text });
   } catch (err: any) {

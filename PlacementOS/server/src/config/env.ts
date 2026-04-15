@@ -12,5 +12,5 @@ export const env = {
   smtpUser: process.env.SMTP_USER || "",
   smtpPass: process.env.SMTP_PASS || "",
   supabaseJwtSecret: process.env.SUPABASE_JWT_SECRET || (process.env.JWT_SECRET as string),
-  geminiApiKey: process.env.GEMINI_API_KEY as string,
+  groqApiKey: process.env.GROQ_API_KEY as string,
 };

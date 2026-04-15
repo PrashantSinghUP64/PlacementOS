@@ -3,7 +3,7 @@ import { requireAuth } from "../middleware/auth.js";
 import type { AuthRequest } from "../types/auth.js";
 import { Analysis } from "../models/Analysis.js";
 import { User } from "../models/User.js";
-import { GoogleGenerativeAI } from "@google/generative-ai";
+import Groq from "groq-sdk";
 import { env } from "../config/env.js";
 
 const router = Router();
@@ -11,7 +11,7 @@ const router = Router();
 /**
  * POST /analyze
  * Receives AI-generated analysis from frontend (Puter.js),
- * OR performs the analysis via backend Gemini,
+ * OR performs the analysis via backend Groq,
  * saves it to MongoDB, and returns the saved record.
  */
 router.post("/", requireAuth, async (req: AuthRequest, res) => {
@@ -44,10 +44,12 @@ router.post("/", requireAuth, async (req: AuthRequest, res) => {
 
     if (!analysis) {
       try {
-        console.log("[Backend Analyze Engine] Missing analysis object, calling Gemini...");
-        if (!env.geminiApiKey) throw new Error("GEMINI_API_KEY is not configured in backend");
-        const genAI = new GoogleGenerativeAI(env.geminiApiKey);
-        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+        console.log("[Backend Analyze Engine] Missing analysis object, calling Groq...");
+        if (!process.env.GROQ_API_KEY && !env.groqApiKey) {
+           throw new Error("GROQ_API_KEY is not configured in backend");
+        }
+        const groqApiKey = env.groqApiKey || process.env.GROQ_API_KEY;
+        const groq = new Groq({ apiKey: groqApiKey });
         
         const prompt = `You are an expert ATS resume analyzer.
 Analyze this SPECIFIC resume against this SPECIFIC job description.
@@ -58,7 +60,7 @@ ${resumeText.slice(0, 3000)}
 JOB DESCRIPTION:
 ${jobDescription.slice(0, 2000)}
 
-Analyze carefully and return ONLY valid JSON (no markdown, no explanation):
+Analyze carefully and return ONLY valid JSON. No markdown, no backticks, no extra text.
 {
   "overallScore": 72,
   "breakdown": {
@@ -87,11 +89,15 @@ Analyze carefully and return ONLY valid JSON (no markdown, no explanation):
   "atsScore": 68,
   "jobTitle": "Software Developer"
 }`;
-        const result = await model.generateContent(prompt);
-        const text = result.response.text();
-        const jsonStr = text.replace(/```json/g, "").replace(/```/g, "").trim();
-        analysis = JSON.parse(jsonStr);
-        console.log("[Backend Analyze Engine] Gemini text parsed successfully!");
+        const completion = await groq.chat.completions.create({
+          model: "llama-3.3-70b-versatile",
+          messages: [{ role: "user", content: prompt }],
+          max_tokens: 1000
+        });
+        const rawText = completion.choices[0].message.content || "";
+        const cleanedText = rawText.replace(/```json/gi, "").replace(/```/g, "").trim();
+        analysis = JSON.parse(cleanedText);
+        console.log("[Backend Analyze Engine] Groq text parsed successfully!");
       } catch (err: any) {
         console.error("[Backend Analyze Engine Error]", err);
         // Fallback behavior if backend fails: instruct frontend to use its fallback

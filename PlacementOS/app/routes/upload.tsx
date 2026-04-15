@@ -392,7 +392,7 @@ Analyze carefully and return ONLY valid JSON (no markdown, no explanation):
           <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Analyze Resume</h1>
           <p className="text-gray-500 mt-1">
             Upload your PDF, paste a job description, and get instant
-            <span className="font-semibold text-violet-700"> real AI analysis</span> via Gemini AI.
+            <span className="font-semibold text-violet-700"> real AI analysis</span> via Groq AI.
           </p>
         </div>
 
@@ -472,7 +472,7 @@ Analyze carefully and return ONLY valid JSON (no markdown, no explanation):
                 <div className="absolute inset-0 w-16 h-16 border-4 border-violet-600 border-t-transparent rounded-full animate-spin" />
               </div>
               <p className="text-gray-700 dark:text-gray-300 font-medium text-base animate-fade-in">{loadingMsg}</p>
-              <p className="text-xs text-gray-400">Powered by Google Gemini AI</p>
+              <p className="text-xs text-gray-400">Powered by Groq AI</p>
             </div>
           ) : (
             <button

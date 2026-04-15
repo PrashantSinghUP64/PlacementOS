@@ -1,16 +1,15 @@
 // ================================================
-// GEMINI AI HELPER — Centralized backend AI calls
+// GROQ AI HELPER — Centralized backend AI calls
 // ================================================
 import { getApiBase } from "./api";
 
 /**
- * Send a prompt to the backend Gemini AI endpoint.
+ * Send a prompt to the backend Groq AI endpoint.
  * Replaces all previous window.puter.ai.chat calls.
  */
 export async function callAI(prompt: string): Promise<string> {
   try {
-    const VITE_API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "https://placementos-2q42.onrender.com";
-    const res = await fetch(`${VITE_API_BASE_URL}/api/ai/chat`, {
+    const res = await fetch(`${getApiBase()}/api/ai/chat`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ message: prompt }),
