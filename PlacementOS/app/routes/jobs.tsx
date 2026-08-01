@@ -253,16 +253,18 @@ export default function JobsBoard() {
                       <div className="w-12 h-12 bg-gradient-to-br from-blue-100 to-indigo-100 dark:from-blue-900 dark:to-indigo-900 flex items-center justify-center rounded-xl text-xl font-black text-blue-700 dark:text-blue-300 shadow-sm shrink-0">
                         {job.companyName.charAt(0).toUpperCase()}
                       </div>
-                      <div>
-                        <h3 className="font-bold text-lg text-gray-900 dark:text-white leading-tight truncate">{job.roleType}</h3>
+                      <div className="min-w-0">
+                        <div className="flex items-center gap-2 mb-1">
+                          <h3 className="font-bold text-lg text-gray-900 dark:text-white leading-tight truncate">{job.roleType}</h3>
+                          {isFresh(job.createdAt) && (
+                            <span className="text-[10px] font-black uppercase tracking-wider bg-red-100 text-red-600 dark:bg-red-900/30 dark:text-red-400 px-2 py-0.5 rounded-full border border-red-200 dark:border-red-800 animate-pulse shrink-0">
+                              🔥 Fresh
+                            </span>
+                          )}
+                        </div>
                         <p className="text-gray-600 dark:text-gray-400 font-medium text-sm">{job.companyName}</p>
                       </div>
                     </div>
-                    {isFresh(job.createdAt) && (
-                      <span className="text-[10px] font-black uppercase tracking-wider bg-red-100 text-red-600 dark:bg-red-900/30 dark:text-red-400 px-2 py-1 rounded-full absolute top-4 left-4 border border-red-200 dark:border-red-800 animate-pulse">
-                        🔥 Fresh (24h)
-                      </span>
-                    )}
                   </div>
 
                   <div className="flex flex-wrap gap-2 mb-4 text-xs font-semibold">
