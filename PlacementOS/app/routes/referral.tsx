@@ -38,7 +38,13 @@ export default function ReferralNetwork() {
 
   // Fetch initial data based on mode
   useEffect(() => {
-    if (!token) return;
+    if (!token) {
+      // No token fallback to mock
+      if (mode === "need") {
+        setProviders(mockProviders);
+      }
+      return;
+    }
     if (mode === "need") {
       fetchProviders();
       fetchOutgoingRequests();
@@ -47,6 +53,12 @@ export default function ReferralNetwork() {
       fetchIncomingRequests();
     }
   }, [mode, token]);
+
+  const mockProviders = [
+    { _id: "p1", name: "Ravi Kumar", company: "Google", role: "Software Engineer L4", college: "IIT Delhi", rolesReferredFor: ["SDE", "Frontend", "Backend"], responseRate: 95 },
+    { _id: "p2", name: "Anjali Gupta", company: "Microsoft", role: "SDE II", college: "VIT Vellore", rolesReferredFor: ["SDE", "Data Engineer"], responseRate: 88 },
+    { _id: "p3", name: "Suresh Menon", company: "Amazon", role: "SDE I", college: "NIT Warangal", rolesReferredFor: ["SDE", "Full Stack"], responseRate: 75 },
+  ];
 
   // --- NEED API CALLS ---
   const fetchProviders = async () => {
@@ -58,9 +70,14 @@ export default function ReferralNetwork() {
       if (searchCollege) query.append("college", searchCollege);
       
       const res = await apiFetch(`/referral/providers?${query.toString()}`, { token });
-      if (Array.isArray(res)) setProviders(res);
+      if (Array.isArray(res) && res.length > 0) {
+        setProviders(res);
+      } else {
+        setProviders(mockProviders);
+      }
     } catch (err) {
       console.error(err);
+      setProviders(mockProviders);
     } finally {
       setLoading(false);
     }

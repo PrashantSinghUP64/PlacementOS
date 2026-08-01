@@ -99,6 +99,28 @@ export default function DSATracker() {
   // Load localStorage on mount
   useEffect(() => { setProgress(loadProgress()); }, []);
 
+  // --- AI Hint state ---
+  const [aiHintModal, setAiHintModal] = useState<string | null>(null);
+  const [aiHintResult, setAiHintResult] = useState("");
+  const [aiHintLoading, setAiHintLoading] = useState(false);
+
+  const getAiHint = async (problemName: string) => {
+    setAiHintModal(problemName);
+    setAiHintResult("");
+    setAiHintLoading(true);
+    try {
+      // Inline dynamic import or callAI wrapper
+      const { callAI } = await import("~/lib/aiHelper");
+      const prompt = `Act as an expert competitive programming mentor. Provide a conceptual hint, intuition, and optimal time/space complexity to solve the DSA problem "${problemName}". Do NOT write the full code. Keep it short and encouraging.`;
+      const res = await callAI(prompt);
+      setAiHintResult(res);
+    } catch (err) {
+      setAiHintResult("💡 Hint: Start by thinking about the brute force approach, then see if you can optimize it using a HashMap, Two Pointers, or Binary Search. You've got this!");
+    } finally {
+      setAiHintLoading(false);
+    }
+  };
+
   const fetchData = useCallback(async () => {
     if (!token) return;
     try {
@@ -556,6 +578,7 @@ export default function DSATracker() {
                                   </td>
                                   <td className="px-4 py-3 align-middle">
                                     <div className="flex gap-2 flex-wrap">
+                                      <button onClick={() => getAiHint(p.name)} className="text-[11px] font-bold px-2.5 py-1 bg-purple-50 dark:bg-purple-900/20 text-purple-700 dark:text-purple-300 hover:bg-purple-600 hover:text-white rounded-lg transition-colors border border-purple-100 dark:border-purple-800">💡 AI Hint</button>
                                       <a href={p.link1} target="_blank" rel="noreferrer" className="text-[11px] font-bold px-2.5 py-1 bg-blue-50 dark:bg-blue-900/20 text-blue-700 hover:bg-blue-600 hover:text-white rounded-lg transition-colors">Solve ↗</a>
                                       {p.link2 && <a href={p.link2} target="_blank" rel="noreferrer" className="text-[11px] font-bold px-2.5 py-1 bg-gray-100 text-gray-600 dark:text-gray-400 hover:bg-gray-200 rounded-lg transition-colors">Alt 1</a>}
                                       {p.link3 && <a href={p.link3} target="_blank" rel="noreferrer" className="text-[11px] font-bold px-2.5 py-1 bg-gray-100 text-gray-600 dark:text-gray-400 hover:bg-gray-200 rounded-lg transition-colors">Alt 2</a>}
@@ -626,6 +649,37 @@ export default function DSATracker() {
         )}
 
       </div>
+
+      {/* AI Hint Modal */}
+      {aiHintModal && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl max-w-lg w-full p-6 animate-fade-in-up flex flex-col max-h-[80vh]">
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-xl font-black text-gray-900 dark:text-white flex items-center gap-2">
+                <span className="text-2xl">💡</span> AI Hint: {aiHintModal}
+              </h2>
+              <button onClick={() => setAiHintModal(null)} className="text-gray-400 hover:text-red-500 font-bold text-lg">✕</button>
+            </div>
+            
+            <div className="flex-1 overflow-y-auto p-4 bg-purple-50 dark:bg-purple-900/10 border border-purple-100 dark:border-purple-800 rounded-xl">
+              {aiHintLoading ? (
+                <div className="flex flex-col items-center justify-center py-8">
+                  <div className="w-8 h-8 border-4 border-purple-500 border-t-transparent rounded-full animate-spin mb-4"></div>
+                  <p className="text-purple-700 dark:text-purple-300 font-bold text-sm animate-pulse">Analyzing problem approach...</p>
+                </div>
+              ) : (
+                <div className="text-gray-800 dark:text-gray-200 text-sm whitespace-pre-wrap font-medium leading-relaxed">
+                  {aiHintResult}
+                </div>
+              )}
+            </div>
+            <div className="mt-4 pt-4 border-t border-gray-100 dark:border-gray-800 text-center">
+              <button onClick={() => setAiHintModal(null)} className="px-6 py-2 bg-purple-600 hover:bg-purple-700 text-white font-bold rounded-xl transition-all shadow-md w-full">Got it, thanks!</button>
+            </div>
+          </div>
+        </div>
+      )}
+
     </div>
   );
 }

@@ -1,160 +1,354 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Navbar from "~/components/Navbar";
 import { callAI } from "~/lib/aiHelper";
 
 export function meta() {
   return [
-    { title: "Hackathon Finder 🏆 — PlacementOS" },
-    { name: "description", content: "Find hackathons, prepare to win, and find team members" },
+    { title: "Hackathon Hub 🚀 — PlacementOS" },
+    { name: "description", content: "Discover hackathons, find teammates, and get AI-powered winning strategies." },
   ];
 }
 
-const HACKATHONS = [
-  { name: "Smart India Hackathon (SIH)", org: "Govt of India", mode: "Offline", prize: "₹1 Lakh+", tech: "Any", diff: "Intermediate", link: "https://www.sih.gov.in/", icon: "🇮🇳", date: "Dec 2025 onwards", desc: "India's biggest hackathon. Problem statements from govt ministries." },
-  { name: "HackerEarth Monthly Challenges", org: "HackerEarth", mode: "Online", prize: "₹10K-50K", tech: "Coding/ML", diff: "Beginner", link: "https://www.hackerearth.com/challenges/", icon: "💻", date: "Monthly", desc: "Regular coding challenges with job opportunities for winners." },
-  { name: "Devfolio Hackathons", org: "Devfolio", mode: "Online/Offline", prize: "Various", tech: "Web3/Projects", diff: "Intermediate", link: "https://devfolio.co/hackathons", icon: "🔗", date: "Ongoing", desc: "India's largest hackathon platform — hundreds every month." },
-  { name: "MLH Hackathons", org: "Major League Hacking", mode: "Online", prize: "$500-$5000", tech: "Varied", diff: "Any", link: "https://mlh.io/seasons/2025/events", icon: "🌐", date: "Weekly", desc: "International hackathons with global participants. Great for resume." },
-  { name: "Flipkart Grid", org: "Flipkart", mode: "Online", prize: "Internship + Prize", tech: "Full Stack/ML", diff: "Advanced", link: "https://unstop.com/hackathons/flipkartgrid", icon: "🛒", date: "Sep-Nov", desc: "Flipkart's flagship competition. Internship for top performers." },
-  { name: "Amazon ML Challenge", org: "Amazon", mode: "Online", prize: "₹5L + PPO", tech: "Machine Learning", diff: "Advanced", link: "https://www.hackerearth.com/challenges/", icon: "📦", date: "Jan-Mar", desc: "Pure ML challenge from Amazon. Pre-Placement Offer for winners." },
-  { name: "TCS CodeVita", org: "TCS", mode: "Online", prize: "Job + ₹2L", tech: "Competitive Coding", diff: "Beginner to Advanced", link: "https://www.tcscodevita.com/", icon: "🏢", date: "Apr-Sep", desc: "TCS's global coding competition. Direct job offer for finalists." },
-  { name: "HackWithInfy", org: "Infosys", mode: "Online", prize: "Job + ₹1L", tech: "Any", diff: "Beginner", link: "https://unstop.com/", icon: "💡", date: "Nov-Jan", desc: "Infosys hackathon for students. Internship + job for winners." },
-  { name: "Google Solution Challenge", org: "Google", mode: "Online", prize: "$3000 + Trip", tech: "Google Tech", diff: "Intermediate", link: "https://developers.google.com/community/gdsc-solution-challenge", icon: "🔴", date: "Oct-Apr", desc: "Social impact + Google tech. Need GDSC membership. Huge recognition." },
-  { name: "Unstop Competitions", org: "Unstop", mode: "Online", prize: "Varies", tech: "Any", diff: "All levels", link: "https://unstop.com/", icon: "🏅", date: "Daily", desc: "1000+ competitions. Great for beginners to build portfolio." },
+const MOCK_HACKATHONS = [
+  { id: "h1", name: "Smart India Hackathon (SIH)", org: "Govt of India", mode: "Hybrid", prize: "₹1,00,000+", tech: "Multiple", diff: "Intermediate", link: "https://www.sih.gov.in/", icon: "🇮🇳", deadline: "2026-10-15", startDate: "2026-12-01", domain: "Social Good", teamSize: "6 (Must have 1 female)", rules: "Open to all Indian colleges.", desc: "India's biggest hackathon solving govt ministry problem statements." },
+  { id: "h2", name: "Flipkart Grid 6.0", org: "Flipkart", mode: "Online", prize: "₹3,00,000 + PPO", tech: "Web/ML", diff: "Advanced", link: "https://unstop.com/hackathons/flipkartgrid", icon: "🛒", deadline: "2026-09-01", startDate: "2026-09-10", domain: "E-Commerce", teamSize: "1-3", rules: "BTech 2026/2027 grads.", desc: "Flagship hack. Top performers get direct SDE internship/PPO." },
+  { id: "h3", name: "MLH Global Hack Week", org: "Major League Hacking", mode: "Online", prize: "$5000", tech: "Any", diff: "Beginner", link: "https://mlh.io/", icon: "🌐", deadline: "2026-08-10", startDate: "2026-08-15", domain: "General", teamSize: "1-4", rules: "Beginner friendly. Open global.", desc: "Week long hacking, workshops, and networking. Huge resume boost." },
+  { id: "h4", name: "Amazon ML Challenge", org: "Amazon", mode: "Online", prize: "₹5,00,000", tech: "Machine Learning", diff: "Advanced", link: "#", icon: "📦", deadline: "2026-11-20", startDate: "2026-12-05", domain: "AI/ML", teamSize: "2-4", rules: "Only ML problems.", desc: "Solve real dataset problems. High chances of AWS/Amazon interviews." },
+  { id: "h5", name: "ETHIndia", org: "Devfolio", mode: "Offline (Bangalore)", prize: "$50,000+", tech: "Web3/Blockchain", diff: "Advanced", link: "https://ethindia.co/", icon: "⛓️", deadline: "2026-11-01", startDate: "2026-12-10", domain: "Web3", teamSize: "2-5", rules: "Strict selection process.", desc: "Asia's largest Ethereum hackathon. Free travel and stay if selected." },
+  { id: "h6", name: "Code for Good", org: "JP Morgan", mode: "Hybrid", prize: "SDE Offer", tech: "Full Stack", diff: "Intermediate", link: "#", icon: "🏦", deadline: "2026-06-15", startDate: "2026-07-01", domain: "FinTech", teamSize: "4-6", rules: "Invite only based on coding test.", desc: "24hr hackathon for NGOs. Direct job offers given at the end." },
+  { id: "h7", name: "Google Solution Challenge", org: "Google", mode: "Online", prize: "$3000", tech: "Google Cloud/Flutter", diff: "Intermediate", link: "#", icon: "🔴", deadline: "2026-01-30", startDate: "2026-02-15", domain: "UN SDGs", teamSize: "1-4", rules: "GDSC member required.", desc: "Solve 17 UN Sustainable Development Goals using Google tech." },
 ];
 
-const WIN_TIPS = [
-  { t: "Team Composition", icon: "👥", tip: "Ideal team: 1 Frontend + 1 Backend + 1 ML/AI + 1 UI Design/Presentation. Each person must know at least 2 skills." },
-  { t: "Problem Selection", icon: "🎯", tip: "Choose problem where you have some domain knowledge. Don't pick the most complex one — pick one you can actually solve in 24-48 hours." },
-  { t: "48-Hour Schedule", icon: "⏰", tip: "Hour 1-4: Plan + Design. 4-16: Core features. 16-28: Polish + Testing. 28-36: Demo prep. 36-48: Buffer + presentation." },
-  { t: "Winning Presentation", icon: "🎤", tip: "3 mins max. Show working demo first. Then explain tech. Then business impact. Judges care about: Does it work? Does it solve real problem?" },
-  { t: "Common Mistakes", icon: "⚠️", tip: "Over-engineering. Not having a demo. No user research. Complex tech but no working product. Underestimating presentation." },
+const MOCK_TEAMMATES = [
+  { id: "t1", name: "Aarav Sharma", role: "Frontend Developer", skills: ["React", "Tailwind", "Figma"], college: "IIT Delhi", year: "3rd Year", exp: "2 Hackathons won" },
+  { id: "t2", name: "Priya Singh", role: "Backend Developer", skills: ["Node.js", "MongoDB", "AWS"], college: "VIT Vellore", year: "4th Year", exp: "Flipkart Grid Finalist" },
+  { id: "t3", name: "Kabir Das", role: "AI/ML Engineer", skills: ["Python", "TensorFlow", "FastAPI"], college: "NIT Warangal", year: "2nd Year", exp: "Kaggle Expert" },
+  { id: "t4", name: "Sneha Reddy", role: "UI/UX Designer", skills: ["Figma", "Framer", "User Research"], college: "NIFT", year: "3rd Year", exp: "Multiple UI awards" },
 ];
 
 export default function Hackathons() {
-  const [filter, setFilter] = useState({ mode: "All", diff: "All", search: "" });
-  const [aiTips, setAiTips] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [hackType, setHackType] = useState("Web Development");
+  const [activeTab, setActiveTab] = useState<"discover" | "tracker" | "team">("discover");
+  
+  // Filters
+  const [filterMode, setFilterMode] = useState("All");
+  const [filterDiff, setFilterDiff] = useState("All");
+  const [filterDomain, setFilterDomain] = useState("All");
+  const [search, setSearch] = useState("");
 
-  const filtered = HACKATHONS.filter(h => {
-    if (filter.mode !== "All" && !h.mode.includes(filter.mode)) return false;
-    if (filter.diff !== "All" && !h.diff.includes(filter.diff)) return false;
-    if (filter.search && !h.name.toLowerCase().includes(filter.search.toLowerCase())) return false;
+  // AI Modal
+  const [aiModalTarget, setAiModalTarget] = useState<any>(null);
+  const [aiAnalysis, setAiAnalysis] = useState("");
+  const [aiLoading, setAiLoading] = useState(false);
+
+  // Tracker State (LocalStorage)
+  const [tracked, setTracked] = useState<any[]>([]);
+
+  useEffect(() => {
+    const saved = localStorage.getItem("placementos_hackathons");
+    if (saved) setTracked(JSON.parse(saved));
+  }, []);
+
+  const toggleTrack = (hackathon: any, status: string = "Registered") => {
+    let next: any[];
+    if (tracked.find(t => t.id === hackathon.id)) {
+      next = tracked.filter(t => t.id !== hackathon.id);
+    } else {
+      next = [...tracked, { ...hackathon, status }];
+    }
+    setTracked(next);
+    localStorage.setItem("placementos_hackathons", JSON.stringify(next));
+  };
+
+  const filteredHacks = MOCK_HACKATHONS.filter(h => {
+    if (filterMode !== "All" && !h.mode.includes(filterMode)) return false;
+    if (filterDiff !== "All" && h.diff !== filterDiff) return false;
+    if (filterDomain !== "All" && h.domain !== filterDomain) return false;
+    if (search && !h.name.toLowerCase().includes(search.toLowerCase()) && !h.org.toLowerCase().includes(search.toLowerCase())) return false;
     return true;
   });
 
-  const getAiTips = async () => {
-    setLoading(true);
+  const domains = Array.from(new Set(MOCK_HACKATHONS.map(h => h.domain)));
+
+  const analyzeHackathon = async (hackathon: any) => {
+    setAiModalTarget(hackathon);
+    setAiAnalysis("");
+    setAiLoading(true);
     try {
-      const raw = await callAI(`Give 5 actionable winning tips for a ${hackType} hackathon for Indian BTech students. Be specific and practical. Format as numbered list.`);
-      setAiTips(raw);
-    } catch { setAiTips("AI busy hai. General tips: Plan first, demo matters most, working prototype > perfect code."); }
-    setLoading(false);
+      const prompt = `Act as an expert Hackathon Mentor. Analyze the hackathon "${hackathon.name}" by "${hackathon.org}" (Domain: ${hackathon.domain}, Tech: ${hackathon.tech}).
+      Provide a highly structured markdown response with:
+      1. **Difficulty & PPO Chances**: Is this good for getting hired/internships?
+      2. **Winning Strategy**: How to stand out.
+      3. **Project Idea**: 1 highly innovative, winning project idea suited for this.
+      4. **Tech Stack**: Best tools to build it in 48 hours.
+      Keep it punchy, practical, and under 250 words.`;
+      
+      const res = await callAI(prompt);
+      setAiAnalysis(res);
+    } catch (err) {
+      setAiAnalysis("🔥 **Winning Strategy**: Focus on a working prototype rather than perfect code. \n\n💡 **Idea**: Build a platform that solves a real localized issue. \n\n🚀 **PPO Chances**: High if you present business value.");
+    } finally {
+      setAiLoading(false);
+    }
   };
+
+  const isTracked = (id: string) => !!tracked.find(t => t.id === id);
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950 pb-20 font-sans">
       <Navbar />
 
-      {/* Hero */}
-      <div className="bg-gradient-to-br from-yellow-500 to-orange-500 text-white pt-16 pb-28">
-        <div className="max-w-4xl mx-auto px-6 text-center">
-          <h1 className="text-4xl md:text-5xl font-black mb-3">Hackathon Finder 🏆</h1>
-          <p className="text-yellow-100 text-xl font-medium">Hackathons = fastest way to build portfolio + win prizes + get noticed by companies</p>
-          <div className="flex justify-center gap-6 mt-5 text-sm font-bold text-yellow-100 flex-wrap">
-            <span>🏆 10+ curated hackathons</span>
-            <span>💰 Win up to ₹5L+ prizes</span>
-            <span>🚀 PPO opportunities</span>
+      {/* Hero Section */}
+      <div className="bg-[#0f172a] text-white pt-16 pb-24 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-orange-500/10 rounded-full blur-3xl" />
+        <div className="max-w-7xl mx-auto px-6 relative z-10 text-center">
+          <h1 className="text-4xl md:text-5xl font-black mb-4 tracking-tight drop-shadow-md">Hackathon Hub 🚀</h1>
+          <p className="text-xl text-slate-300 font-medium max-w-2xl mx-auto mb-8">
+            Discover hackathons, find your dream team, and get AI-powered winning strategies to secure PPOs and cash prizes.
+          </p>
+
+          <div className="flex justify-center bg-white/10 p-1.5 rounded-2xl w-fit mx-auto border border-white/20 backdrop-blur-md">
+            {[
+              { id: "discover", label: "🔍 Discover", icon: "🌐" },
+              { id: "tracker", label: "📊 My Tracker", icon: "📈" },
+              { id: "team", label: "👥 Team Builder", icon: "🤝" }
+            ].map(t => (
+              <button 
+                key={t.id}
+                onClick={() => setActiveTab(t.id as any)}
+                className={`px-6 py-2.5 rounded-xl font-bold text-sm transition-all flex items-center gap-2 ${activeTab === t.id ? "bg-white text-slate-900 shadow-lg" : "text-white hover:bg-white/10"}`}
+              >
+                <span>{t.icon}</span> {t.label}
+              </button>
+            ))}
           </div>
         </div>
       </div>
 
-      <div className="max-w-6xl mx-auto px-6 -mt-14 relative z-10 space-y-8">
+      <div className="max-w-7xl mx-auto px-6 -mt-10 relative z-20">
 
-        {/* Filters */}
-        <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-800 p-5 flex flex-col md:flex-row gap-4">
-          <input type="text" placeholder="🔍 Search hackathon..." value={filter.search} onChange={e => setFilter(f => ({ ...f, search: e.target.value }))}
-            className="flex-1 px-4 py-2.5 border border-gray-200 dark:border-gray-800 rounded-xl text-sm font-medium focus:ring-2 focus:ring-orange-400 focus:outline-none" />
-          <div className="flex gap-2 flex-wrap">
-            {["All", "Online", "Offline"].map(m => (
-              <button key={m} onClick={() => setFilter(f => ({ ...f, mode: m }))}
-                className={`px-4 py-2 rounded-xl text-sm font-bold border-2 transition-all ${filter.mode === m ? "bg-orange-500 text-white border-orange-500" : "border-gray-200 dark:border-gray-800 text-gray-600 dark:text-gray-400"}`}>{m}</button>
-            ))}
-          </div>
-          <div className="flex gap-2 flex-wrap">
-            {["All", "Beginner", "Intermediate", "Advanced"].map(d => (
-              <button key={d} onClick={() => setFilter(f => ({ ...f, diff: d }))}
-                className={`px-4 py-2 rounded-xl text-sm font-bold border-2 transition-all ${filter.diff === d ? "bg-yellow-500 text-white border-yellow-500" : "border-gray-200 dark:border-gray-800 text-gray-600 dark:text-gray-400"}`}>{d}</button>
-            ))}
-          </div>
-        </div>
-
-        {/* Hackathon Cards */}
-        <div className="grid md:grid-cols-2 gap-5">
-          {filtered.map(h => (
-            <div key={h.name} className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 shadow-sm hover:shadow-lg transition-shadow overflow-hidden">
-              <div className="p-5">
-                <div className="flex items-start justify-between gap-3 mb-3">
-                  <div className="flex items-center gap-3">
-                    <span className="text-3xl">{h.icon}</span>
-                    <div>
-                      <h3 className="font-black text-gray-900 dark:text-white text-base leading-tight">{h.name}</h3>
-                      <p className="text-xs text-gray-500 font-medium">{h.org}</p>
-                    </div>
-                  </div>
-                  <div className="flex flex-col items-end gap-1">
-                    <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${h.mode.includes("Online") ? "bg-blue-100 text-blue-700" : "bg-purple-100 text-purple-700"}`}>{h.mode}</span>
-                    <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${h.diff === "Beginner" ? "bg-green-100 text-green-700" : h.diff === "Advanced" ? "bg-red-100 text-red-700" : "bg-yellow-100 text-yellow-700"}`}>{h.diff.split(" ")[0]}</span>
-                  </div>
-                </div>
-                <p className="text-sm text-gray-600 dark:text-gray-400 font-medium mb-3">{h.desc}</p>
-                <div className="flex flex-wrap gap-2 mb-4 text-xs font-bold">
-                  <span className="px-2 py-1 bg-green-100 text-green-700 rounded-full">💰 {h.prize}</span>
-                  <span className="px-2 py-1 bg-gray-100 text-gray-600 dark:text-gray-400 rounded-full">🛠️ {h.tech}</span>
-                  <span className="px-2 py-1 bg-orange-100 text-orange-700 rounded-full">📅 {h.date}</span>
-                </div>
-                <a href={h.link} target="_blank" rel="noreferrer"
-                  className="block w-full text-center py-2.5 bg-orange-500 hover:bg-orange-600 text-white font-bold rounded-xl text-sm transition-colors">
-                  Register / View ↗
-                </a>
+        {/* --- TAB: DISCOVER --- */}
+        {activeTab === "discover" && (
+          <div className="animate-fade-in-up space-y-6">
+            
+            {/* Filters */}
+            <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-800 p-5 flex flex-col md:flex-row gap-4 items-center">
+              <input 
+                type="text" 
+                placeholder="🔍 Search hackathons or organizers..." 
+                value={search} 
+                onChange={e => setSearch(e.target.value)}
+                className="flex-1 w-full px-4 py-2.5 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl text-sm font-medium focus:ring-2 focus:ring-orange-500 outline-none" 
+              />
+              <div className="flex gap-2 w-full md:w-auto overflow-x-auto pb-2 md:pb-0 hide-scrollbar">
+                <select value={filterMode} onChange={e => setFilterMode(e.target.value)} className="px-4 py-2.5 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl text-sm font-bold focus:ring-2 focus:ring-orange-500 outline-none">
+                  <option value="All">All Modes</option>
+                  <option value="Online">Online</option>
+                  <option value="Offline">Offline</option>
+                  <option value="Hybrid">Hybrid</option>
+                </select>
+                <select value={filterDiff} onChange={e => setFilterDiff(e.target.value)} className="px-4 py-2.5 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl text-sm font-bold focus:ring-2 focus:ring-orange-500 outline-none">
+                  <option value="All">All Levels</option>
+                  <option value="Beginner">Beginner</option>
+                  <option value="Intermediate">Intermediate</option>
+                  <option value="Advanced">Advanced</option>
+                </select>
+                <select value={filterDomain} onChange={e => setFilterDomain(e.target.value)} className="px-4 py-2.5 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl text-sm font-bold focus:ring-2 focus:ring-orange-500 outline-none">
+                  <option value="All">All Domains</option>
+                  {domains.map(d => <option key={d} value={d}>{d}</option>)}
+                </select>
               </div>
             </div>
-          ))}
-        </div>
 
-        {/* How to Win */}
-        <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 overflow-hidden">
-          <div className="p-5 bg-yellow-50 border-b border-yellow-100">
-            <h2 className="text-xl font-black text-yellow-900">How to Win Hackathons 🏆</h2>
+            {/* Hackathon List */}
+            <div className="grid lg:grid-cols-2 gap-6">
+              {filteredHacks.length === 0 ? (
+                <div className="lg:col-span-2 bg-white dark:bg-gray-900 rounded-2xl p-12 text-center border border-gray-200 dark:border-gray-800 shadow-sm">
+                  <span className="text-5xl mb-4 opacity-50 block">🕵️‍♂️</span>
+                  <p className="font-bold text-gray-500">No hackathons match your filters.</p>
+                </div>
+              ) : (
+                filteredHacks.map(h => (
+                  <div key={h.id} className="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-800 p-6 hover:shadow-lg transition-shadow flex flex-col relative overflow-hidden group">
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-orange-100 to-transparent dark:from-orange-900/20 rounded-bl-full -z-0"></div>
+                    
+                    <div className="relative z-10 flex flex-col h-full">
+                      <div className="flex justify-between items-start mb-4">
+                        <div className="flex gap-4">
+                          <div className="w-14 h-14 bg-gray-50 dark:bg-gray-950 border border-gray-100 dark:border-gray-800 rounded-2xl flex items-center justify-center text-2xl shadow-inner shrink-0">{h.icon}</div>
+                          <div>
+                            <h3 className="text-xl font-black text-gray-900 dark:text-white leading-tight mb-1 group-hover:text-orange-600 transition-colors">{h.name}</h3>
+                            <p className="text-sm font-bold text-gray-500">{h.org}</p>
+                          </div>
+                        </div>
+                        <button onClick={() => toggleTrack(h)} className="p-2 text-xl hover:scale-110 transition-transform">
+                          {isTracked(h.id) ? '🔖' : <span className="grayscale opacity-30">🔖</span>}
+                        </button>
+                      </div>
+
+                      <p className="text-sm text-gray-600 dark:text-gray-400 font-medium mb-5 line-clamp-2">{h.desc}</p>
+                      
+                      <div className="grid grid-cols-2 gap-3 mb-6 flex-1">
+                        <div className="bg-gray-50 dark:bg-gray-950 p-2.5 rounded-xl border border-gray-100 dark:border-gray-800">
+                          <p className="text-[10px] font-black uppercase text-gray-400 mb-0.5">Mode & Team</p>
+                          <p className="text-xs font-bold text-gray-800 dark:text-gray-200">{h.mode} • {h.teamSize}</p>
+                        </div>
+                        <div className="bg-gray-50 dark:bg-gray-950 p-2.5 rounded-xl border border-gray-100 dark:border-gray-800">
+                          <p className="text-[10px] font-black uppercase text-gray-400 mb-0.5">Prize Pool</p>
+                          <p className="text-xs font-black text-green-600">{h.prize}</p>
+                        </div>
+                        <div className="bg-gray-50 dark:bg-gray-950 p-2.5 rounded-xl border border-gray-100 dark:border-gray-800">
+                          <p className="text-[10px] font-black uppercase text-gray-400 mb-0.5">Deadline</p>
+                          <p className="text-xs font-bold text-red-600">{h.deadline}</p>
+                        </div>
+                        <div className="bg-gray-50 dark:bg-gray-950 p-2.5 rounded-xl border border-gray-100 dark:border-gray-800">
+                          <p className="text-[10px] font-black uppercase text-gray-400 mb-0.5">Tech/Domain</p>
+                          <p className="text-xs font-bold text-blue-600">{h.domain}</p>
+                        </div>
+                      </div>
+
+                      <div className="flex gap-3">
+                        <button onClick={() => analyzeHackathon(h)} className="flex-1 py-2.5 bg-orange-50 dark:bg-orange-900/20 text-orange-600 hover:bg-orange-100 font-bold rounded-xl text-sm transition-colors border border-orange-200 dark:border-orange-800/50">
+                          🤖 AI Strategy
+                        </button>
+                        <a href={h.link} target="_blank" rel="noreferrer" className="flex-1 py-2.5 bg-slate-900 hover:bg-black text-white text-center font-bold rounded-xl text-sm transition-colors shadow">
+                          Register ↗
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                ))
+              )}
+            </div>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-0 divide-y md:divide-y-0 md:divide-x divide-gray-100 p-0">
-            {WIN_TIPS.map(tip => (
-              <div key={tip.t} className="p-5">
-                <div className="text-2xl mb-2">{tip.icon}</div>
-                <h3 className="font-black text-gray-900 dark:text-white mb-2">{tip.t}</h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400 font-medium">{tip.tip}</p>
+        )}
+
+        {/* --- TAB: TRACKER --- */}
+        {activeTab === "tracker" && (
+          <div className="animate-fade-in-up">
+            <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-800 p-6 min-h-[60vh]">
+              <h2 className="text-2xl font-black text-gray-900 dark:text-white mb-6 border-b border-gray-100 dark:border-gray-800 pb-4">My Dashboard 📊</h2>
+              
+              {tracked.length === 0 ? (
+                <div className="text-center py-20">
+                  <div className="text-6xl mb-4 opacity-50">📂</div>
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">No Hackathons Tracked</h3>
+                  <p className="text-gray-500 font-medium max-w-md mx-auto mb-6">Bookmark hackathons from the Discover tab to build your hacking roadmap.</p>
+                  <button onClick={() => setActiveTab("discover")} className="px-6 py-2.5 bg-orange-500 hover:bg-orange-600 text-white font-bold rounded-xl shadow-md">Browse Hackathons</button>
+                </div>
+              ) : (
+                <div className="grid md:grid-cols-2 gap-4">
+                  {tracked.map(t => (
+                    <div key={t.id} className="p-4 border border-gray-200 dark:border-gray-800 rounded-xl flex items-center justify-between bg-gray-50 dark:bg-gray-950">
+                      <div className="flex items-center gap-4">
+                        <span className="text-3xl">{t.icon}</span>
+                        <div>
+                          <h4 className="font-black text-gray-900 dark:text-white text-sm md:text-base">{t.name}</h4>
+                          <p className="text-xs font-bold text-gray-500">{t.startDate} • {t.mode}</p>
+                        </div>
+                      </div>
+                      <div className="flex flex-col gap-2 items-end">
+                        <select 
+                          value={t.status}
+                          onChange={(e) => {
+                            const next = tracked.map(item => item.id === t.id ? { ...item, status: e.target.value } : item);
+                            setTracked(next);
+                            localStorage.setItem("placementos_hackathons", JSON.stringify(next));
+                          }}
+                          className={`text-xs font-bold px-3 py-1.5 rounded-lg outline-none cursor-pointer border ${t.status === 'Won' ? 'bg-yellow-100 text-yellow-800 border-yellow-200' : t.status === 'Completed' ? 'bg-green-100 text-green-800 border-green-200' : 'bg-blue-100 text-blue-800 border-blue-200'}`}
+                        >
+                          <option value="Registered">Registered</option>
+                          <option value="Ongoing">Ongoing</option>
+                          <option value="Completed">Completed</option>
+                          <option value="Won">Won 🏆</option>
+                        </select>
+                        <button onClick={() => toggleTrack(t)} className="text-[10px] text-red-500 font-bold hover:underline">Remove</button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* --- TAB: TEAM BUILDER --- */}
+        {activeTab === "team" && (
+          <div className="animate-fade-in-up">
+            <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-800 p-6">
+              <div className="flex flex-col md:flex-row justify-between items-center mb-6 gap-4 border-b border-gray-100 dark:border-gray-800 pb-6">
+                <div>
+                  <h2 className="text-2xl font-black text-gray-900 dark:text-white">Find Teammates 🤝</h2>
+                  <p className="text-sm font-medium text-gray-500">Connect with skilled developers to build your dream team.</p>
+                </div>
+                <button className="px-6 py-2.5 bg-slate-900 hover:bg-black text-white font-bold rounded-xl shadow w-full md:w-auto">
+                  + Create Team Profile
+                </button>
               </div>
-            ))}
-          </div>
-        </div>
 
-        {/* AI Tips */}
-        <div className="bg-gradient-to-br from-orange-500 to-yellow-500 rounded-2xl p-6 text-white">
-          <h2 className="text-xl font-black mb-2">Get AI Tips for Your Hackathon Type 🤖</h2>
-          <p className="text-yellow-100 text-sm mb-4">Specific prep tips based on what type of hackathon you're joining</p>
-          <div className="flex gap-3 flex-wrap mb-4">
-            {["Web Development", "Machine Learning", "Mobile App", "Blockchain / Web3", "Social Impact", "Competitive Coding"].map(t => (
-              <button key={t} onClick={() => setHackType(t)}
-                className={`px-4 py-2 rounded-xl text-sm font-bold border-2 transition-all ${hackType === t ? "bg-white dark:bg-gray-900 text-orange-600 border-white" : "border-white/40 text-white hover:border-white"}`}>{t}</button>
-            ))}
+              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+                {MOCK_TEAMMATES.map(tm => (
+                  <div key={tm.id} className="border border-gray-200 dark:border-gray-800 rounded-2xl p-5 hover:shadow-lg transition-all text-center flex flex-col bg-gray-50 dark:bg-gray-950">
+                    <div className="w-16 h-16 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-2xl font-black mx-auto mb-3 border-2 border-white shadow-sm">
+                      {tm.name.charAt(0)}
+                    </div>
+                    <h3 className="font-black text-gray-900 dark:text-white">{tm.name}</h3>
+                    <p className="text-xs font-bold text-blue-600 mb-2">{tm.role}</p>
+                    <p className="text-[11px] text-gray-500 mb-4">{tm.college} • {tm.year}</p>
+                    
+                    <div className="flex flex-wrap justify-center gap-1.5 mb-4 flex-1">
+                      {tm.skills.map(s => <span key={s} className="text-[10px] font-bold px-2 py-0.5 bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded">{s}</span>)}
+                    </div>
+                    
+                    <div className="text-[10px] font-black text-gray-400 uppercase tracking-wider mb-3 bg-gray-100 dark:bg-gray-900 py-1 rounded">Exp: {tm.exp}</div>
+                    
+                    <button className="w-full py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg text-xs transition-colors">
+                      Send Request
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
-          <button onClick={getAiTips} disabled={loading} className="px-6 py-2.5 bg-white dark:bg-gray-900 text-orange-600 font-black rounded-xl text-sm hover:bg-orange-50 disabled:opacity-60 transition-colors mb-4">
-            {loading ? "Getting tips..." : "Get AI Tips 🤖"}
-          </button>
-          {aiTips && <div className="bg-white dark:bg-gray-900/20 rounded-xl p-4 whitespace-pre-wrap text-sm font-medium">{aiTips}</div>}
-        </div>
-
+        )}
       </div>
+
+      {/* AI Analysis Modal */}
+      {aiModalTarget && (
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-white dark:bg-gray-900 rounded-3xl shadow-2xl max-w-2xl w-full p-6 animate-fade-in-up flex flex-col max-h-[85vh]">
+            <div className="flex justify-between items-center mb-4 border-b border-gray-100 dark:border-gray-800 pb-4">
+              <div>
+                <h2 className="text-xl font-black text-gray-900 dark:text-white flex items-center gap-2">
+                  <span className="text-3xl">🤖</span> AI Strategy: {aiModalTarget.name}
+                </h2>
+                <p className="text-xs font-bold text-gray-500 mt-1">Generated by PlacementOS AI Analyst</p>
+              </div>
+              <button onClick={() => setAiModalTarget(null)} className="p-2 text-gray-400 hover:text-red-500 bg-gray-100 dark:bg-gray-800 rounded-full transition-colors">✕</button>
+            </div>
+            
+            <div className="flex-1 overflow-y-auto p-5 bg-orange-50 dark:bg-orange-900/10 border border-orange-100 dark:border-orange-900/30 rounded-2xl custom-scrollbar">
+              {aiLoading ? (
+                <div className="flex flex-col items-center justify-center py-12">
+                  <div className="w-10 h-10 border-4 border-orange-500 border-t-transparent rounded-full animate-spin mb-4 shadow"></div>
+                  <p className="text-orange-700 dark:text-orange-400 font-bold animate-pulse text-sm">Analyzing hackathon constraints & generating winning project ideas...</p>
+                </div>
+              ) : (
+                <div className="prose dark:prose-invert prose-orange max-w-none prose-sm font-medium leading-relaxed">
+                  {/* Basic markdown rendering without external libraries by using whitespace-pre-wrap and some basic styling */}
+                  <div className="whitespace-pre-wrap text-gray-800 dark:text-gray-200" dangerouslySetInnerHTML={{__html: aiAnalysis.replace(/\*\*(.*?)\*\*/g, '<strong class="text-orange-700 dark:text-orange-400 font-black">$1</strong>').replace(/\n/g, '<br/>')}}></div>
+                </div>
+              )}
+            </div>
+            <div className="mt-4 pt-4 flex gap-3">
+               <button onClick={() => setAiModalTarget(null)} className="flex-1 px-6 py-3 bg-gray-100 hover:bg-gray-200 text-gray-800 dark:bg-gray-800 dark:text-gray-200 font-bold rounded-xl transition-all">Close</button>
+               {!isTracked(aiModalTarget.id) && (
+                 <button onClick={() => { toggleTrack(aiModalTarget); setAiModalTarget(null); }} className="flex-[2] px-6 py-3 bg-orange-500 hover:bg-orange-600 text-white font-bold rounded-xl transition-all shadow-md">Add to Tracker 🔖</button>
+               )}
+            </div>
+          </div>
+        </div>
+      )}
+
     </div>
   );
 }

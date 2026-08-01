@@ -44,7 +44,7 @@
 }
 
 /* Enable class-based dark mode overriding default media query */
-@custom-variant dark (&:is(.dark *));
+@custom-variant dark (&:where(.dark, .dark *));
 
 /* =========================================================
    BASE STYLES

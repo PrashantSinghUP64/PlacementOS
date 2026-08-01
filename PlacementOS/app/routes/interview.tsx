@@ -98,7 +98,7 @@ Return ONLY valid JSON:
   ]
 }`;
 
-      const parsedData = await callAIForJSON(prompt) as InterviewData;
+      const parsedData = await callAIForJSON(prompt, 'interview') as InterviewData;
       setResult(parsedData);
 
       // Save to backend

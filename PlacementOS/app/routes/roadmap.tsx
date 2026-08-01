@@ -133,7 +133,7 @@ Return ONLY valid JSON matching this structure perfectly without any markdown bl
   ]
 }`;
 
-      const parsedData = await callAIForJSON(prompt) as RoadmapData;
+      const parsedData = await callAIForJSON(prompt, 'roadmap') as RoadmapData;
       
       // Save to backend (fire-and-forget — use parsedData directly for the UI)
       apiFetch("/roadmap/save", {

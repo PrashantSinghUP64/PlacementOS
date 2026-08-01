@@ -2,6 +2,7 @@
 // GROQ AI HELPER — Centralized backend AI calls
 // ================================================
 import { getApiBase } from "./api";
+import { getMockFallback } from "./mockData";
 
 /**
  * Send a prompt to the backend Groq AI endpoint.
@@ -27,6 +28,13 @@ export async function callAI(prompt: string): Promise<string> {
 
     const data = await res.json();
     if (!data.text) throw new Error("Empty response from AI");
+    
+    // The backend sometimes returns this string on a 200 OK when rate limited.
+    // We throw it so the try/catch in individual routes can use their custom fallback logic.
+    if (data.text.includes("Something went wrong") || data.text.includes("service is currently busy")) {
+      throw new Error("AI service unavailable (Rate Limited or Error)");
+    }
+    
     return data.text as string;
   } catch (error: any) {
     console.error(error);
@@ -57,12 +65,28 @@ export function parseAIJSON(text: string): any {
 }
 
 // Call AI and get JSON response
-export async function callAIForJSON(prompt: string): Promise<any> {
-  const text = await callAI(prompt);
-  const parsed = parseAIJSON(text);
-  if (!parsed) {
-    throw new Error("Could not parse AI response as JSON");
+export async function callAIForJSON(prompt: string, fallbackType?: string): Promise<any> {
+  try {
+    const text = await callAI(prompt);
+    
+    // Check for standard error messages from backend
+    if (text.includes("service is currently busy") || text.includes("Something went wrong")) {
+      if (fallbackType) return getMockFallback(fallbackType);
+      throw new Error("AI service unavailable.");
+    }
+    
+    const parsed = parseAIJSON(text);
+    if (!parsed) {
+      if (fallbackType) return getMockFallback(fallbackType);
+      throw new Error("Could not parse AI response as JSON");
+    }
+    return parsed;
+  } catch (err) {
+    if (fallbackType) {
+      console.warn(`AI failed, using fallback for ${fallbackType}`, err);
+      return getMockFallback(fallbackType);
+    }
+    throw err;
   }
-  return parsed;
 }
 
