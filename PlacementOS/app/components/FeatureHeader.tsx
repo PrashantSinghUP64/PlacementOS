@@ -56,18 +56,18 @@ export default function FeatureHeader({
 
         {/* Expandable Details Section */}
         {isExpanded && (
-          <div className="bg-white dark:bg-gray-900/10 backdrop-blur-lg border border-white/20 rounded-3xl p-6 md:p-8 mt-6 animate-fade-in-up grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="bg-white dark:bg-gray-900/10 backdrop-blur-lg border border-slate-200 dark:border-white/20 rounded-3xl p-6 md:p-8 mt-6 animate-fade-in-up grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             
             <div className="space-y-6">
               <div>
-                <h3 className="text-lg font-black text-white mb-2 border-b border-white/20 pb-2">What This Does 🎯</h3>
-                <p className="text-sm text-white/90 leading-relaxed font-medium">{whatItDoes}</p>
+                <h3 className="text-lg font-black text-slate-900 dark:text-white mb-2 border-b border-slate-200 dark:border-white/20 pb-2">What This Does 🎯</h3>
+                <p className="text-sm text-slate-700 dark:text-white/90 leading-relaxed font-medium">{whatItDoes}</p>
               </div>
               <div>
-                <h3 className="text-lg font-black text-white mb-2 border-b border-white/20 pb-2">How It Works ⚙️</h3>
+                <h3 className="text-lg font-black text-slate-900 dark:text-white mb-2 border-b border-slate-200 dark:border-white/20 pb-2">How It Works ⚙️</h3>
                 <ol className="space-y-2">
                   {howItWorks.map((step, i) => (
-                    <li key={i} className="text-sm text-white/90 flex gap-2 font-medium">
+                    <li key={i} className="text-sm text-slate-700 dark:text-white/90 flex gap-2 font-medium">
                       <span className="font-black opacity-60">{i+1}.</span> {step}
                     </li>
                   ))}
@@ -77,10 +77,10 @@ export default function FeatureHeader({
 
             <div className="space-y-6">
               <div>
-                <h3 className="text-lg font-black text-white mb-2 border-b border-white/20 pb-2">Why It Matters 🚀</h3>
+                <h3 className="text-lg font-black text-slate-900 dark:text-white mb-2 border-b border-slate-200 dark:border-white/20 pb-2">Why It Matters 🚀</h3>
                 <ul className="space-y-2">
                   {whyItMatters.map((point, i) => (
-                    <li key={i} className="text-sm text-white/90 flex gap-2 font-medium">
+                    <li key={i} className="text-sm text-slate-700 dark:text-white/90 flex gap-2 font-medium">
                       <span>✓</span> {point}
                     </li>
                   ))}
@@ -88,10 +88,10 @@ export default function FeatureHeader({
               </div>
               {aiCapabilities.length > 0 && (
                 <div>
-                  <h3 className="text-lg font-black text-white mb-2 border-b border-white/20 pb-2">AI Capabilities 🧠</h3>
+                  <h3 className="text-lg font-black text-slate-900 dark:text-white mb-2 border-b border-slate-200 dark:border-white/20 pb-2">AI Capabilities 🧠</h3>
                   <ul className="space-y-2">
                     {aiCapabilities.map((point, i) => (
-                      <li key={i} className="text-sm text-white/90 flex gap-2 font-medium">
+                      <li key={i} className="text-sm text-slate-700 dark:text-white/90 flex gap-2 font-medium">
                         <span>✨</span> {point}
                       </li>
                     ))}
@@ -102,10 +102,10 @@ export default function FeatureHeader({
 
             <div className="space-y-6">
               <div>
-                <h3 className="text-lg font-black text-white mb-2 border-b border-white/20 pb-2">Pro Tips 💡</h3>
+                <h3 className="text-lg font-black text-slate-900 dark:text-white mb-2 border-b border-slate-200 dark:border-white/20 pb-2">Pro Tips 💡</h3>
                 <ul className="space-y-2">
                   {tips.map((tip, i) => (
-                    <li key={i} className="text-sm text-white/90 flex gap-2 font-medium">
+                    <li key={i} className="text-sm text-slate-700 dark:text-white/90 flex gap-2 font-medium">
                       <span className="opacity-80">🔥</span> {tip}
                     </li>
                   ))}
