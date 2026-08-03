@@ -9,7 +9,6 @@ export interface FeatureHeaderProps {
   whyItMatters: string[];
   aiCapabilities: string[];
   tips: string[];
-  offlineModeFallback?: string;
   gradient?: string;
 }
 
@@ -22,7 +21,6 @@ export default function FeatureHeader({
   whyItMatters,
   aiCapabilities,
   tips,
-  offlineModeFallback = "This feature automatically switches to Smart Offline Mode so you can continue using all core functionality even without internet/API access.",
   gradient = "from-blue-600 to-indigo-600"
 }: FeatureHeaderProps) {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -44,9 +42,6 @@ export default function FeatureHeader({
                   ✨ AI Powered
                 </span>
               )}
-              <span className="bg-black/20 text-white backdrop-blur-md px-3 py-1 rounded-full text-xs font-black uppercase tracking-widest border border-white/10 flex items-center gap-1">
-                ⚡ Offline Ready
-              </span>
             </div>
             <h1 className="text-4xl md:text-5xl font-black mb-2 flex items-center gap-3 drop-shadow-md tracking-tight">
               <span className="bg-white dark:bg-gray-900/10 p-2 rounded-xl text-3xl shadow-inner backdrop-blur-md">{icon}</span>
@@ -119,10 +114,6 @@ export default function FeatureHeader({
                     </li>
                   ))}
                 </ul>
-              </div>
-              <div className="bg-black/20 rounded-xl p-4 border border-white/10">
-                <h4 className="text-xs font-black text-white/60 uppercase tracking-widest mb-1">Fallback Mode Safe</h4>
-                <p className="text-xs text-white/80 font-medium leading-relaxed">{offlineModeFallback}</p>
               </div>
             </div>
 
