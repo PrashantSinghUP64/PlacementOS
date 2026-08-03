@@ -186,10 +186,10 @@ export default function CareerChatbot() {
   return (
     <>
       {/* Floating Button */}
-      <div className="fixed bottom-6 right-6 z-[1000] flex flex-col items-end gap-2">
+      <div className="fixed bottom-8 sm:bottom-10 right-4 sm:right-6 z-[1000] flex flex-col items-end gap-2 mb-[env(safe-area-inset-bottom)]">
         {/* Badge */}
         {showBadge && !isOpen && (
-          <div className="bg-white dark:bg-gray-900 border border-purple-200 dark:border-purple-800 text-purple-700 dark:text-purple-400 text-xs font-bold px-3 py-1.5 rounded-full shadow-lg animate-bounce">
+          <div className="bg-white dark:bg-gray-900 border border-purple-200 dark:border-purple-800 text-purple-700 dark:text-purple-400 text-xs font-bold px-3 py-1.5 rounded-full shadow-lg">
             Ask me anything! 💬
           </div>
         )}
@@ -199,17 +199,13 @@ export default function CareerChatbot() {
           aria-label="Open Career Guide Chatbot"
         >
           {isOpen ? "✕" : "🎓"}
-          {/* Pulse ring */}
-          {!isOpen && (
-            <span className="absolute inset-0 rounded-full bg-purple-50 dark:bg-purple-900/200/40 animate-ping" />
-          )}
         </button>
       </div>
 
       {/* Chat Window */}
       {isOpen && (
         <div
-          className="fixed bottom-24 right-6 z-[999] w-[360px] max-w-[calc(100vw-2rem)] bg-white dark:bg-gray-900 rounded-2xl shadow-2xl border border-purple-100 dark:border-purple-900/50 flex flex-col overflow-hidden"
+          className="fixed bottom-[6.5rem] sm:bottom-[7.5rem] right-4 sm:right-6 z-[999] w-[360px] max-w-[calc(100vw-2rem)] bg-white dark:bg-gray-900 rounded-2xl shadow-2xl border border-purple-100 dark:border-purple-900/50 flex flex-col overflow-hidden mb-[env(safe-area-inset-bottom)]"
           style={{ height: "520px" }}
         >
           {/* Header */}

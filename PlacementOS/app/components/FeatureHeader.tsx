@@ -27,10 +27,6 @@ export default function FeatureHeader({
 
   return (
     <div className={`bg-gradient-to-br ${gradient} text-white pt-12 pb-16 px-6 relative overflow-hidden transition-all duration-300`}>
-      {/* Decorative Elements */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-white dark:bg-gray-900/5 rounded-full blur-3xl" />
-      <div className="absolute -bottom-20 -left-20 w-[300px] h-[300px] bg-black/10 rounded-full blur-2xl" />
-      
       <div className="max-w-7xl mx-auto relative z-10">
         
         {/* Main Hero Header */}
