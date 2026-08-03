@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Navbar from "~/components/Navbar";
+import FeatureHeader from "~/components/FeatureHeader";
 import { callAIForJSON } from "~/lib/aiHelper";
 
 export function meta() {
@@ -113,23 +114,33 @@ Return ONLY valid JSON:
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950 pb-20">
       <Navbar />
       
-      {/* Header section */}
-      <div className="bg-[#1E293B] text-white pb-24 pt-12 relative overflow-hidden">
-        <div className="absolute top-0 right-1/4 w-96 h-96 bg-yellow-500/10 rounded-full blur-3xl -translate-y-1/2"></div>
-        <div className="max-w-4xl mx-auto px-6 relative z-10 text-center">
-          <span className="inline-block px-4 py-1.5 rounded-full bg-yellow-500/20 text-yellow-300 font-semibold text-sm mb-4 border border-yellow-500/30 shadow-sm">
-            💰 Market Intelligence
-          </span>
-          <h1 className="text-4xl md:text-5xl font-black mb-4 tracking-tight">
-            AI Salary Predictor
-          </h1>
-          <p className="text-lg text-gray-300 max-w-2xl mx-auto font-medium">
-            Discover your true market value based on real-time data, specific skills, and location trends.
-          </p>
-        </div>
-      </div>
+      <FeatureHeader
+        title="AI Salary Predictor"
+        icon="💰"
+        description="Discover your true market value based on real-time data, specific skills, and location trends."
+        whatItDoes="This AI agent acts as a market intelligence tool. It takes your profile details and generates a highly accurate salary estimate, complete with negotiation tactics and skill gap analysis."
+        howItWorks={[
+          "Input your current job role, location, years of experience, and top skills.",
+          "Our AI cross-references this with current market trends and hiring data.",
+          "View your minimum, maximum, and average expected salary.",
+          "Read personalized insights on which specific skills could bump you to the next pay bracket."
+        ]}
+        whyItMatters={[
+          "Candidates who don't know their market value often leave lakhs of rupees on the table.",
+          "Knowing what top companies pay for your exact skill set gives you leverage in HR discussions."
+        ]}
+        aiCapabilities={[
+          "Dynamic salary range generation based on location and multi-skill combinations.",
+          "Custom negotiation strategy generation tailored to your exact experience level."
+        ]}
+        tips={[
+          "Always let the HR throw out the first number in a negotiation.",
+          "If they can't match your salary expectations, negotiate for a higher joining bonus or more stock options."
+        ]}
+        gradient="from-[#1E293B] to-slate-900"
+      />
 
-      <div className="max-w-6xl mx-auto px-6 -mt-16 relative z-20">
+      <div className="max-w-6xl mx-auto px-6 py-12 relative z-20">
         <div className="grid lg:grid-cols-12 gap-8">
           
           {/* Left Column - Input Form */}
@@ -139,7 +150,7 @@ Return ONLY valid JSON:
             <div className="space-y-5">
               <div>
                 <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">Job Role</label>
-                <select value={role} onChange={e => setRole(e.target.value)} className="w-full p-3 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl focus:bg-white dark:bg-gray-900 focus:ring-2 focus:ring-yellow-500 transition-all text-sm font-medium">
+                <select value={role} onChange={e => setRole(e.target.value)} className="w-full p-3 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl focus:bg-white dark:focus:bg-gray-900 dark:bg-gray-900 focus:ring-2 focus:ring-yellow-500 transition-all text-sm font-medium">
                   {ROLES.map(r => <option key={r} value={r}>{r}</option>)}
                 </select>
               </div>
@@ -147,22 +158,22 @@ Return ONLY valid JSON:
               <div>
                 <label className="flex justify-between text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">
                   <span>Years of Experience</span>
-                  <span className="text-yellow-600 bg-yellow-50 px-2 py-0.5 rounded">{years} YOE</span>
+                  <span className="text-yellow-600 dark:text-yellow-400 bg-yellow-50 dark:bg-yellow-900/20 px-2 py-0.5 rounded">{years} YOE</span>
                 </label>
-                <input type="range" min="0" max="20" value={years} onChange={e => setYears(Number(e.target.value))} className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-yellow-500"/>
+                <input type="range" min="0" max="20" value={years} onChange={e => setYears(Number(e.target.value))} className="w-full h-2 bg-gray-200 dark:bg-gray-800 rounded-lg appearance-none cursor-pointer accent-yellow-500"/>
                 <div className="flex justify-between text-xs text-gray-400 mt-2 font-medium"><span>Fresher</span><span>Senior</span></div>
               </div>
 
               <div>
                 <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">Location</label>
-                <select value={location} onChange={e => setLocation(e.target.value)} className="w-full p-3 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl focus:bg-white dark:bg-gray-900 focus:ring-2 focus:ring-yellow-500 transition-all text-sm font-medium">
+                <select value={location} onChange={e => setLocation(e.target.value)} className="w-full p-3 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl focus:bg-white dark:focus:bg-gray-900 dark:bg-gray-900 focus:ring-2 focus:ring-yellow-500 transition-all text-sm font-medium">
                   {LOCATIONS.map(l => <option key={l} value={l}>{l}</option>)}
                 </select>
               </div>
 
               <div>
                 <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">Education Level</label>
-                <select value={education} onChange={e => setEducation(e.target.value)} className="w-full p-3 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl focus:bg-white dark:bg-gray-900 focus:ring-2 focus:ring-yellow-500 transition-all text-sm font-medium">
+                <select value={education} onChange={e => setEducation(e.target.value)} className="w-full p-3 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl focus:bg-white dark:focus:bg-gray-900 dark:bg-gray-900 focus:ring-2 focus:ring-yellow-500 transition-all text-sm font-medium">
                   {EDU_LEVELS.map(e => <option key={e} value={e}>{e}</option>)}
                 </select>
               </div>
@@ -175,7 +186,7 @@ Return ONLY valid JSON:
                   onChange={e => setSkillInput(e.target.value)}
                   onKeyDown={addSkill}
                   placeholder="Type a skill and press Enter..."
-                  className="w-full p-3 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl focus:bg-white dark:bg-gray-900 focus:ring-2 focus:ring-yellow-500 transition-all text-sm mb-3"
+                  className="w-full p-3 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl focus:bg-white dark:focus:bg-gray-900 dark:bg-gray-900 focus:ring-2 focus:ring-yellow-500 transition-all text-sm mb-3"
                 />
                 <div className="flex flex-wrap gap-2">
                   {skills.map(s => (
@@ -189,7 +200,7 @@ Return ONLY valid JSON:
             </div>
 
             {error && (
-              <div className="mt-6 p-3 bg-red-50 dark:bg-red-900/20 text-red-600 rounded-lg border border-red-100 flex items-center gap-2 text-sm font-medium">
+              <div className="mt-6 p-3 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 rounded-lg border border-red-100 dark:border-red-900/50 flex items-center gap-2 text-sm font-medium">
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                 {error}
               </div>
@@ -212,8 +223,8 @@ Return ONLY valid JSON:
               <div className="space-y-6 animate-fade-in-up delay-100">
                 
                 {/* Top Insight Card */}
-                <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-yellow-200 p-5 flex gap-4 items-start relative overflow-hidden">
-                  <div className="absolute top-0 right-0 w-32 h-32 bg-yellow-50 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2"></div>
+                <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-yellow-200 dark:border-yellow-800 p-5 flex gap-4 items-start relative overflow-hidden">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-yellow-50 dark:bg-yellow-900/20 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2"></div>
                   <div className="text-3xl relative z-10">💡</div>
                   <div className="relative z-10">
                     <h3 className="font-bold text-gray-900 dark:text-white mb-1">Market Insight</h3>
@@ -227,16 +238,16 @@ Return ONLY valid JSON:
                   <div className="flex justify-center mb-4">
                     <span className={`px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-widest ${
                       result.marketDemand === 'High' ? 'bg-green-100 text-green-700' : 
-                      result.marketDemand === 'Medium' ? 'bg-yellow-100 text-yellow-700' : 'bg-red-100 text-red-700'
+                      result.marketDemand === 'Medium' ? 'bg-yellow-100 text-yellow-700' : 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400'
                     }`}>
                       {result.marketDemand} Demand
                     </span>
                   </div>
-                  <h2 className="text-gray-500 font-bold uppercase tracking-wider text-sm mb-2">Estimated Annual Salary</h2>
+                  <h2 className="text-gray-500 dark:text-gray-400 font-bold uppercase tracking-wider text-sm mb-2">Estimated Annual Salary</h2>
                   <div className="text-4xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-gray-900 to-gray-600 mb-4 tracking-tighter pb-1">
                     {formatCurrency(result.minSalary, result.currency)} - {formatCurrency(result.maxSalary, result.currency)}
                   </div>
-                  <p className="text-lg text-gray-500 font-medium">
+                  <p className="text-lg text-gray-500 dark:text-gray-400 font-medium">
                     Average: <span className="text-gray-900 dark:text-white font-black">{formatCurrency(result.avgSalary, result.currency)}</span>
                   </p>
                 </div>
@@ -249,7 +260,7 @@ Return ONLY valid JSON:
                     { title: "Senior Level", value: result.seniorLevel, sub: "6+ Years", pattern: "bg-emerald-50/50" }
                   ].map((lvl, i) => (
                     <div key={i} className={`bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 p-5 ${lvl.pattern}`}>
-                      <h3 className="text-sm font-bold text-gray-500 mb-1">{lvl.title}</h3>
+                      <h3 className="text-sm font-bold text-gray-500 dark:text-gray-400 mb-1">{lvl.title}</h3>
                       <p className="text-xl md:text-2xl font-black text-gray-900 dark:text-white mb-1">{formatCurrency(lvl.value, result.currency)}</p>
                       <p className="text-xs text-gray-400 font-medium">{lvl.sub}</p>
                     </div>
@@ -262,7 +273,7 @@ Return ONLY valid JSON:
                   {/* Top Companies */}
                   <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 p-6 sm:p-8">
                     <div className="flex items-center gap-3 mb-6">
-                      <div className="w-8 h-8 rounded-lg bg-blue-100 text-blue-600 flex items-center justify-center font-bold">🏢</div>
+                      <div className="w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold">🏢</div>
                       <h3 className="font-bold text-gray-900 dark:text-white text-lg">Top Paying Companies</h3>
                     </div>
                     <div className="space-y-4">
@@ -293,13 +304,13 @@ Return ONLY valid JSON:
                   {/* Negotiation Tips */}
                   <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 p-6 sm:p-8">
                     <div className="flex items-center gap-3 mb-6">
-                      <div className="w-8 h-8 rounded-lg bg-purple-100 text-purple-600 flex items-center justify-center font-bold">💬</div>
+                      <div className="w-8 h-8 rounded-lg bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 flex items-center justify-center font-bold">💬</div>
                       <h3 className="font-bold text-gray-900 dark:text-white text-lg">Negotiation Strategy</h3>
                     </div>
-                    <ul className="space-y-5 relative before:absolute before:inset-y-0 before:left-3 before:-ml-px before:w-0.5 before:bg-gray-100">
+                    <ul className="space-y-5 relative before:absolute before:inset-y-0 before:left-3 before:-ml-px before:w-0.5 before:bg-gray-100 dark:bg-gray-900">
                       {result.negotiationTips.map((tip, i) => (
                         <li key={i} className="relative flex gap-4">
-                          <div className="flex-none w-6 h-6 rounded-full bg-white dark:bg-gray-900 border-2 border-purple-500 flex items-center justify-center -ml-0.5 z-10 shadow-sm text-[10px] font-black text-purple-600">
+                          <div className="flex-none w-6 h-6 rounded-full bg-white dark:bg-gray-900 border-2 border-purple-500 flex items-center justify-center -ml-0.5 z-10 shadow-sm text-[10px] font-black text-purple-600 dark:text-purple-400">
                             {i+1}
                           </div>
                           <p className="text-sm font-medium text-gray-700 dark:text-gray-300 leading-relaxed pt-0.5">
@@ -323,7 +334,7 @@ Return ONLY valid JSON:
                   💸
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Awaiting Your Data</h3>
-                <p className="text-gray-500 text-sm max-w-sm">
+                <p className="text-gray-500 dark:text-gray-400 text-sm max-w-sm">
                   Fill in your profile details on the left and click predict. Our AI will analyze millions of data points to estimate your precise market value.
                 </p>
               </div>

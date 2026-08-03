@@ -16,9 +16,9 @@ function ScoreCircle({ score }: { score: number }) {
 // Props type: expects a resume object
 const ResumeCard = ({ resume: { id, companyName, jobTitle, feedback, imagePath } }: { resume: Resume }) => {
     const getScoreColor = (score: number) => {
-        if (score >= 80) return "text-green-600";
-        if (score >= 60) return "text-yellow-600";
-        return "text-red-600";
+        if (score >= 80) return "text-green-600 dark:text-green-400";
+        if (score >= 60) return "text-yellow-600 dark:text-yellow-400";
+        return "text-red-600 dark:text-red-400";
     };
 
     const getScoreLabel = (score: number) => {
@@ -81,7 +81,7 @@ const ResumeCard = ({ resume: { id, companyName, jobTitle, feedback, imagePath }
                         Analyzed
                     </span>
                 </div>
-                <div className="text-sm text-gray-500 group-hover:text-blue-600 transition-colors">
+                <div className="text-sm text-gray-500 dark:text-gray-400 group-hover:text-blue-600 transition-colors">
                     View Details →
                 </div>
             </div>

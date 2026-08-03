@@ -155,13 +155,13 @@ export default function JobsBoard() {
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
           <div>
             <h1 className="text-3xl font-black text-gray-900 dark:text-white capitalize tracking-tight flex items-center gap-2">
-              <span className="text-4xl text-blue-600">🎯</span> Job Aggregator
+              <span className="text-4xl text-blue-600 dark:text-blue-400">🎯</span> Job Aggregator
             </h1>
-            <p className="text-gray-500 mt-2">Find off-campus opportunities aggregated from multiple top portals.</p>
+            <p className="text-gray-500 dark:text-gray-400 mt-2">Find off-campus opportunities aggregated from multiple top portals.</p>
           </div>
           
           <div className="flex gap-3">
-            <button onClick={getAiJobMatch} disabled={aiMatchLoading || jobs.length === 0} className="btn-secondary py-2.5 px-6 whitespace-nowrap bg-purple-50 text-purple-700 hover:bg-purple-100 font-bold rounded-xl border border-purple-200 transition-all flex items-center gap-2">
+            <button onClick={getAiJobMatch} disabled={aiMatchLoading || jobs.length === 0} className="btn-secondary py-2.5 px-6 whitespace-nowrap bg-purple-50 dark:bg-purple-900/20 text-purple-700 dark:text-purple-400 hover:bg-purple-100 font-bold rounded-xl border border-purple-200 dark:border-purple-800 transition-all flex items-center gap-2">
               {aiMatchLoading ? "Thinking..." : "🤖 AI Match Me"}
             </button>
             <Link to="/job-tracker" className="btn-primary py-2.5 px-6 whitespace-nowrap">
@@ -228,7 +228,7 @@ export default function JobsBoard() {
           <div className="card p-12 text-center flex flex-col items-center">
             <span className="text-6xl mb-4">📭</span>
             <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">No Jobs Found</h3>
-            <p className="text-gray-500">Try adjusting your filters or search terms.</p>
+            <p className="text-gray-500 dark:text-gray-400">Try adjusting your filters or search terms.</p>
           </div>
         ) : (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -241,7 +241,7 @@ export default function JobsBoard() {
                 <div key={job._id} className="card relative p-6 flex flex-col border-2 hover:border-blue-500 transition-colors">
                   <button 
                     onClick={() => handleBookmark(job._id)}
-                    className="absolute top-4 right-4 p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                    className="absolute top-4 right-4 p-2 rounded-full hover:bg-gray-100 dark:bg-gray-900 dark:hover:bg-gray-800 transition-colors"
                   >
                     <span className={`text-xl ${isSaved ? "text-yellow-500 drop-shadow-sm" : "text-gray-300 dark:text-gray-600 dark:text-gray-400 grayscale"}`}>
                       🔖
@@ -302,7 +302,7 @@ export default function JobsBoard() {
                           ⏳ {timeLeft}
                         </span>
                       ) : (
-                        <span className="text-xs font-bold text-gray-500 mt-1">Not specified</span>
+                        <span className="text-xs font-bold text-gray-500 dark:text-gray-400 mt-1">Not specified</span>
                       )}
                     </div>
                     
@@ -310,7 +310,7 @@ export default function JobsBoard() {
                       href={job.url} 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className={`px-4 py-2 rounded-xl text-sm font-bold shadow-sm transition-transform hover:-translate-y-0.5 ${isApplied ? 'bg-gray-100 text-gray-600 dark:text-gray-400 cursor-default' : 'bg-blue-600 text-white hover:bg-blue-700'}`}
+                      className={`px-4 py-2 rounded-xl text-sm font-bold shadow-sm transition-transform hover:-translate-y-0.5 ${isApplied ? 'bg-gray-100 dark:bg-gray-900 text-gray-600 dark:text-gray-400 cursor-default' : 'bg-blue-600 text-white hover:bg-blue-700'}`}
                     >
                       {isApplied ? 'Applied ✓' : 'Apply Now ↗'}
                     </a>

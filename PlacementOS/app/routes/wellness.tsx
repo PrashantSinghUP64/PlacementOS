@@ -10,11 +10,11 @@ export function meta() {
 }
 
 const MOODS = [
-  { emoji: "😊", label: "Great", color: "bg-green-100 border-green-400 text-green-700" },
-  { emoji: "😐", label: "Okay", color: "bg-yellow-100 border-yellow-400 text-yellow-700" },
-  { emoji: "😟", label: "Stressed", color: "bg-orange-100 border-orange-400 text-orange-700" },
-  { emoji: "😰", label: "Anxious", color: "bg-red-100 border-red-400 text-red-700" },
-  { emoji: "😭", label: "Overwhelmed", color: "bg-purple-100 border-purple-400 text-purple-700" },
+  { emoji: "😊", label: "Great", color: "bg-green-100 dark:bg-green-900/30 border-green-400 text-green-700 dark:text-green-400" },
+  { emoji: "😐", label: "Okay", color: "bg-yellow-100 dark:bg-yellow-900/30 border-yellow-400 text-yellow-700 dark:text-yellow-400" },
+  { emoji: "😟", label: "Stressed", color: "bg-orange-100 dark:bg-orange-900/30 border-orange-400 text-orange-700 dark:text-orange-400" },
+  { emoji: "😰", label: "Anxious", color: "bg-red-100 dark:bg-red-900/30 border-red-400 text-red-700 dark:text-red-400" },
+  { emoji: "😭", label: "Overwhelmed", color: "bg-purple-100 dark:bg-purple-900/30 border-purple-400 text-purple-700 dark:text-purple-400" },
 ];
 
 const QUOTES = [
@@ -119,7 +119,7 @@ export default function Wellness() {
       <div className="max-w-5xl mx-auto px-6 -mt-12 relative z-10 space-y-8">
 
         {/* Mood */}
-        <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-xl border border-green-100 p-6">
+        <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-xl border border-green-100 dark:border-green-900/50 p-6">
           <h2 className="text-xl font-black text-gray-900 dark:text-white mb-4">How are you feeling today? 🌤️</h2>
           <div className="flex gap-3 flex-wrap">
             {MOODS.map((m, i) => (
@@ -134,13 +134,13 @@ export default function Wellness() {
         {/* Quick Relief */}
         <div className="grid md:grid-cols-3 gap-5">
           {/* Breathing */}
-          <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-blue-100 p-5 flex flex-col items-center">
+          <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-blue-100 dark:border-blue-900/50 p-5 flex flex-col items-center">
             <h3 className="font-black text-gray-900 dark:text-white mb-1 self-start">Box Breathing 🌬️</h3>
-            <p className="text-xs text-gray-500 mb-4 self-start">4-4-4-4 technique reduces anxiety instantly</p>
-            <div className={`w-28 h-28 rounded-full flex items-center justify-center mb-4 transition-all duration-1000 ${breathing ? "bg-blue-100 scale-110" : "bg-gray-100"}`}>
+            <p className="text-xs text-gray-500 dark:text-gray-400 mb-4 self-start">4-4-4-4 technique reduces anxiety instantly</p>
+            <div className={`w-28 h-28 rounded-full flex items-center justify-center mb-4 transition-all duration-1000 ${breathing ? "bg-blue-100 scale-110" : "bg-gray-100 dark:bg-gray-900"}`}>
               <div className="text-center">
                 <div className="text-2xl font-black text-gray-700 dark:text-gray-300">{breathCount}</div>
-                <div className="text-[10px] font-bold text-gray-500">{breathing ? breathPhase : "Press Start"}</div>
+                <div className="text-[10px] font-bold text-gray-500 dark:text-gray-400">{breathing ? breathPhase : "Press Start"}</div>
               </div>
             </div>
             <button onClick={startBreathing} disabled={breathing}
@@ -150,25 +150,25 @@ export default function Wellness() {
           </div>
 
           {/* Motivation */}
-          <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-yellow-100 p-5 flex flex-col">
+          <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-yellow-100 dark:border-yellow-900/50 p-5 flex flex-col">
             <h3 className="font-black text-gray-900 dark:text-white mb-1">Quick Motivation ⚡</h3>
-            <p className="text-xs text-gray-500 mb-3">Real tier 3 students who made it</p>
-            <div className="flex-1 bg-yellow-50 rounded-xl p-4 flex flex-col justify-center mb-3">
+            <p className="text-xs text-gray-500 dark:text-gray-400 mb-3">Real tier 3 students who made it</p>
+            <div className="flex-1 bg-yellow-50 dark:bg-yellow-900/20 rounded-xl p-4 flex flex-col justify-center mb-3">
               <p className="text-gray-800 dark:text-gray-200 font-bold italic mb-2">"{QUOTES[quoteIdx].q}"</p>
-              <p className="text-xs text-yellow-700 font-bold">— {QUOTES[quoteIdx].by}</p>
+              <p className="text-xs text-yellow-700 dark:text-yellow-400 font-bold">— {QUOTES[quoteIdx].by}</p>
             </div>
             <button onClick={() => setQuoteIdx(q => (q + 1) % QUOTES.length)}
-              className="w-full py-2 bg-yellow-100 hover:bg-yellow-200 text-yellow-800 font-bold text-sm rounded-xl transition-colors">↻ New Quote</button>
+              className="w-full py-2 bg-yellow-100 dark:bg-yellow-900/30 hover:bg-yellow-200 text-yellow-800 dark:text-yellow-300 font-bold text-sm rounded-xl transition-colors">↻ New Quote</button>
           </div>
 
           {/* Habits */}
-          <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-teal-100 p-5">
+          <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-teal-100 dark:border-teal-900/50 p-5">
             <h3 className="font-black text-gray-900 dark:text-white mb-1">Daily Habits ✅</h3>
-            <p className="text-xs text-gray-500 mb-3">{habits.filter(Boolean).length}/{HABITS.length} done today</p>
+            <p className="text-xs text-gray-500 dark:text-gray-400 mb-3">{habits.filter(Boolean).length}/{HABITS.length} done today</p>
             <div className="space-y-2">
               {HABITS.map((h, i) => (
-                <label key={i} className={`flex items-center gap-2 p-2 rounded-lg cursor-pointer text-xs font-medium transition-colors ${habits[i] ? "bg-teal-50 text-gray-400 line-through" : "text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:bg-gray-950"}`}>
-                  <input type="checkbox" checked={habits[i]} onChange={() => { const a = [...habits]; a[i] = !a[i]; setHabits(a); }} className="w-4 h-4 text-teal-600 rounded" />
+                <label key={i} className={`flex items-center gap-2 p-2 rounded-lg cursor-pointer text-xs font-medium transition-colors ${habits[i] ? "bg-teal-50 text-gray-400 line-through" : "text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-900 dark:bg-gray-950"}`}>
+                  <input type="checkbox" checked={habits[i]} onChange={() => { const a = [...habits]; a[i] = !a[i]; setHabits(a); }} className="w-4 h-4 text-teal-600 dark:text-teal-400 rounded" />
                   {h}
                 </label>
               ))}
@@ -178,21 +178,21 @@ export default function Wellness() {
 
         {/* Common Fears */}
         <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 overflow-hidden">
-          <div className="p-5 bg-indigo-50 border-b border-indigo-100">
-            <h2 className="text-xl font-black text-indigo-900">Common Fears — Honest Answers 🧠</h2>
+          <div className="p-5 bg-indigo-50 dark:bg-indigo-900/20 border-b border-indigo-100 dark:border-indigo-900/50">
+            <h2 className="text-xl font-black text-indigo-900 dark:text-indigo-200">Common Fears — Honest Answers 🧠</h2>
           </div>
           {FEARS.map((f, i) => (
             <div key={i} className="border-b border-gray-50 last:border-0">
               <button onClick={() => setExpandedFear(expandedFear === i ? null : i)}
-                className="w-full text-left p-4 flex justify-between items-center hover:bg-gray-50 dark:bg-gray-950 transition-colors font-black text-gray-800 dark:text-gray-200">
+                className="w-full text-left p-4 flex justify-between items-center hover:bg-gray-50 dark:hover:bg-gray-900 dark:bg-gray-950 transition-colors font-black text-gray-800 dark:text-gray-200">
                 {f.f} <span className={`text-gray-400 text-xl transition-transform ${expandedFear === i ? "rotate-180" : ""}`}>▾</span>
               </button>
               {expandedFear === i && (
                 <div className="px-4 pb-4 bg-gray-50 dark:bg-gray-950">
                   <p className="text-sm text-gray-700 dark:text-gray-300 font-medium mb-3 italic">{f.r}</p>
-                  <div className="bg-indigo-50 border border-indigo-100 rounded-xl p-3">
-                    <p className="text-xs font-black text-indigo-600 uppercase tracking-wider">Aaj ka action</p>
-                    <p className="text-sm font-bold text-indigo-900">{f.a}</p>
+                  <div className="bg-indigo-50 dark:bg-indigo-900/20 border border-indigo-100 dark:border-indigo-900/50 rounded-xl p-3">
+                    <p className="text-xs font-black text-indigo-600 dark:text-indigo-400 uppercase tracking-wider">Aaj ka action</p>
+                    <p className="text-sm font-bold text-indigo-900 dark:text-indigo-200">{f.a}</p>
                   </div>
                 </div>
               )}
@@ -207,17 +207,17 @@ export default function Wellness() {
             {STORIES.map((s, i) => (
               <div key={i} className={`bg-white dark:bg-gray-900 rounded-2xl border-l-4 ${s.c} shadow-sm p-5 text-sm`}>
                 <h3 className="font-black text-gray-900 dark:text-white mb-2">{s.n}</h3>
-                <p className="text-gray-500 mb-1"><span className="font-black">Background: </span>{s.bg}</p>
-                <p className="text-gray-500 mb-1"><span className="font-black">Challenge: </span>{s.ch}</p>
-                <p className="text-gray-500 mb-2"><span className="font-black">Action: </span>{s.did}</p>
-                <div className="bg-green-50 dark:bg-green-900/20 rounded-xl p-2"><span className="font-black text-green-700">{s.r}</span></div>
+                <p className="text-gray-500 dark:text-gray-400 mb-1"><span className="font-black">Background: </span>{s.bg}</p>
+                <p className="text-gray-500 dark:text-gray-400 mb-1"><span className="font-black">Challenge: </span>{s.ch}</p>
+                <p className="text-gray-500 dark:text-gray-400 mb-2"><span className="font-black">Action: </span>{s.did}</p>
+                <div className="bg-green-50 dark:bg-green-900/20 rounded-xl p-2"><span className="font-black text-green-700 dark:text-green-400">{s.r}</span></div>
               </div>
             ))}
           </div>
         </div>
 
         {/* Burnout Detector */}
-        <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-orange-100 p-6">
+        <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-orange-100 dark:border-orange-900/50 p-6">
           <h2 className="text-xl font-black text-gray-900 dark:text-white mb-4">Burnout Detector 🔍</h2>
           {!burnoutDone ? (
             burnoutAnswers.length < BURNOUT_QS.length ? (
@@ -227,7 +227,7 @@ export default function Wellness() {
                 <div className="flex flex-wrap gap-2">
                   {["Kabhi nahi (0)", "Kabhi kabhi (1)", "Aksar (2)", "Hamesha (3)"].map((o, j) => (
                     <button key={j} onClick={() => handleBurnout(j)}
-                      className="px-4 py-2 bg-orange-50 hover:bg-orange-100 border border-orange-200 text-orange-800 font-bold text-sm rounded-xl transition-colors">{o}</button>
+                      className="px-4 py-2 bg-orange-50 dark:bg-orange-900/20 hover:bg-orange-100 border border-orange-200 dark:border-orange-800 text-orange-800 dark:text-orange-300 font-bold text-sm rounded-xl transition-colors">{o}</button>
                   ))}
                 </div>
               </div>
@@ -236,12 +236,12 @@ export default function Wellness() {
             <div className="text-center">
               <div className="text-5xl mb-2">{bl === "High" ? "😰" : bl === "Moderate" ? "😐" : "😊"}</div>
               <h3 className="text-2xl font-black mb-1">Burnout: {bl}</h3>
-              <div className={`mt-3 p-4 rounded-xl text-sm font-bold text-left ${bl === "High" ? "bg-red-50 dark:bg-red-900/20 text-red-800" : bl === "Moderate" ? "bg-yellow-50 text-yellow-800" : "bg-green-50 dark:bg-green-900/20 text-green-800"}`}>
+              <div className={`mt-3 p-4 rounded-xl text-sm font-bold text-left ${bl === "High" ? "bg-red-50 dark:bg-red-900/20 text-red-800 dark:text-red-300" : bl === "Moderate" ? "bg-yellow-50 text-yellow-800" : "bg-green-50 dark:bg-green-900/20 text-green-800"}`}>
                 {bl === "High" && "⚠️ 2-3 din break lo. Walk, sleep, family. Mental health > placement."}
                 {bl === "Moderate" && "⚡ Daily 1 break lo. Weekly 1 full rest day. Marathon hai sprint nahi."}
                 {bl === "Low" && "✅ Acha kar rahe ho! Consistency banaya rakho."}
               </div>
-              <button onClick={() => { setBurnoutAnswers([]); setBurnoutDone(false); }} className="mt-4 px-5 py-2 bg-gray-100 text-gray-700 dark:text-gray-300 font-bold rounded-xl text-sm">Retake</button>
+              <button onClick={() => { setBurnoutAnswers([]); setBurnoutDone(false); }} className="mt-4 px-5 py-2 bg-gray-100 dark:bg-gray-900 text-gray-700 dark:text-gray-300 font-bold rounded-xl text-sm">Retake</button>
             </div>
           )}
         </div>
@@ -255,7 +255,7 @@ export default function Wellness() {
             className="w-full bg-white dark:bg-gray-900/10 border border-white/20 rounded-xl p-3 text-white placeholder-green-200 text-sm font-medium mb-3 focus:outline-none resize-none" />
           {chatReply && <div className="bg-white dark:bg-gray-900/20 rounded-xl p-3 mb-3 text-sm font-medium">{chatReply}</div>}
           <button onClick={sendChat} disabled={chatLoading || !chatMsg.trim()}
-            className="px-6 py-2.5 bg-white dark:bg-gray-900 text-green-700 font-black rounded-xl text-sm hover:bg-green-50 dark:bg-green-900/20 disabled:opacity-60 transition-colors">
+            className="px-6 py-2.5 bg-white dark:bg-gray-900 text-green-700 dark:text-green-400 font-black rounded-xl text-sm hover:bg-green-50 dark:bg-green-900/20 disabled:opacity-60 transition-colors">
             {chatLoading ? "Thinking..." : "Send 💙"}
           </button>
         </div>

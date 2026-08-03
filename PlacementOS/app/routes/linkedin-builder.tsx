@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Navbar from "~/components/Navbar";
+import FeatureHeader from "~/components/FeatureHeader";
 import { callAI } from "~/lib/aiHelper";
 
 export function meta() {
@@ -74,29 +75,47 @@ export default function LinkedinBuilder() {
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950 pb-20 font-sans">
       <Navbar />
 
-      {/* Hero */}
-      <div className="bg-[#0A66C2] text-white pt-16 pb-28">
-        <div className="max-w-4xl mx-auto px-6 text-center">
-          <h1 className="text-4xl md:text-5xl font-black mb-3">LinkedIn Profile Builder 💼</h1>
-          <p className="text-blue-200 text-xl font-medium">AI se apna LinkedIn 100% complete aur recruiter-ready banao</p>
-        </div>
-      </div>
+      <FeatureHeader
+        title="LinkedIn Profile Builder"
+        icon="💼"
+        description="AI se apna LinkedIn 100% complete aur recruiter-ready banao."
+        whatItDoes="Provides a guided, step-by-step process to build a professional LinkedIn profile from scratch. It uses AI to write your headline, about section, and professional experience bullets."
+        howItWorks={[
+          "Follow the 8-step wizard to complete your profile.",
+          "Use the AI generators to write compelling copy for each section.",
+          "Copy and paste the generated text directly into LinkedIn.",
+          "Use the provided connection message templates to start networking."
+        ]}
+        whyItMatters={[
+          "Your LinkedIn profile is your digital resume. It's often the first thing recruiters check.",
+          "An optimized profile ranks higher in recruiter searches (LinkedIn SEO)."
+        ]}
+        aiCapabilities={[
+          "Generates SEO-optimized headlines based on target roles.",
+          "Rewrites casual internship/project descriptions into professional, metric-driven bullets."
+        ]}
+        tips={[
+          "Never send a connection request without a personalized note.",
+          "Aim for at least 500+ connections to maximize your profile's visibility."
+        ]}
+        gradient="from-[#0A66C2] to-[#004182]"
+      />
 
-      <div className="max-w-5xl mx-auto px-6 -mt-14 relative z-10">
+      <div className="max-w-5xl mx-auto px-6 py-12 relative z-10">
 
         {/* Progress */}
         <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-800 p-5 mb-6">
           <div className="flex items-center justify-between mb-3">
             <h2 className="font-black text-gray-900 dark:text-white">Your Progress</h2>
-            <span className="text-2xl font-black text-blue-600">{completionScore}%</span>
+            <span className="text-2xl font-black text-blue-600 dark:text-blue-400">{completionScore}%</span>
           </div>
-          <div className="w-full h-3 bg-gray-100 rounded-full overflow-hidden mb-4">
+          <div className="w-full h-3 bg-gray-100 dark:bg-gray-900 rounded-full overflow-hidden mb-4">
             <div className="h-full bg-[#0A66C2] transition-all duration-500" style={{ width: `${completionScore}%` }} />
           </div>
           <div className="flex flex-wrap gap-2">
             {STEPS.map(s => (
               <button key={s.id} onClick={() => setStep(s.id)}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all ${step === s.id ? "bg-[#0A66C2] text-white" : s.id < step ? "bg-green-100 text-green-700" : "bg-gray-100 text-gray-500"}`}>
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all ${step === s.id ? "bg-[#0A66C2] text-white" : s.id < step ? "bg-green-100 text-green-700" : "bg-gray-100 dark:bg-gray-900 text-gray-500 dark:text-gray-400"}`}>
                 {s.id < step ? "✓" : s.icon} {s.title}
               </button>
             ))}
@@ -110,17 +129,17 @@ export default function LinkedinBuilder() {
             <div>
               <h2 className="text-2xl font-black text-gray-900 dark:text-white mb-6 flex items-center gap-2">📸 Profile Photo Tips</h2>
               <div className="grid md:grid-cols-2 gap-6">
-                <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 rounded-xl p-5">
-                  <h3 className="font-black text-green-800 mb-3">✅ Do's</h3>
+                <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-xl p-5">
+                  <h3 className="font-black text-green-800 dark:text-green-300 mb-3">✅ Do's</h3>
                   <ul className="space-y-2">{PHOTO_TIPS.dos.map((d, i) => <li key={i} className="flex items-start gap-2 text-sm text-green-700 font-medium"><span className="text-green-500 font-black mt-0.5">✓</span>{d}</li>)}</ul>
                 </div>
-                <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 rounded-xl p-5">
-                  <h3 className="font-black text-red-800 mb-3">❌ Don'ts</h3>
-                  <ul className="space-y-2">{PHOTO_TIPS.donts.map((d, i) => <li key={i} className="flex items-start gap-2 text-sm text-red-700 font-medium"><span className="text-red-500 font-black mt-0.5">✗</span>{d}</li>)}</ul>
+                <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl p-5">
+                  <h3 className="font-black text-red-800 dark:text-red-300 mb-3">❌ Don'ts</h3>
+                  <ul className="space-y-2">{PHOTO_TIPS.donts.map((d, i) => <li key={i} className="flex items-start gap-2 text-sm text-red-700 dark:text-red-400 font-medium"><span className="text-red-500 font-black mt-0.5">✗</span>{d}</li>)}</ul>
                 </div>
               </div>
-              <div className="mt-4 p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-100 rounded-xl">
-                <p className="text-sm font-bold text-blue-800">💡 Pro tip: <a href="https://www.remove.bg/" target="_blank" rel="noreferrer" className="underline">remove.bg</a> se background free mein remove karo. Phone camera + sunlight = perfect photo!</p>
+              <div className="mt-4 p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-900/50 rounded-xl">
+                <p className="text-sm font-bold text-blue-800 dark:text-blue-300">💡 Pro tip: <a href="https://www.remove.bg/" target="_blank" rel="noreferrer" className="underline">remove.bg</a> se background free mein remove karo. Phone camera + sunlight = perfect photo!</p>
               </div>
             </div>
           )}
@@ -199,15 +218,15 @@ export default function LinkedinBuilder() {
                   ))}
                 </div>
               </div>
-              <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-100 rounded-xl p-4">
-                <h3 className="font-black text-blue-800 mb-3">Top 15 skills for {role}:</h3>
+              <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-900/50 rounded-xl p-4">
+                <h3 className="font-black text-blue-800 dark:text-blue-300 mb-3">Top 15 skills for {role}:</h3>
                 <div className="flex flex-wrap gap-2">
                   {SKILL_SUGGESTIONS[role].map(s => (
-                    <span key={s} className="px-3 py-1.5 bg-white dark:bg-gray-900 border border-blue-200 text-blue-800 rounded-full text-sm font-bold">{s}</span>
+                    <span key={s} className="px-3 py-1.5 bg-white dark:bg-gray-900 border border-blue-200 dark:border-blue-800 text-blue-800 dark:text-blue-300 rounded-full text-sm font-bold">{s}</span>
                   ))}
                 </div>
               </div>
-              <p className="mt-3 text-xs text-gray-500 font-medium">💡 Put your strongest skills first. LinkedIn prioritizes first 5 skills in search. Get endorsements from college friends for top skills.</p>
+              <p className="mt-3 text-xs text-gray-500 dark:text-gray-400 font-medium">💡 Put your strongest skills first. LinkedIn prioritizes first 5 skills in search. Get endorsements from college friends for top skills.</p>
             </div>
           )}
 
@@ -233,9 +252,9 @@ export default function LinkedinBuilder() {
               <h2 className="text-2xl font-black text-gray-900 dark:text-white mb-6">🎓 Education Section</h2>
               <div className="space-y-3">
                 {[["What to include", ["Degree, branch, years (e.g. B.Tech CSE 2021-2025)", "CGPA — include it (if above 7.0)", "Relevant coursework: DSA, DBMS, OS, CN, ML", "Achievements: Hackathon wins, Dean's list, scholarships", "Activities: Tech clubs, IEEE, coding club lead"]], ["What to skip", ["School (10th/12th) — optional if below 65%", "Irrelevant activities", "CGPA if below 6.5 (just put 'B.Tech CSE')"]]].map(([title, items]) => (
-                  <div key={title as string} className={`p-4 rounded-xl border ${title === "What to include" ? "bg-green-50 dark:bg-green-900/20 border-green-200" : "bg-red-50 dark:bg-red-900/20 border-red-200"}`}>
-                    <h3 className={`font-black mb-2 ${title === "What to include" ? "text-green-800" : "text-red-800"}`}>{title}</h3>
-                    <ul className="space-y-1">{(items as string[]).map((item, j) => <li key={j} className={`text-sm font-medium ${title === "What to include" ? "text-green-700" : "text-red-700"}`}>• {item}</li>)}</ul>
+                  <div key={title as string} className={`p-4 rounded-xl border ${title === "What to include" ? "bg-green-50 dark:bg-green-900/20 border-green-200" : "bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800"}`}>
+                    <h3 className={`font-black mb-2 ${title === "What to include" ? "text-green-800" : "text-red-800 dark:text-red-300"}`}>{title}</h3>
+                    <ul className="space-y-1">{(items as string[]).map((item, j) => <li key={j} className={`text-sm font-medium ${title === "What to include" ? "text-green-700" : "text-red-700 dark:text-red-400"}`}>• {item}</li>)}</ul>
                   </div>
                 ))}
               </div>
@@ -249,8 +268,8 @@ export default function LinkedinBuilder() {
               <div className="space-y-4">
                 {MSG_TEMPLATES.map((t, i) => (
                   <div key={i} className="bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl overflow-hidden">
-                    <div className="px-4 py-2 bg-blue-50 dark:bg-blue-900/20 border-b border-blue-100">
-                      <h3 className="font-black text-blue-800 text-sm">To: {t.to}</h3>
+                    <div className="px-4 py-2 bg-blue-50 dark:bg-blue-900/20 border-b border-blue-100 dark:border-blue-900/50">
+                      <h3 className="font-black text-blue-800 dark:text-blue-300 text-sm">To: {t.to}</h3>
                     </div>
                     <div className="p-4 relative">
                       <pre className="text-xs font-medium text-gray-700 dark:text-gray-300 whitespace-pre-wrap">{t.msg}</pre>
@@ -266,7 +285,7 @@ export default function LinkedinBuilder() {
 
         {/* Navigation */}
         <div className="flex justify-between">
-          <button onClick={() => setStep(s => Math.max(1, s - 1))} disabled={step === 1} className="px-6 py-3 bg-gray-100 hover:bg-gray-200 disabled:opacity-40 text-gray-700 dark:text-gray-300 font-bold rounded-xl transition-colors">← Previous</button>
+          <button onClick={() => setStep(s => Math.max(1, s - 1))} disabled={step === 1} className="px-6 py-3 bg-gray-100 dark:bg-gray-900 hover:bg-gray-200 disabled:opacity-40 text-gray-700 dark:text-gray-300 font-bold rounded-xl transition-colors">← Previous</button>
           {step < 8 ? (
             <button onClick={() => setStep(s => Math.min(8, s + 1))} className="px-6 py-3 bg-[#0A66C2] hover:bg-blue-700 text-white font-bold rounded-xl transition-colors">Next Step →</button>
           ) : (

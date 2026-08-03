@@ -4,6 +4,8 @@ import { apiFetch } from "~/lib/api";
 import Navbar from "~/components/Navbar";
 import { callAIForJSON } from "~/lib/aiHelper";
 
+import FeatureHeader from "~/components/FeatureHeader";
+
 export function meta() {
   return [
     { title: "Company Intel 🏢 — PlacementOS" },
@@ -150,52 +152,68 @@ Return ONLY valid JSON exactly matching this structure:
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950 pb-20 font-sans">
       <Navbar />
 
-      {/* HEADER SECTION */}
-      <div className="bg-[#042f2e] text-white pt-16 pb-32 relative overflow-hidden">
-        <div className="absolute top-0 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
-        <div className="max-w-4xl mx-auto px-6 relative z-10 text-center">
-          <h1 className="text-4xl md:text-5xl font-black mb-4 tracking-tight drop-shadow-lg">Company Intel 🏢</h1>
-          <p className="text-xl text-teal-100 font-medium max-w-2xl mx-auto mb-10">
-            Uncover interview processes, exact salary bands, and insider hiring secrets for any tech company.
-          </p>
+      <FeatureHeader
+        title="Company Intel"
+        icon="🏢"
+        description="Uncover interview processes, exact salary bands, and insider hiring secrets for any tech company."
+        whatItDoes="This AI agent synthesizes data from across the web to give you a complete breakdown of a company's hiring process, culture, and salaries."
+        howItWorks={[
+          "Enter the name of any tech company.",
+          "Our AI generates a comprehensive dossier including interview rounds, difficulty, and expected salaries.",
+          "Use the auto-generated checklist to track your preparation."
+        ]}
+        whyItMatters={[
+          "Going into an interview blind is a guaranteed way to fail.",
+          "Knowing the exact interview rounds and salary bands gives you massive negotiation power."
+        ]}
+        aiCapabilities={[
+          "Real-time synthesis of company data.",
+          "Dynamic preparation checklist generation."
+        ]}
+        tips={[
+          "Always research the company at least 48 hours before an interview.",
+          "Pay close attention to the 'What They Ask' section for DSA topics."
+        ]}
+        gradient="from-[#042f2e] to-teal-800"
+      />
 
-          <form onSubmit={(e) => { e.preventDefault(); researchCompany(); }} className="relative max-w-2xl mx-auto shadow-2xl">
-            <input 
-              type="text" 
-              placeholder="Search any company... eg Google, TCS, Zomato"
-              value={searchInput}
-              onChange={(e) => setSearchInput(e.target.value)}
-              className="w-full pl-6 pr-40 py-5 bg-white dark:bg-gray-900 text-gray-900 dark:text-white rounded-2xl text-lg font-medium outline-none focus:ring-4 focus:ring-teal-500/50"
-            />
+      <div className="max-w-4xl mx-auto px-6 py-8">
+        <form onSubmit={(e) => { e.preventDefault(); researchCompany(); }} className="relative max-w-2xl mx-auto shadow-xl rounded-2xl">
+          <input 
+            type="text" 
+            placeholder="Search any company... eg Google, TCS, Zomato"
+            value={searchInput}
+            onChange={(e) => setSearchInput(e.target.value)}
+            className="w-full pl-6 pr-40 py-5 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 text-gray-900 dark:text-white rounded-2xl text-lg font-medium outline-none focus:ring-4 focus:ring-teal-500/20 transition-all"
+          />
+          <button 
+            type="submit" 
+            disabled={loading || !searchInput.trim()}
+            className="absolute right-2 top-2 bottom-2 px-6 bg-teal-600 hover:bg-teal-700 disabled:bg-gray-400 text-white font-black rounded-xl transition-all shadow-md"
+          >
+            Research
+          </button>
+        </form>
+
+        <div className="flex flex-wrap justify-center gap-2 mt-6 max-w-3xl mx-auto">
+          {POPULAR.map(name => (
             <button 
-              type="submit" 
-              disabled={loading || !searchInput.trim()}
-              className="absolute right-2 top-2 bottom-2 px-6 bg-teal-600 hover:bg-teal-700 disabled:bg-gray-400 text-white font-black rounded-xl transition-all shadow-md"
+              key={name}
+              onClick={() => researchCompany(name)}
+              disabled={loading}
+              className="px-4 py-2 bg-white dark:bg-gray-900 hover:bg-teal-50 border border-gray-200 dark:border-gray-800 rounded-full text-sm font-bold transition-all text-gray-600 dark:text-gray-400 hover:text-teal-600"
             >
-              Research
+              {name}
             </button>
-          </form>
-
-          <div className="flex flex-wrap justify-center gap-2 mt-6 max-w-3xl mx-auto">
-            {POPULAR.map(name => (
-              <button 
-                key={name}
-                onClick={() => researchCompany(name)}
-                disabled={loading}
-                className="px-4 py-2 bg-teal-900/60 hover:bg-teal-800 border border-teal-700/50 rounded-full text-sm font-bold transition-all text-teal-50"
-              >
-                {name}
-              </button>
-            ))}
-          </div>
+          ))}
         </div>
       </div>
 
-      <div className="max-w-6xl mx-auto px-6 -mt-16 relative z-20">
+      <div className="max-w-6xl mx-auto px-6 relative z-20">
         
         {/* LOADING STATE */}
         {loading && (
-          <div className="bg-white dark:bg-gray-900 rounded-3xl shadow-2xl p-12 text-center animate-pulse border border-teal-100">
+          <div className="bg-white dark:bg-gray-900 rounded-3xl shadow-2xl p-12 text-center animate-pulse border border-teal-100 dark:border-teal-900/50">
             <div className="text-6xl mb-6">🔍</div>
             <h2 className="text-2xl font-black text-slate-800 mb-2">Gathering Intelligence...</h2>
             <p className="text-slate-500 font-bold">Scouring the web for interview processes, salaries, and secrets.</p>
@@ -204,7 +222,7 @@ Return ONLY valid JSON exactly matching this structure:
 
         {/* ERROR STATE */}
         {error && (
-          <div className="bg-red-50 dark:bg-red-900/20 text-red-600 rounded-3xl shadow-xl p-8 text-center border border-red-200">
+          <div className="bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 rounded-3xl shadow-xl p-8 text-center border border-red-200 dark:border-red-800">
             <div className="text-4xl mb-3">⚠️</div>
             <h2 className="text-xl font-bold">{error}</h2>
           </div>
@@ -222,16 +240,16 @@ Return ONLY valid JSON exactly matching this structure:
                    <div>
                      <div className="flex items-center gap-3 mb-1">
                        <h2 className="text-4xl font-black tracking-tight text-gray-900 dark:text-white">{company.name}</h2>
-                       <span className="bg-teal-100 text-teal-800 text-xs font-black uppercase tracking-widest px-3 py-1 rounded-full">{company.type}</span>
+                       <span className="bg-teal-100 dark:bg-teal-900/30 text-teal-800 dark:text-teal-300 text-xs font-black uppercase tracking-widest px-3 py-1 rounded-full">{company.type}</span>
                      </div>
-                     <p className="text-lg font-bold text-teal-600">Expected Package: {company.packageRange}</p>
+                     <p className="text-lg font-bold text-teal-600 dark:text-teal-400">Expected Package: {company.packageRange}</p>
                    </div>
-                   <button onClick={saveCompany} className="p-3 bg-gray-100 hover:bg-teal-50 hover:text-teal-600 text-gray-400 rounded-2xl transition-colors shadow-inner" title="Save Company">
+                   <button onClick={saveCompany} className="p-3 bg-gray-100 dark:bg-gray-900 hover:bg-teal-50 hover:text-teal-600 dark:text-teal-400 text-gray-400 rounded-2xl transition-colors shadow-inner" title="Save Company">
                      🔖
                    </button>
                  </div>
                  
-                 <div className="flex flex-wrap gap-4 text-sm font-bold text-gray-500 mt-6">
+                 <div className="flex flex-wrap gap-4 text-sm font-bold text-gray-500 dark:text-gray-400 mt-6">
                    <div className="flex items-center gap-1.5 bg-gray-50 dark:bg-gray-950 px-3 py-1.5 rounded-lg border border-gray-200 dark:border-gray-800">
                      <span className="text-amber-500">⭐</span> {company.rating}/5 Rating
                    </div>
@@ -257,7 +275,7 @@ Return ONLY valid JSON exactly matching this structure:
                   <button 
                     key={t.id}
                     onClick={() => setActiveTab(t.id)}
-                    className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl font-bold transition-all text-left ${activeTab === t.id ? 'bg-white dark:bg-gray-900 shadow-sm border border-gray-200 dark:border-gray-800 text-teal-700' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 hover:text-gray-900 dark:text-white border border-transparent'}`}
+                    className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl font-bold transition-all text-left ${activeTab === t.id ? 'bg-white dark:bg-gray-900 shadow-sm border border-gray-200 dark:border-gray-800 text-teal-700' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white dark:text-white border border-transparent'}`}
                   >
                     <span>{t.icon}</span> {t.label}
                   </button>
@@ -277,13 +295,13 @@ Return ONLY valid JSON exactly matching this structure:
                     <div>
                       <h3 className="text-sm font-black text-gray-400 uppercase tracking-widest mb-3">Tech Stack</h3>
                       <div className="flex flex-wrap gap-2">
-                        {company.techStack.map(t => <span key={t} className="px-3 py-1.5 bg-indigo-50 text-indigo-700 rounded-lg text-sm font-bold border border-indigo-100 break-words">{t}</span>)}
+                        {company.techStack.map(t => <span key={t} className="px-3 py-1.5 bg-indigo-50 dark:bg-indigo-900/20 text-indigo-700 dark:text-indigo-400 rounded-lg text-sm font-bold border border-indigo-100 dark:border-indigo-900/50 break-words">{t}</span>)}
                       </div>
                     </div>
                     <div>
                       <h3 className="text-sm font-black text-gray-400 uppercase tracking-widest mb-3">India Offices</h3>
                       <div className="flex flex-wrap gap-2">
-                        {company.indiaOffices.map(o => <span key={o} className="px-3 py-1.5 bg-gray-100 text-gray-700 dark:text-gray-300 rounded-lg text-sm font-bold border border-gray-200 dark:border-gray-800">{o}</span>)}
+                        {company.indiaOffices.map(o => <span key={o} className="px-3 py-1.5 bg-gray-100 dark:bg-gray-900 text-gray-700 dark:text-gray-300 rounded-lg text-sm font-bold border border-gray-200 dark:border-gray-800">{o}</span>)}
                       </div>
                     </div>
                   </div>
@@ -300,14 +318,14 @@ Return ONLY valid JSON exactly matching this structure:
                         <div className="w-[calc(100%-3rem)] md:w-[calc(50%-2.5rem)] bg-white dark:bg-gray-900 p-5 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800">
                           <div className="flex items-center justify-between mb-1">
                             <h4 className="font-bold text-gray-900 dark:text-white">{round.name}</h4>
-                            <span className="text-xs font-bold text-teal-600 bg-teal-50 px-2 py-1 rounded">{round.duration}</span>
+                            <span className="text-xs font-bold text-teal-600 dark:text-teal-400 bg-teal-50 dark:bg-teal-900/20 px-2 py-1 rounded">{round.duration}</span>
                           </div>
-                          <p className="text-sm text-gray-500 font-medium">Difficulty: <span className="font-bold text-gray-700 dark:text-gray-300">{round.difficulty}</span></p>
+                          <p className="text-sm text-gray-500 dark:text-gray-400 font-medium">Difficulty: <span className="font-bold text-gray-700 dark:text-gray-300">{round.difficulty}</span></p>
                         </div>
                       </div>
                     ))}
-                    <div className="w-[calc(100%-3rem)] md:w-[calc(50%-2.5rem)] ml-[3rem] md:ml-[50%] md:translate-x-[2.5rem] mt-6 bg-teal-50/50 p-4 rounded-xl border border-teal-100">
-                      <p className="text-sm font-bold text-teal-800 text-center">⏱️ Process usually takes 2-4 weeks</p>
+                    <div className="w-[calc(100%-3rem)] md:w-[calc(50%-2.5rem)] ml-[3rem] md:ml-[50%] md:translate-x-[2.5rem] mt-6 bg-teal-50 dark:bg-teal-900/20/50 p-4 rounded-xl border border-teal-100 dark:border-teal-900/50">
+                      <p className="text-sm font-bold text-teal-800 dark:text-teal-300 text-center">⏱️ Process usually takes 2-4 weeks</p>
                     </div>
                   </div>
                 )}
@@ -361,15 +379,15 @@ Return ONLY valid JSON exactly matching this structure:
                         <h3 className="text-xs font-black text-emerald-600 uppercase tracking-widest mb-1 relative z-10">Fresher (SDE 1)</h3>
                         <p className="text-2xl font-black text-emerald-900 relative z-10">{company.salary.fresher}</p>
                       </div>
-                      <div className="bg-blue-50 dark:bg-blue-900/20 rounded-2xl p-6 border border-blue-100 text-center relative overflow-hidden">
+                      <div className="bg-blue-50 dark:bg-blue-900/20 rounded-2xl p-6 border border-blue-100 dark:border-blue-900/50 text-center relative overflow-hidden">
                         <div className="text-4xl mb-2 opacity-20 absolute -right-2 -bottom-2">👨‍💻</div>
-                        <h3 className="text-xs font-black text-blue-600 uppercase tracking-widest mb-1 relative z-10">2-3 Years (SDE 2)</h3>
-                        <p className="text-2xl font-black text-blue-900 relative z-10">{company.salary.twoToThree}</p>
+                        <h3 className="text-xs font-black text-blue-600 dark:text-blue-400 uppercase tracking-widest mb-1 relative z-10">2-3 Years (SDE 2)</h3>
+                        <p className="text-2xl font-black text-blue-900 dark:text-blue-200 relative z-10">{company.salary.twoToThree}</p>
                       </div>
-                      <div className="bg-purple-50 dark:bg-purple-900/20 rounded-2xl p-6 border border-purple-100 text-center relative overflow-hidden">
+                      <div className="bg-purple-50 dark:bg-purple-900/20 rounded-2xl p-6 border border-purple-100 dark:border-purple-900/50 text-center relative overflow-hidden">
                         <div className="text-4xl mb-2 opacity-20 absolute -right-2 -bottom-2">🧙‍♂️</div>
-                        <h3 className="text-xs font-black text-purple-600 uppercase tracking-widest mb-1 relative z-10">5+ Years (Senior)</h3>
-                        <p className="text-2xl font-black text-purple-900 relative z-10">{company.salary.fivePlus}</p>
+                        <h3 className="text-xs font-black text-purple-600 dark:text-purple-400 uppercase tracking-widest mb-1 relative z-10">5+ Years (Senior)</h3>
+                        <p className="text-2xl font-black text-purple-900 dark:text-purple-200 relative z-10">{company.salary.fivePlus}</p>
                       </div>
                     </div>
                     
@@ -382,7 +400,7 @@ Return ONLY valid JSON exactly matching this structure:
                          </div>
                        </div>
                        <div className="flex items-center gap-4">
-                         <span className="text-2xl bg-indigo-100 w-12 h-12 rounded-full flex items-center justify-center border border-indigo-200">📈</span>
+                         <span className="text-2xl bg-indigo-100 dark:bg-indigo-900/30 w-12 h-12 rounded-full flex items-center justify-center border border-indigo-200 dark:border-indigo-800">📈</span>
                          <div>
                            <h4 className="font-black text-gray-900 dark:text-white">Stock Options / RSUs</h4>
                            <p className="text-sm font-bold text-gray-600 dark:text-gray-400">{company.salary.stockOptions}</p>
@@ -398,14 +416,14 @@ Return ONLY valid JSON exactly matching this structure:
                     
                     <div className="flex items-center gap-8 bg-gray-50 dark:bg-gray-950 p-6 rounded-2xl border border-gray-100 dark:border-gray-800">
                       <div className="flex-1">
-                        <p className="text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Work Life Balance</p>
+                        <p className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-2">Work Life Balance</p>
                         <div className="flex gap-1">
                           {[1,2,3,4,5].map(s => <span key={s} className={`text-2xl ${s <= company.culture.workLifeBalance ? 'text-amber-400' : 'text-gray-200'}`}>★</span>)}
                         </div>
                       </div>
-                      <div className="w-px h-12 bg-gray-200"></div>
+                      <div className="w-px h-12 bg-gray-200 dark:bg-gray-800"></div>
                       <div className="flex-1">
-                        <p className="text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Growth & Learning</p>
+                        <p className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-2">Growth & Learning</p>
                         <div className="flex gap-1">
                           {[1,2,3,4,5].map(s => <span key={s} className={`text-2xl ${s <= company.culture.growth ? 'text-emerald-400' : 'text-gray-200'}`}>★</span>)}
                         </div>
@@ -417,7 +435,7 @@ Return ONLY valid JSON exactly matching this structure:
                       <div className="grid gap-3">
                          {company.culture.tips.map((t, i) => (
                            <div key={i} className="flex items-start gap-3 bg-white dark:bg-gray-900 p-4 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800">
-                             <span className="w-6 h-6 bg-teal-100 text-teal-600 rounded-full flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">{i+1}</span>
+                             <span className="w-6 h-6 bg-teal-100 dark:bg-teal-900/30 text-teal-600 dark:text-teal-400 rounded-full flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">{i+1}</span>
                              <p className="text-sm font-bold text-gray-700 dark:text-gray-300">{t}</p>
                            </div>
                          ))}
@@ -425,8 +443,8 @@ Return ONLY valid JSON exactly matching this structure:
                     </div>
 
                     <div className="grid md:grid-cols-2 gap-6">
-                      <div className="bg-green-50 dark:bg-green-900/20 p-6 rounded-2xl border border-green-100">
-                        <h3 className="font-black text-green-800 mb-4 flex items-center gap-2"><span className="text-xl">✅</span> DO's</h3>
+                      <div className="bg-green-50 dark:bg-green-900/20 p-6 rounded-2xl border border-green-100 dark:border-green-900/50">
+                        <h3 className="font-black text-green-800 dark:text-green-300 mb-4 flex items-center gap-2"><span className="text-xl">✅</span> DO's</h3>
                         <ul className="space-y-3">
                           {company.culture.dosDonts.dos.map(d => (
                             <li key={d} className="text-sm font-bold text-green-900 flex items-start gap-2">
@@ -435,11 +453,11 @@ Return ONLY valid JSON exactly matching this structure:
                           ))}
                         </ul>
                       </div>
-                      <div className="bg-red-50 dark:bg-red-900/20 p-6 rounded-2xl border border-red-100">
-                        <h3 className="font-black text-red-800 mb-4 flex items-center gap-2"><span className="text-xl">❌</span> DON'Ts</h3>
+                      <div className="bg-red-50 dark:bg-red-900/20 p-6 rounded-2xl border border-red-100 dark:border-red-900/50">
+                        <h3 className="font-black text-red-800 dark:text-red-300 mb-4 flex items-center gap-2"><span className="text-xl">❌</span> DON'Ts</h3>
                         <ul className="space-y-3">
                           {company.culture.dosDonts.donts.map(d => (
-                            <li key={d} className="text-sm font-bold text-red-900 flex items-start gap-2">
+                            <li key={d} className="text-sm font-bold text-red-900 dark:text-red-200 flex items-start gap-2">
                               <span className="text-red-500 leading-tight">•</span> <span>{d}</span>
                             </li>
                           ))}
@@ -456,22 +474,22 @@ Return ONLY valid JSON exactly matching this structure:
                     <div className="flex items-center justify-between mb-6 pb-6 border-b border-gray-100 dark:border-gray-800">
                        <div>
                          <h3 className="text-xl font-black text-gray-900 dark:text-white mb-1">Your Readiness</h3>
-                         <p className="text-sm font-bold text-gray-500">Check off items as you complete them.</p>
+                         <p className="text-sm font-bold text-gray-500 dark:text-gray-400">Check off items as you complete them.</p>
                        </div>
                        <div className="text-right">
-                         <span className="text-3xl font-black text-teal-600">{calculateReadiness()}%</span>
+                         <span className="text-3xl font-black text-teal-600 dark:text-teal-400">{calculateReadiness()}%</span>
                        </div>
                     </div>
 
                     <div className="space-y-3">
                        {company.preparationChecklist.map((item, i) => (
-                          <label key={i} className={`flex items-start gap-4 p-4 rounded-xl border cursor-pointer transition-all ${checkedItems[i] ? 'bg-teal-50/30 border-teal-200' : 'bg-gray-50 dark:bg-gray-950/50 border-gray-200 dark:border-gray-800 hover:bg-gray-50 dark:bg-gray-950'}`}>
+                          <label key={i} className={`flex items-start gap-4 p-4 rounded-xl border cursor-pointer transition-all ${checkedItems[i] ? 'bg-teal-50/30 border-teal-200' : 'bg-gray-50 dark:bg-gray-950/50 border-gray-200 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-900 dark:bg-gray-950'}`}>
                              <div className="mt-0.5 shrink-0">
                                <input 
                                  type="checkbox" 
                                  checked={!!checkedItems[i]}
                                  onChange={() => setCheckedItems(prev => ({...prev, [i]: !prev[i]}))}
-                                 className="w-5 h-5 text-teal-600 bg-white dark:bg-gray-900 border-gray-300 rounded focus:ring-teal-500"
+                                 className="w-5 h-5 text-teal-600 dark:text-teal-400 bg-white dark:bg-gray-900 border-gray-300 dark:border-gray-700 rounded focus:ring-teal-500"
                                />
                              </div>
                              <p className={`font-bold text-[15px] select-none ${checkedItems[i] ? 'text-gray-400 line-through' : 'text-gray-800 dark:text-gray-200'}`}>{item}</p>
@@ -506,9 +524,9 @@ Return ONLY valid JSON exactly matching this structure:
                 <div key={c._id} className="bg-white dark:bg-gray-900 rounded-2xl p-6 shadow-sm border border-gray-200 dark:border-gray-800 hover:shadow-md transition-all cursor-pointer relative group" onClick={() => { setCompany(c.researchData); setActiveTab(1); window.scrollTo({top: 0, behavior: 'smooth'}); }}>
                   <div className="flex justify-between items-start mb-2">
                     <h3 className="text-lg font-black text-gray-900 dark:text-white">{c.companyName}</h3>
-                    <span className="text-xs font-bold text-teal-700 bg-teal-50 px-2 py-1 rounded">{c.researchData.difficulty}</span>
+                    <span className="text-xs font-bold text-teal-700 dark:text-teal-400 bg-teal-50 dark:bg-teal-900/20 px-2 py-1 rounded">{c.researchData.difficulty}</span>
                   </div>
-                  <p className="text-sm font-bold text-gray-500 mb-4">{c.researchData.packageRange}</p>
+                  <p className="text-sm font-bold text-gray-500 dark:text-gray-400 mb-4">{c.researchData.packageRange}</p>
                   <p className="text-xs text-gray-400 font-bold uppercase tracking-widest truncate">{c.researchData.type}</p>
                 </div>
               ))}

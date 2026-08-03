@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useAppAuthStore } from "~/lib/app-auth";
 import { apiFetch } from "~/lib/api";
 import Navbar from "~/components/Navbar";
+import FeatureHeader from "~/components/FeatureHeader";
 
 export function meta() {
   return [
@@ -70,11 +71,14 @@ export default function ReferralNetwork() {
       if (searchCollege) query.append("college", searchCollege);
       
       const res = await apiFetch(`/referral/providers?${query.toString()}`, { token });
-      if (Array.isArray(res) && res.length > 0) {
-        setProviders(res);
-      } else {
-        setProviders(mockProviders);
+      if (res.ok) {
+        const data = await res.json();
+        if (Array.isArray(data) && data.length > 0) {
+          setProviders(data);
+          return;
+        }
       }
+      setProviders(mockProviders);
     } catch (err) {
       console.error(err);
       setProviders(mockProviders);
@@ -86,7 +90,10 @@ export default function ReferralNetwork() {
   const fetchOutgoingRequests = async () => {
     try {
       const res = await apiFetch("/referral/outgoing-requests", { token });
-      if (Array.isArray(res)) setMyOutgoingRequests(res);
+      if (res.ok) {
+        const data = await res.json();
+        if (Array.isArray(data)) setMyOutgoingRequests(data);
+      }
     } catch (err) { }
   };
 
@@ -116,18 +123,21 @@ export default function ReferralNetwork() {
   // --- GIVE API CALLS ---
   const checkProviderStatus = async () => {
     try {
-      const res: any = await apiFetch("/referral/me", { token });
-      if (res) {
-        setIsRegisteredProvider(true);
-        setProviderForm({
-          company: res.company,
-          role: res.role,
-          linkedinUrl: res.linkedinUrl,
-          college: res.college,
-          rolesReferredFor: res.rolesReferredFor.join(", "),
-          maxReferralsPerMonth: res.maxReferralsPerMonth,
-          isActive: res.isActive
-        });
+      const res = await apiFetch("/referral/me", { token });
+      if (res.ok) {
+        const data: any = await res.json();
+        if (data) {
+          setIsRegisteredProvider(true);
+          setProviderForm({
+            company: data.company,
+            role: data.role,
+            linkedinUrl: data.linkedinUrl,
+            college: data.college,
+            rolesReferredFor: data.rolesReferredFor.join(", "),
+            maxReferralsPerMonth: data.maxReferralsPerMonth,
+            isActive: data.isActive
+          });
+        }
       }
     } catch (err) { }
   };
@@ -135,7 +145,10 @@ export default function ReferralNetwork() {
   const fetchIncomingRequests = async () => {
     try {
       const res = await apiFetch("/referral/incoming-requests", { token });
-      if (Array.isArray(res)) setMyIncomingRequests(res);
+      if (res.ok) {
+        const data = await res.json();
+        if (Array.isArray(data)) setMyIncomingRequests(data);
+      }
     } catch (err) { }
   };
 
@@ -177,33 +190,45 @@ export default function ReferralNetwork() {
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950 pb-20 font-sans">
       <Navbar />
 
-      {/* HEADER SECTION */}
-      <div className="bg-[#0f172a] text-white pt-16 pb-24 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-rose-500/10 rounded-full blur-3xl"></div>
-        <div className="max-w-6xl mx-auto px-6 relative z-10 text-center">
-          <h1 className="text-4xl md:text-5xl font-black mb-4 tracking-tight drop-shadow-lg">Referral Network 🤝</h1>
-          <p className="text-xl text-slate-300 font-medium max-w-2xl mx-auto mb-8">
-            Connect with alumni and professionals. Get referred to top companies, or help juniors break into tech.
-          </p>
+      <FeatureHeader
+        title="Referral Network"
+        icon="🤝"
+        description="Connect with alumni and professionals. Get referred to top companies, or help juniors break into tech."
+        whatItDoes="Matches students seeking referrals with industry professionals and alumni willing to refer them for specific roles."
+        howItWorks={[
+          "If you need a referral, search for your target company and role.",
+          "Select a mentor and send a quick pitch along with your resume and LinkedIn.",
+          "If you're a professional, register your profile to start accepting incoming requests from students."
+        ]}
+        whyItMatters={[
+          "A referral guarantees your resume is seen by a recruiter, bypassing the automated ATS filters.",
+          "Networking with alumni is the highest-conversion way to land interviews in a tough market."
+        ]}
+        aiCapabilities={[
+          "No AI capabilities are currently used on this page."
+        ]}
+        tips={[
+          "Keep your pitch under 3 sentences. Highlight your top 1-2 achievements.",
+          "Never ask for a referral if your resume isn't perfectly tailored for the target role."
+        ]}
+        gradient="from-[#0f172a] to-slate-800"
+      />
 
-          <div className="flex bg-white dark:bg-gray-900/10 p-1.5 rounded-2xl w-fit mx-auto border border-white/20 backdrop-blur-sm">
-            <button 
-              onClick={() => setMode("need")}
-              className={`px-8 py-3 rounded-xl font-bold text-sm transition-all ${mode === "need" ? "bg-white dark:bg-gray-900 text-slate-900 shadow-lg" : "text-white hover:bg-white dark:bg-gray-900/10"}`}
-            >
-              🙋‍♂️ I Need a Referral
-            </button>
-            <button 
-              onClick={() => setMode("give")}
-              className={`px-8 py-3 rounded-xl font-bold text-sm transition-all ${mode === "give" ? "bg-white dark:bg-gray-900 text-slate-900 shadow-lg" : "text-white hover:bg-white dark:bg-gray-900/10"}`}
-            >
-              🏢 I Can Give Referrals
-            </button>
-          </div>
+      <div className="max-w-6xl mx-auto px-6 py-8">
+        <div className="flex bg-white dark:bg-gray-900 shadow-sm p-1.5 rounded-2xl w-fit mx-auto border border-gray-200 dark:border-gray-800 mb-8">
+          <button 
+            onClick={() => setMode("need")}
+            className={`px-8 py-3 rounded-xl font-bold text-sm transition-all ${mode === "need" ? "bg-slate-900 text-white shadow-lg" : "text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:bg-gray-950 dark:hover:bg-gray-800"}`}
+          >
+            🙋‍♂️ I Need a Referral
+          </button>
+          <button 
+            onClick={() => setMode("give")}
+            className={`px-8 py-3 rounded-xl font-bold text-sm transition-all ${mode === "give" ? "bg-slate-900 text-white shadow-lg" : "text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:bg-gray-950 dark:hover:bg-gray-800"}`}
+          >
+            🏢 I Can Give Referrals
+          </button>
         </div>
-      </div>
-
-      <div className="max-w-6xl mx-auto px-6 -mt-10 relative z-20">
         
         {/* --- MODE: NEED REFERRAL --- */}
         {mode === "need" && (
@@ -226,7 +251,7 @@ export default function ReferralNetwork() {
                   <div className="p-12 text-center text-gray-400 font-bold">Searching network...</div>
                 ) : providers.length === 0 ? (
                   <div className="bg-white dark:bg-gray-900 rounded-2xl p-12 text-center border border-gray-200 dark:border-gray-800">
-                    <p className="font-bold text-gray-500">No providers found matching your criteria.</p>
+                    <p className="font-bold text-gray-500 dark:text-gray-400">No providers found matching your criteria.</p>
                   </div>
                 ) : (
                   providers.map(p => (
@@ -236,10 +261,10 @@ export default function ReferralNetwork() {
                         <div>
                           <div className="flex items-center gap-2 mb-1">
                             <h3 className="font-black text-gray-900 dark:text-white text-lg">{p.name.split(' ')[0]}</h3> {/* Show only first name */}
-                            <span className="text-xs bg-gray-100 text-gray-700 dark:text-gray-300 font-bold px-2 py-0.5 rounded">Response: {p.responseRate}%</span>
+                            <span className="text-xs bg-gray-100 dark:bg-gray-900 text-gray-700 dark:text-gray-300 font-bold px-2 py-0.5 rounded">Response: {p.responseRate}%</span>
                           </div>
                           <p className="text-sm font-bold text-gray-600 dark:text-gray-400 mb-1">{p.role} @ <span className="font-black text-gray-900 dark:text-white">{p.company}</span></p>
-                          <p className="text-xs text-gray-500 font-medium">🏫 {p.college}</p>
+                          <p className="text-xs text-gray-500 dark:text-gray-400 font-medium">🏫 {p.college}</p>
                         </div>
                       </div>
                       
@@ -376,7 +401,7 @@ export default function ReferralNetwork() {
                               <div className="flex md:flex-col gap-2 shrink-0 md:justify-center border-t md:border-t-0 md:border-l border-gray-100 dark:border-gray-800 pt-4 md:pt-0 md:pl-6">
                                 <button onClick={() => respondToRequest(req._id, 'Accepted')} className="flex-1 md:flex-none px-6 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-bold rounded-xl transition-colors shadow">Accept</button>
                                 <button onClick={() => respondToRequest(req._id, 'Declined')} className="flex-1 md:flex-none px-6 py-2.5 bg-gray-100 hover:bg-red-100 hover:text-red-700 text-gray-600 dark:text-gray-400 text-sm font-bold rounded-xl transition-colors">Decline</button>
-                                <a href={`mailto:${req.requesterEmail}`} className="flex-1 md:flex-none px-6 py-2 border border-gray-200 dark:border-gray-800 text-center text-gray-600 dark:text-gray-400 text-sm font-bold rounded-xl hover:bg-gray-50 dark:bg-gray-950 transition-colors">Contact</a>
+                                <a href={`mailto:${req.requesterEmail}`} className="flex-1 md:flex-none px-6 py-2 border border-gray-200 dark:border-gray-800 text-center text-gray-600 dark:text-gray-400 text-sm font-bold rounded-xl hover:bg-gray-50 dark:hover:bg-gray-900 dark:bg-gray-950 transition-colors">Contact</a>
                               </div>
                             )}
                           </div>
@@ -421,7 +446,7 @@ export default function ReferralNetwork() {
               </div>
 
               <div className="flex gap-3 pt-4">
-                <button type="button" onClick={() => setShowRequestModal(false)} className="flex-1 px-4 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 dark:text-gray-300 font-bold rounded-xl transition-colors">Cancel</button>
+                <button type="button" onClick={() => setShowRequestModal(false)} className="flex-1 px-4 py-3 bg-gray-100 dark:bg-gray-900 hover:bg-gray-200 text-gray-700 dark:text-gray-300 font-bold rounded-xl transition-colors">Cancel</button>
                 <button type="submit" className="flex-[2] px-4 py-3 bg-rose-600 hover:bg-rose-700 text-white font-bold rounded-xl transition-colors shadow-md">Send Request 🚀</button>
               </div>
             </form>

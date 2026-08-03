@@ -106,7 +106,7 @@ export default function Hackathons() {
             Discover hackathons, find your dream team, and get AI-powered winning strategies to secure PPOs and cash prizes.
           </p>
 
-          <div className="flex justify-center bg-white/10 p-1.5 rounded-2xl w-fit mx-auto border border-white/20 backdrop-blur-md">
+          <div className="flex justify-center bg-white dark:bg-gray-900/10 p-1.5 rounded-2xl w-fit mx-auto border border-white/20 backdrop-blur-md">
             {[
               { id: "discover", label: "🔍 Discover", icon: "🌐" },
               { id: "tracker", label: "📊 My Tracker", icon: "📈" },
@@ -115,7 +115,7 @@ export default function Hackathons() {
               <button 
                 key={t.id}
                 onClick={() => setActiveTab(t.id as any)}
-                className={`px-6 py-2.5 rounded-xl font-bold text-sm transition-all flex items-center gap-2 ${activeTab === t.id ? "bg-white text-slate-900 shadow-lg" : "text-white hover:bg-white/10"}`}
+                className={`px-6 py-2.5 rounded-xl font-bold text-sm transition-all flex items-center gap-2 ${activeTab === t.id ? "bg-white dark:bg-gray-900 text-slate-900 shadow-lg" : "text-white hover:bg-white dark:bg-gray-900/10"}`}
               >
                 <span>{t.icon}</span> {t.label}
               </button>
@@ -164,7 +164,7 @@ export default function Hackathons() {
               {filteredHacks.length === 0 ? (
                 <div className="lg:col-span-2 bg-white dark:bg-gray-900 rounded-2xl p-12 text-center border border-gray-200 dark:border-gray-800 shadow-sm">
                   <span className="text-5xl mb-4 opacity-50 block">🕵️‍♂️</span>
-                  <p className="font-bold text-gray-500">No hackathons match your filters.</p>
+                  <p className="font-bold text-gray-500 dark:text-gray-400">No hackathons match your filters.</p>
                 </div>
               ) : (
                 filteredHacks.map(h => (
@@ -177,7 +177,7 @@ export default function Hackathons() {
                           <div className="w-14 h-14 bg-gray-50 dark:bg-gray-950 border border-gray-100 dark:border-gray-800 rounded-2xl flex items-center justify-center text-2xl shadow-inner shrink-0">{h.icon}</div>
                           <div>
                             <h3 className="text-xl font-black text-gray-900 dark:text-white leading-tight mb-1 group-hover:text-orange-600 transition-colors">{h.name}</h3>
-                            <p className="text-sm font-bold text-gray-500">{h.org}</p>
+                            <p className="text-sm font-bold text-gray-500 dark:text-gray-400">{h.org}</p>
                           </div>
                         </div>
                         <button onClick={() => toggleTrack(h)} className="p-2 text-xl hover:scale-110 transition-transform">
@@ -194,20 +194,20 @@ export default function Hackathons() {
                         </div>
                         <div className="bg-gray-50 dark:bg-gray-950 p-2.5 rounded-xl border border-gray-100 dark:border-gray-800">
                           <p className="text-[10px] font-black uppercase text-gray-400 mb-0.5">Prize Pool</p>
-                          <p className="text-xs font-black text-green-600">{h.prize}</p>
+                          <p className="text-xs font-black text-green-600 dark:text-green-400">{h.prize}</p>
                         </div>
                         <div className="bg-gray-50 dark:bg-gray-950 p-2.5 rounded-xl border border-gray-100 dark:border-gray-800">
                           <p className="text-[10px] font-black uppercase text-gray-400 mb-0.5">Deadline</p>
-                          <p className="text-xs font-bold text-red-600">{h.deadline}</p>
+                          <p className="text-xs font-bold text-red-600 dark:text-red-400">{h.deadline}</p>
                         </div>
                         <div className="bg-gray-50 dark:bg-gray-950 p-2.5 rounded-xl border border-gray-100 dark:border-gray-800">
                           <p className="text-[10px] font-black uppercase text-gray-400 mb-0.5">Tech/Domain</p>
-                          <p className="text-xs font-bold text-blue-600">{h.domain}</p>
+                          <p className="text-xs font-bold text-blue-600 dark:text-blue-400">{h.domain}</p>
                         </div>
                       </div>
 
                       <div className="flex gap-3">
-                        <button onClick={() => analyzeHackathon(h)} className="flex-1 py-2.5 bg-orange-50 dark:bg-orange-900/20 text-orange-600 hover:bg-orange-100 font-bold rounded-xl text-sm transition-colors border border-orange-200 dark:border-orange-800/50">
+                        <button onClick={() => analyzeHackathon(h)} className="flex-1 py-2.5 bg-orange-50 dark:bg-orange-900/20 text-orange-600 dark:text-orange-400 hover:bg-orange-100 font-bold rounded-xl text-sm transition-colors border border-orange-200 dark:border-orange-800/50">
                           🤖 AI Strategy
                         </button>
                         <a href={h.link} target="_blank" rel="noreferrer" className="flex-1 py-2.5 bg-slate-900 hover:bg-black text-white text-center font-bold rounded-xl text-sm transition-colors shadow">
@@ -232,7 +232,7 @@ export default function Hackathons() {
                 <div className="text-center py-20">
                   <div className="text-6xl mb-4 opacity-50">📂</div>
                   <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">No Hackathons Tracked</h3>
-                  <p className="text-gray-500 font-medium max-w-md mx-auto mb-6">Bookmark hackathons from the Discover tab to build your hacking roadmap.</p>
+                  <p className="text-gray-500 dark:text-gray-400 font-medium max-w-md mx-auto mb-6">Bookmark hackathons from the Discover tab to build your hacking roadmap.</p>
                   <button onClick={() => setActiveTab("discover")} className="px-6 py-2.5 bg-orange-500 hover:bg-orange-600 text-white font-bold rounded-xl shadow-md">Browse Hackathons</button>
                 </div>
               ) : (
@@ -243,7 +243,7 @@ export default function Hackathons() {
                         <span className="text-3xl">{t.icon}</span>
                         <div>
                           <h4 className="font-black text-gray-900 dark:text-white text-sm md:text-base">{t.name}</h4>
-                          <p className="text-xs font-bold text-gray-500">{t.startDate} • {t.mode}</p>
+                          <p className="text-xs font-bold text-gray-500 dark:text-gray-400">{t.startDate} • {t.mode}</p>
                         </div>
                       </div>
                       <div className="flex flex-col gap-2 items-end">
@@ -254,7 +254,7 @@ export default function Hackathons() {
                             setTracked(next);
                             localStorage.setItem("placementos_hackathons", JSON.stringify(next));
                           }}
-                          className={`text-xs font-bold px-3 py-1.5 rounded-lg outline-none cursor-pointer border ${t.status === 'Won' ? 'bg-yellow-100 text-yellow-800 border-yellow-200' : t.status === 'Completed' ? 'bg-green-100 text-green-800 border-green-200' : 'bg-blue-100 text-blue-800 border-blue-200'}`}
+                          className={`text-xs font-bold px-3 py-1.5 rounded-lg outline-none cursor-pointer border ${t.status === 'Won' ? 'bg-yellow-100 text-yellow-800 border-yellow-200' : t.status === 'Completed' ? 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 border-green-200 dark:border-green-800' : 'bg-blue-100 text-blue-800 border-blue-200'}`}
                         >
                           <option value="Registered">Registered</option>
                           <option value="Ongoing">Ongoing</option>
@@ -278,7 +278,7 @@ export default function Hackathons() {
               <div className="flex flex-col md:flex-row justify-between items-center mb-6 gap-4 border-b border-gray-100 dark:border-gray-800 pb-6">
                 <div>
                   <h2 className="text-2xl font-black text-gray-900 dark:text-white">Find Teammates 🤝</h2>
-                  <p className="text-sm font-medium text-gray-500">Connect with skilled developers to build your dream team.</p>
+                  <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Connect with skilled developers to build your dream team.</p>
                 </div>
                 <button className="px-6 py-2.5 bg-slate-900 hover:bg-black text-white font-bold rounded-xl shadow w-full md:w-auto">
                   + Create Team Profile
@@ -288,12 +288,12 @@ export default function Hackathons() {
               <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
                 {MOCK_TEAMMATES.map(tm => (
                   <div key={tm.id} className="border border-gray-200 dark:border-gray-800 rounded-2xl p-5 hover:shadow-lg transition-all text-center flex flex-col bg-gray-50 dark:bg-gray-950">
-                    <div className="w-16 h-16 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-2xl font-black mx-auto mb-3 border-2 border-white shadow-sm">
+                    <div className="w-16 h-16 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-full flex items-center justify-center text-2xl font-black mx-auto mb-3 border-2 border-white shadow-sm">
                       {tm.name.charAt(0)}
                     </div>
                     <h3 className="font-black text-gray-900 dark:text-white">{tm.name}</h3>
-                    <p className="text-xs font-bold text-blue-600 mb-2">{tm.role}</p>
-                    <p className="text-[11px] text-gray-500 mb-4">{tm.college} • {tm.year}</p>
+                    <p className="text-xs font-bold text-blue-600 dark:text-blue-400 mb-2">{tm.role}</p>
+                    <p className="text-[11px] text-gray-500 dark:text-gray-400 mb-4">{tm.college} • {tm.year}</p>
                     
                     <div className="flex flex-wrap justify-center gap-1.5 mb-4 flex-1">
                       {tm.skills.map(s => <span key={s} className="text-[10px] font-bold px-2 py-0.5 bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded">{s}</span>)}
@@ -321,7 +321,7 @@ export default function Hackathons() {
                 <h2 className="text-xl font-black text-gray-900 dark:text-white flex items-center gap-2">
                   <span className="text-3xl">🤖</span> AI Strategy: {aiModalTarget.name}
                 </h2>
-                <p className="text-xs font-bold text-gray-500 mt-1">Generated by PlacementOS AI Analyst</p>
+                <p className="text-xs font-bold text-gray-500 dark:text-gray-400 mt-1">Generated by PlacementOS AI Analyst</p>
               </div>
               <button onClick={() => setAiModalTarget(null)} className="p-2 text-gray-400 hover:text-red-500 bg-gray-100 dark:bg-gray-800 rounded-full transition-colors">✕</button>
             </div>

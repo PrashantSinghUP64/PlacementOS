@@ -71,8 +71,8 @@ export default function History() {
     setDeleting(null);
   }
 
-  const getScoreColor = (s: number) => s >= 70 ? "text-emerald-600" : s >= 40 ? "text-yellow-600" : "text-red-600";
-  const getScoreBg = (s: number) => s >= 70 ? "bg-emerald-100" : s >= 40 ? "bg-yellow-100" : "bg-red-100";
+  const getScoreColor = (s: number) => s >= 70 ? "text-emerald-600" : s >= 40 ? "text-yellow-600 dark:text-yellow-400" : "text-red-600 dark:text-red-400";
+  const getScoreBg = (s: number) => s >= 70 ? "bg-emerald-100" : s >= 40 ? "bg-yellow-100 dark:bg-yellow-900/30" : "bg-red-100 dark:bg-red-900/30";
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
@@ -81,7 +81,7 @@ export default function History() {
       <div className="max-w-5xl mx-auto px-6 py-10">
         <div className="mb-8 animate-fade-in">
           <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Analysis History</h1>
-          <p className="text-gray-500 mt-1">Track your resume improvement over time.</p>
+          <p className="text-gray-500 dark:text-gray-400 mt-1">Track your resume improvement over time.</p>
         </div>
 
         {/* Stats row */}
@@ -96,7 +96,7 @@ export default function History() {
               <div key={s.label} className="stat-card">
                 <span className="text-xl">{s.icon}</span>
                 <p className="text-xl font-black text-gray-900 dark:text-white">{s.value}</p>
-                <p className="text-xs text-gray-500">{s.label}</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">{s.label}</p>
               </div>
             ))}
           </div>
@@ -137,7 +137,7 @@ export default function History() {
                   {/* Info */}
                   <div className="flex-1 min-w-0">
                     <p className="font-bold text-gray-900 dark:text-white truncate">{a.jobTitle || "Resume Analysis"}</p>
-                    <p className="text-sm text-gray-500">
+                    <p className="text-sm text-gray-500 dark:text-gray-400">
                       {new Date(a.createdAt).toLocaleDateString("en-IN", { day: "numeric", month: "long", year: "numeric" })}
                     </p>
                     {a.missingKeywords.length > 0 && (
@@ -154,7 +154,7 @@ export default function History() {
                   <div className="flex items-center gap-2 shrink-0">
                     <button
                       onClick={() => setExpanded(expanded === a._id ? null : a._id)}
-                      className="text-sm text-violet-600 hover:underline"
+                      className="text-sm text-violet-600 dark:text-violet-400 hover:underline"
                     >
                       {expanded === a._id ? "▲ Less" : "▼ More"}
                     </button>
@@ -183,7 +183,7 @@ export default function History() {
                         ].map(([label, val]) => (
                           <div key={label as string} className={`rounded-xl py-2 px-1 ${getScoreBg(val as number)}`}>
                             <p className={`font-black text-lg ${getScoreColor(val as number)}`}>{val}</p>
-                            <p className="text-xs text-gray-500">{label}</p>
+                            <p className="text-xs text-gray-500 dark:text-gray-400">{label}</p>
                           </div>
                         ))}
                       </div>

@@ -30,7 +30,7 @@ export default function FeatureHeader({
   return (
     <div className={`bg-gradient-to-br ${gradient} text-white pt-12 pb-16 px-6 relative overflow-hidden transition-all duration-300`}>
       {/* Decorative Elements */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-white/5 rounded-full blur-3xl" />
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-white dark:bg-gray-900/5 rounded-full blur-3xl" />
       <div className="absolute -bottom-20 -left-20 w-[300px] h-[300px] bg-black/10 rounded-full blur-2xl" />
       
       <div className="max-w-7xl mx-auto relative z-10">
@@ -40,7 +40,7 @@ export default function FeatureHeader({
           <div>
             <div className="flex gap-2 mb-3">
               {aiCapabilities.length > 0 && (
-                <span className="bg-white/20 text-white backdrop-blur-md px-3 py-1 rounded-full text-xs font-black uppercase tracking-widest border border-white/30 flex items-center gap-1">
+                <span className="bg-white dark:bg-gray-900/20 text-white backdrop-blur-md px-3 py-1 rounded-full text-xs font-black uppercase tracking-widest border border-white/30 flex items-center gap-1">
                   ✨ AI Powered
                 </span>
               )}
@@ -49,7 +49,7 @@ export default function FeatureHeader({
               </span>
             </div>
             <h1 className="text-4xl md:text-5xl font-black mb-2 flex items-center gap-3 drop-shadow-md tracking-tight">
-              <span className="bg-white/10 p-2 rounded-xl text-3xl shadow-inner backdrop-blur-md">{icon}</span>
+              <span className="bg-white dark:bg-gray-900/10 p-2 rounded-xl text-3xl shadow-inner backdrop-blur-md">{icon}</span>
               {title}
             </h1>
             <p className="text-white/80 text-lg font-medium max-w-2xl">{description}</p>
@@ -57,7 +57,7 @@ export default function FeatureHeader({
           
           <button 
             onClick={() => setIsExpanded(!isExpanded)}
-            className="bg-white text-gray-900 hover:bg-gray-100 font-bold py-3 px-6 rounded-xl shadow-xl transition-all hover:scale-105 flex items-center gap-2"
+            className="bg-white dark:bg-gray-900 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800 font-bold py-3 px-6 rounded-xl shadow-xl transition-all hover:scale-105 flex items-center gap-2"
           >
             {isExpanded ? "Hide Details" : "How it Works ℹ️"}
           </button>
@@ -65,7 +65,7 @@ export default function FeatureHeader({
 
         {/* Expandable Details Section */}
         {isExpanded && (
-          <div className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-3xl p-6 md:p-8 mt-6 animate-fade-in-up grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="bg-white dark:bg-gray-900/10 backdrop-blur-lg border border-white/20 rounded-3xl p-6 md:p-8 mt-6 animate-fade-in-up grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             
             <div className="space-y-6">
               <div>

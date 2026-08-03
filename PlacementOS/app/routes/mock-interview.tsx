@@ -3,6 +3,8 @@ import { useAppAuthStore } from "~/lib/app-auth";
 import jsPDF from "jspdf";
 import { callAIForJSON } from "~/lib/aiHelper";
 import { apiFetch } from "~/lib/api";
+import Navbar from "~/components/Navbar";
+import FeatureHeader from "~/components/FeatureHeader";
 
 type Difficulty = "Easy" | "Medium" | "Hard";
 type InterviewType = "Technical" | "HR" | "Mixed";
@@ -247,18 +249,36 @@ Return ONLY JSON:
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950 pb-20 font-sans">
-      <div className="bg-indigo-900 text-white pt-16 pb-12 px-6">
-        <div className="max-w-4xl mx-auto text-center">
-          <h1 className="text-4xl md:text-5xl font-black mb-4">Mock Interview Simulator 🗣️</h1>
-          <p className="text-indigo-200 text-lg max-w-2xl mx-auto">
-            Practice real interviews with our AI interviewer. Get instant feedback and actionable insights.
-          </p>
-        </div>
-      </div>
+      <Navbar />
+      <FeatureHeader
+        title="Mock Interview Simulator"
+        icon="🗣️"
+        description="Practice real interviews with our AI interviewer. Get instant feedback and actionable insights."
+        whatItDoes="This tool simulates a real technical or behavioral interview environment. It asks dynamic questions, evaluates your typed answers, and provides an immediate score and ideal answer for every response."
+        howItWorks={[
+          "Select your target job role, difficulty, and interview type (Technical/HR/Mixed).",
+          "Read the AI's question and type your answer within the 2-minute time limit.",
+          "Receive instant feedback on your answer, including a score out of 10.",
+          "Download a complete PDF report of your interview performance at the end."
+        ]}
+        whyItMatters={[
+          "Interview anxiety is the #1 reason qualified candidates fail.",
+          "Practicing in a simulated environment builds confidence and improves answer structuring."
+        ]}
+        aiCapabilities={[
+          "Context-aware follow-up question generation.",
+          "Semantic evaluation of candidate answers against ideal industry standards."
+        ]}
+        tips={[
+          "Use the STAR method (Situation, Task, Action, Result) for behavioral questions.",
+          "If you don't know the exact technical answer, explain your thought process instead of skipping."
+        ]}
+        gradient="from-indigo-900 to-indigo-700"
+      />
 
-      <div className="max-w-5xl mx-auto px-6 -mt-8">
+      <div className="max-w-5xl mx-auto px-6 py-8">
         {error && (
-          <div className="bg-red-50 dark:bg-red-900/20 text-red-600 p-4 rounded-xl mb-6 shadow-sm border border-red-100">
+          <div className="bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 p-4 rounded-xl mb-6 shadow-sm border border-red-100 dark:border-red-900/50">
             {error}
           </div>
         )}
@@ -315,7 +335,7 @@ Return ONLY JSON:
                     <button
                       key={num}
                       onClick={() => setTotalQuestions(num)}
-                      className={`flex-1 py-3 rounded-xl border-2 transition-all font-bold ${totalQuestions === num ? 'border-indigo-600 bg-indigo-50 text-indigo-700' : 'border-gray-200 dark:border-gray-800 text-gray-600 dark:text-gray-400 hover:border-indigo-300'}`}
+                      className={`flex-1 py-3 rounded-xl border-2 transition-all font-bold ${totalQuestions === num ? 'border-indigo-600 bg-indigo-50 dark:bg-indigo-900/20 text-indigo-700' : 'border-gray-200 dark:border-gray-800 text-gray-600 dark:text-gray-400 hover:border-indigo-300'}`}
                     >
                       {num}
                     </button>
@@ -340,10 +360,10 @@ Return ONLY JSON:
             {/* Top Bar */}
             <div className="bg-gray-50 dark:bg-gray-950 border-b border-gray-200 dark:border-gray-800 p-4 flex justify-between items-center">
               <div>
-                <span className="bg-indigo-100 text-indigo-800 text-sm font-bold px-3 py-1 rounded-full">
+                <span className="bg-indigo-100 dark:bg-indigo-900/30 text-indigo-800 dark:text-indigo-300 text-sm font-bold px-3 py-1 rounded-full">
                   Question {questionNum} of {totalQuestions}
                 </span>
-                <span className="ml-3 text-sm font-medium text-gray-500">{currentCategory}</span>
+                <span className="ml-3 text-sm font-medium text-gray-500 dark:text-gray-400">{currentCategory}</span>
               </div>
               <div className={`font-mono text-lg font-bold flex items-center gap-2 ${timeLeft < 30 ? 'text-red-500 animate-pulse' : 'text-gray-700 dark:text-gray-300'}`}>
                 ⏱️ {formatTime(timeLeft)}
@@ -351,14 +371,14 @@ Return ONLY JSON:
             </div>
 
             {/* Progress Bar */}
-            <div className="w-full bg-gray-200 h-1.5">
+            <div className="w-full bg-gray-200 dark:bg-gray-800 h-1.5">
               <div className="bg-indigo-500 h-1.5 transition-all duration-500" style={{ width: `${((questionNum - 1) / totalQuestions) * 100}%` }}></div>
             </div>
 
             <div className="flex flex-1 overflow-hidden flex-col md:flex-row">
               {/* Left Side: AI Interviewer */}
               <div className="w-full md:w-1/3 bg-gray-50 dark:bg-gray-950 border-r border-gray-100 dark:border-gray-800 p-6 flex flex-col items-center justify-center text-center">
-                <div className="w-32 h-32 bg-indigo-100 rounded-full flex items-center justify-center text-6xl shadow-inner mb-6 relative">
+                <div className="w-32 h-32 bg-indigo-100 dark:bg-indigo-900/30 rounded-full flex items-center justify-center text-6xl shadow-inner mb-6 relative">
                   🤖
                   {isLoading && <span className="absolute -top-2 -right-2 flex h-6 w-6">
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
@@ -378,7 +398,7 @@ Return ONLY JSON:
                 <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2 flex justify-between items-center">
                   Your Answer
                   {allQnA.length > 0 && questionNum > 1 && !isLoading && (
-                    <span className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded text-right max-w-[200px] truncate">
+                    <span className="text-xs bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 px-2 py-1 rounded text-right max-w-[200px] truncate">
                       Last Q Score: {allQnA[allQnA.length - 1].score}/10
                     </span>
                   )}
@@ -395,7 +415,7 @@ Return ONLY JSON:
                   <button 
                     onClick={handleSkip} 
                     disabled={isLoading}
-                    className="px-6 py-3 rounded-xl border border-gray-300 text-gray-600 dark:text-gray-400 font-semibold hover:bg-gray-50 dark:bg-gray-950 disabled:opacity-50 transition-colors"
+                    className="px-6 py-3 rounded-xl border border-gray-300 dark:border-gray-700 text-gray-600 dark:text-gray-400 font-semibold hover:bg-gray-50 dark:hover:bg-gray-900 dark:bg-gray-950 disabled:opacity-50 transition-colors"
                   >
                     Skip (-5 pts)
                   </button>
@@ -418,7 +438,7 @@ Return ONLY JSON:
             {/* Top Score Card */}
             <div className="bg-white dark:bg-gray-900 rounded-3xl shadow-xl overflow-hidden border border-gray-100 dark:border-gray-800 p-8 text-center relative">
               <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-indigo-500 via-purple-500 to-indigo-500"></div>
-              <h2 className="text-xl font-bold text-gray-500 uppercase tracking-widest mb-4">Overall Interview Score</h2>
+              <h2 className="text-xl font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-4">Overall Interview Score</h2>
               <div className="flex justify-center items-end gap-2 mb-4">
                 <span className={`text-6xl font-black leading-none ${resultsData.overallScore >= 70 ? 'text-green-500' : resultsData.overallScore >= 40 ? 'text-yellow-500' : 'text-red-500'}`}>
                   {resultsData.overallScore}
@@ -441,27 +461,27 @@ Return ONLY JSON:
                 const names: any = { communication: "Communication", technicalAccuracy: "Tech Accuracy", confidence: "Confidence", answerStructure: "Structure", problemSolving: "Problem Solving" };
                 return (
                   <div key={key} className="bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-2xl p-4 text-center shadow-sm">
-                    <p className="text-xs text-gray-500 font-bold uppercase mb-2">{names[key]}</p>
-                    <div className="text-2xl font-black text-indigo-900">{score}/10</div>
+                    <p className="text-xs text-gray-500 dark:text-gray-400 font-bold uppercase mb-2">{names[key]}</p>
+                    <div className="text-2xl font-black text-indigo-900 dark:text-indigo-200">{score}/10</div>
                   </div>
                 );
               })}
             </div>
 
             <div className="grid md:grid-cols-2 gap-8">
-              <div className="bg-green-50 dark:bg-green-900/20/50 border border-green-100 rounded-3xl p-8">
-                <h3 className="text-xl font-bold text-green-800 mb-4 flex items-center gap-2">⭐ Strengths</h3>
+              <div className="bg-green-50 dark:bg-green-900/20/50 border border-green-100 dark:border-green-900/50 rounded-3xl p-8">
+                <h3 className="text-xl font-bold text-green-800 dark:text-green-300 mb-4 flex items-center gap-2">⭐ Strengths</h3>
                 <ul className="space-y-3">
                   {resultsData.strengths.map((s: string, i: number) => (
-                    <li key={i} className="flex gap-2 text-green-900"><span className="text-green-500">✓</span> {s}</li>
+                    <li key={i} className="flex gap-2 text-green-900 dark:text-green-200"><span className="text-green-500">✓</span> {s}</li>
                   ))}
                 </ul>
               </div>
-              <div className="bg-red-50 dark:bg-red-900/20/50 border border-red-100 rounded-3xl p-8">
-                <h3 className="text-xl font-bold text-red-800 mb-4 flex items-center gap-2">📈 Areas to Improve</h3>
+              <div className="bg-red-50 dark:bg-red-900/20/50 border border-red-100 dark:border-red-900/50 rounded-3xl p-8">
+                <h3 className="text-xl font-bold text-red-800 dark:text-red-300 mb-4 flex items-center gap-2">📈 Areas to Improve</h3>
                 <ul className="space-y-3">
                   {resultsData.improvements.map((s: string, i: number) => (
-                    <li key={i} className="flex gap-2 text-red-900"><span className="text-red-500">↗</span> {s}</li>
+                    <li key={i} className="flex gap-2 text-red-900 dark:text-red-200"><span className="text-red-500">↗</span> {s}</li>
                   ))}
                 </ul>
               </div>
@@ -473,7 +493,7 @@ Return ONLY JSON:
               {allQnA.map((q, i) => (
                 <div key={i} className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-3xl p-6 shadow-sm flex flex-col md:flex-row gap-6">
                   <div className="md:w-16 flex-shrink-0 flex md:flex-col items-center md:items-start justify-between md:justify-start gap-2">
-                    <span className="bg-indigo-100 text-indigo-800 font-bold px-3 py-1 rounded-lg">Q{i + 1}</span>
+                    <span className="bg-indigo-100 dark:bg-indigo-900/30 text-indigo-800 dark:text-indigo-300 font-bold px-3 py-1 rounded-lg">Q{i + 1}</span>
                     <span className={`font-black text-xl ${q.score >= 7 ? 'text-green-500' : q.score >= 4 ? 'text-yellow-500' : 'text-red-500'}`}>
                       {q.score}/10
                     </span>
@@ -481,15 +501,15 @@ Return ONLY JSON:
                   <div className="flex-1 space-y-4">
                     <div>
                       <h4 className="font-bold text-gray-900 dark:text-white text-lg mb-1">{q.question}</h4>
-                      <p className="text-xs text-gray-500 font-medium bg-gray-100 inline-block px-2 py-1 rounded">{q.category}</p>
+                      <p className="text-xs text-gray-500 dark:text-gray-400 font-medium bg-gray-100 dark:bg-gray-900 inline-block px-2 py-1 rounded">{q.category}</p>
                     </div>
                     <div className="bg-gray-50 dark:bg-gray-950 p-4 rounded-xl border border-gray-100 dark:border-gray-800">
-                      <span className="text-xs font-bold text-gray-500 uppercase tracking-wider block mb-1">Your Answer</span>
+                      <span className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider block mb-1">Your Answer</span>
                       <p className="text-gray-800 dark:text-gray-200">{q.userAnswer}</p>
                     </div>
-                    <div className="bg-green-50 dark:bg-green-900/20 p-4 rounded-xl border border-green-100">
-                      <span className="text-xs font-bold text-green-700 uppercase tracking-wider block mb-1">Ideal Answer</span>
-                      <p className="text-green-900">{q.idealAnswer}</p>
+                    <div className="bg-green-50 dark:bg-green-900/20 p-4 rounded-xl border border-green-100 dark:border-green-900/50">
+                      <span className="text-xs font-bold text-green-700 dark:text-green-400 uppercase tracking-wider block mb-1">Ideal Answer</span>
+                      <p className="text-green-900 dark:text-green-200">{q.idealAnswer}</p>
                     </div>
                     <div>
                       <span className="text-xs font-bold text-indigo-500 uppercase tracking-wider block mb-1">Feedback</span>

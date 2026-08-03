@@ -189,7 +189,7 @@ export default function CareerChatbot() {
       <div className="fixed bottom-6 right-6 z-[1000] flex flex-col items-end gap-2">
         {/* Badge */}
         {showBadge && !isOpen && (
-          <div className="bg-white dark:bg-gray-900 border border-purple-200 text-purple-700 text-xs font-bold px-3 py-1.5 rounded-full shadow-lg animate-bounce">
+          <div className="bg-white dark:bg-gray-900 border border-purple-200 dark:border-purple-800 text-purple-700 dark:text-purple-400 text-xs font-bold px-3 py-1.5 rounded-full shadow-lg animate-bounce">
             Ask me anything! 💬
           </div>
         )}

@@ -99,7 +99,7 @@ export default function CampusHub() {
              <button 
                 key={t.id}
                 onClick={() => setActiveTab(t.id as any)}
-                className={`px-6 py-3 rounded-xl font-bold text-sm transition-all shadow-sm ${activeTab === t.id ? "bg-fuchsia-600 text-white" : "bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300 hover:bg-gray-100"}`}
+                className={`px-6 py-3 rounded-xl font-bold text-sm transition-all shadow-sm ${activeTab === t.id ? "bg-fuchsia-600 text-white" : "bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"}`}
               >
                 {t.label}
               </button>
@@ -117,7 +117,7 @@ export default function CampusHub() {
                   <button 
                     key={status}
                     onClick={() => setFilterStatus(status)}
-                    className={`flex-1 py-2 text-xs font-bold rounded-lg transition-all ${filterStatus === status ? "bg-fuchsia-100 text-fuchsia-700" : "text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800"}`}
+                    className={`flex-1 py-2 text-xs font-bold rounded-lg transition-all ${filterStatus === status ? "bg-fuchsia-100 text-fuchsia-700" : "text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:bg-gray-900 dark:hover:bg-gray-800"}`}
                   >
                     {status}
                   </button>
@@ -133,14 +133,14 @@ export default function CampusHub() {
                   >
                     <div className="flex justify-between items-start mb-2">
                       <h3 className="font-black text-gray-900 dark:text-white text-lg leading-tight">{d.company}</h3>
-                      <span className={`text-[10px] font-black uppercase px-2 py-1 rounded-md border ${d.status === 'Upcoming' ? 'bg-blue-50 text-blue-700 border-blue-200' : d.status === 'Ongoing' ? 'bg-yellow-50 text-yellow-700 border-yellow-200' : 'bg-gray-100 text-gray-600 border-gray-200'}`}>
+                      <span className={`text-[10px] font-black uppercase px-2 py-1 rounded-md border ${d.status === 'Upcoming' ? 'bg-blue-50 text-blue-700 border-blue-200' : d.status === 'Ongoing' ? 'bg-yellow-50 text-yellow-700 border-yellow-200' : 'bg-gray-100 dark:bg-gray-900 text-gray-600 dark:text-gray-400 border-gray-200 dark:border-gray-800'}`}>
                         {d.status}
                       </span>
                     </div>
                     <p className="text-sm font-bold text-fuchsia-600 mb-3">{d.role}</p>
                     <div className="flex justify-between items-center text-xs font-bold">
-                      <span className="text-gray-500">{d.type}</span>
-                      <span className="bg-green-50 text-green-700 px-2 py-0.5 rounded border border-green-200">{d.package}</span>
+                      <span className="text-gray-500 dark:text-gray-400">{d.type}</span>
+                      <span className="bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-400 px-2 py-0.5 rounded border border-green-200 dark:border-green-800">{d.package}</span>
                     </div>
                   </div>
                 ))}
@@ -159,7 +159,7 @@ export default function CampusHub() {
                         <p className="text-lg font-bold text-fuchsia-600">{selectedDrive.role}</p>
                       </div>
                       <div className="text-right">
-                         <span className="block text-2xl font-black text-green-600">{selectedDrive.package}</span>
+                         <span className="block text-2xl font-black text-green-600 dark:text-green-400">{selectedDrive.package}</span>
                          <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">{selectedDrive.type}</span>
                       </div>
                     </div>
@@ -203,7 +203,7 @@ export default function CampusHub() {
                     </h3>
                     
                     <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-4 mb-6">
-                      <label className="block text-xs font-bold text-gray-500 uppercase mb-2">My Profile Context (Editable)</label>
+                      <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase mb-2">My Profile Context (Editable)</label>
                       <input 
                         type="text" 
                         value={aiTargetProfile} 
@@ -213,9 +213,9 @@ export default function CampusHub() {
                     </div>
 
                     <div className="flex flex-wrap gap-2 mb-6">
-                      <button onClick={() => { setAiMode("Eligibility"); getAiAction(); }} className={`px-4 py-2 rounded-xl text-sm font-bold shadow-sm transition-all ${aiMode === 'Eligibility' ? 'bg-fuchsia-600 text-white' : 'bg-white dark:bg-gray-900 text-gray-600 hover:bg-gray-50 border border-gray-200 dark:border-gray-800'}`}>Am I Eligible?</button>
-                      <button onClick={() => { setAiMode("Preparation"); getAiAction(); }} className={`px-4 py-2 rounded-xl text-sm font-bold shadow-sm transition-all ${aiMode === 'Preparation' ? 'bg-fuchsia-600 text-white' : 'bg-white dark:bg-gray-900 text-gray-600 hover:bg-gray-50 border border-gray-200 dark:border-gray-800'}`}>How to Prepare?</button>
-                      <button onClick={() => { setAiMode("Insights"); getAiAction(); }} className={`px-4 py-2 rounded-xl text-sm font-bold shadow-sm transition-all ${aiMode === 'Insights' ? 'bg-fuchsia-600 text-white' : 'bg-white dark:bg-gray-900 text-gray-600 hover:bg-gray-50 border border-gray-200 dark:border-gray-800'}`}>Bond & PPO Insights</button>
+                      <button onClick={() => { setAiMode("Eligibility"); getAiAction(); }} className={`px-4 py-2 rounded-xl text-sm font-bold shadow-sm transition-all ${aiMode === 'Eligibility' ? 'bg-fuchsia-600 text-white' : 'bg-white dark:bg-gray-900 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-900 border border-gray-200 dark:border-gray-800'}`}>Am I Eligible?</button>
+                      <button onClick={() => { setAiMode("Preparation"); getAiAction(); }} className={`px-4 py-2 rounded-xl text-sm font-bold shadow-sm transition-all ${aiMode === 'Preparation' ? 'bg-fuchsia-600 text-white' : 'bg-white dark:bg-gray-900 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-900 border border-gray-200 dark:border-gray-800'}`}>How to Prepare?</button>
+                      <button onClick={() => { setAiMode("Insights"); getAiAction(); }} className={`px-4 py-2 rounded-xl text-sm font-bold shadow-sm transition-all ${aiMode === 'Insights' ? 'bg-fuchsia-600 text-white' : 'bg-white dark:bg-gray-900 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-900 border border-gray-200 dark:border-gray-800'}`}>Bond & PPO Insights</button>
                     </div>
 
                     <div className="flex-1 bg-white dark:bg-gray-900 rounded-2xl border border-fuchsia-100 dark:border-fuchsia-900/30 p-6 min-h-[200px] overflow-y-auto custom-scrollbar">
@@ -240,7 +240,7 @@ export default function CampusHub() {
                 <div className="bg-white dark:bg-gray-900 rounded-3xl shadow-sm border border-gray-200 dark:border-gray-800 p-12 text-center h-full flex flex-col items-center justify-center">
                   <span className="text-6xl mb-4 opacity-30">🏢</span>
                   <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Select a Drive</h3>
-                  <p className="text-gray-500 font-medium max-w-sm mx-auto">Click on any campus drive on the left to view detailed eligibility criteria and consult the AI.</p>
+                  <p className="text-gray-500 dark:text-gray-400 font-medium max-w-sm mx-auto">Click on any campus drive on the left to view detailed eligibility criteria and consult the AI.</p>
                 </div>
               )}
             </div>
@@ -261,11 +261,11 @@ export default function CampusHub() {
                   <div className="md:w-2/3 flex flex-col md:flex-row gap-6 md:gap-12">
                     <div>
                       <p className="text-[10px] font-black uppercase text-gray-400 tracking-wider mb-1">Registration Closes</p>
-                      <p className="font-bold text-red-600 bg-red-50 dark:bg-red-900/20 px-3 py-1 rounded inline-block border border-red-100">{d.regDeadline}</p>
+                      <p className="font-bold text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/20 px-3 py-1 rounded inline-block border border-red-100 dark:border-red-900/50">{d.regDeadline}</p>
                     </div>
                     <div>
                       <p className="text-[10px] font-black uppercase text-gray-400 tracking-wider mb-1">Expected OA Date</p>
-                      <p className="font-bold text-blue-600 bg-blue-50 dark:bg-blue-900/20 px-3 py-1 rounded inline-block border border-blue-100">{d.oaDate}</p>
+                      <p className="font-bold text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 px-3 py-1 rounded inline-block border border-blue-100 dark:border-blue-900/50">{d.oaDate}</p>
                     </div>
                   </div>
                 </div>
@@ -284,14 +284,14 @@ export default function CampusHub() {
                 <p className="text-sm font-medium mt-4 bg-black/20 inline-block px-3 py-1 rounded-lg">Atlassian (On-Campus)</p>
               </div>
               <div className="bg-white dark:bg-gray-900 p-8 rounded-3xl shadow-sm border border-gray-200 dark:border-gray-800">
-                <p className="text-sm font-bold text-gray-500 uppercase tracking-wider mb-2">Average Package</p>
+                <p className="text-sm font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">Average Package</p>
                 <h3 className="text-5xl font-black text-gray-900 dark:text-white">₹14.5 <span className="text-2xl">LPA</span></h3>
-                <p className="text-sm font-medium mt-4 text-gray-500">+12% from last year</p>
+                <p className="text-sm font-medium mt-4 text-gray-500 dark:text-gray-400">+12% from last year</p>
               </div>
               <div className="bg-white dark:bg-gray-900 p-8 rounded-3xl shadow-sm border border-gray-200 dark:border-gray-800">
-                <p className="text-sm font-bold text-gray-500 uppercase tracking-wider mb-2">Median Package</p>
+                <p className="text-sm font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">Median Package</p>
                 <h3 className="text-5xl font-black text-gray-900 dark:text-white">₹10.2 <span className="text-2xl">LPA</span></h3>
-                <p className="text-sm font-medium mt-4 text-gray-500">Most common offer</p>
+                <p className="text-sm font-medium mt-4 text-gray-500 dark:text-gray-400">Most common offer</p>
               </div>
             </div>
             
@@ -306,13 +306,13 @@ export default function CampusHub() {
                   { year: '2024', h: '100%', val: '96%' }
                 ].map(bar => (
                   <div key={bar.year} className="w-full max-w-[80px] flex flex-col items-center gap-2">
-                    <span className="text-xs font-bold text-gray-500">{bar.val}</span>
+                    <span className="text-xs font-bold text-gray-500 dark:text-gray-400">{bar.val}</span>
                     <div className="w-full bg-fuchsia-500 rounded-t-xl transition-all" style={{ height: bar.h }}></div>
                     <span className="text-sm font-bold text-gray-700 dark:text-gray-300">{bar.year}</span>
                   </div>
                 ))}
               </div>
-              <p className="text-center text-sm font-medium text-gray-500 mt-6">Overall Placement Percentage (2021 - 2024)</p>
+              <p className="text-center text-sm font-medium text-gray-500 dark:text-gray-400 mt-6">Overall Placement Percentage (2021 - 2024)</p>
             </div>
           </div>
         )}

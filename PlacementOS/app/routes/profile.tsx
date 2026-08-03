@@ -117,20 +117,20 @@ export default function Profile() {
       <div className="max-w-3xl mx-auto px-6 py-10">
         <div className="mb-8 animate-fade-in">
           <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Profile Settings</h1>
-          <p className="text-gray-500 mt-1">Manage your account and preferences.</p>
+          <p className="text-gray-500 dark:text-gray-400 mt-1">Manage your account and preferences.</p>
         </div>
 
         {/* Account stats */}
         <div className="grid grid-cols-2 gap-4 mb-6 animate-fade-in-up">
           <div className="stat-card">
             <span className="text-2xl">📊</span>
-            <p className="text-2xl font-black text-violet-600">{totalAnalyses}</p>
-            <p className="text-sm text-gray-500">Total Analyses</p>
+            <p className="text-2xl font-black text-violet-600 dark:text-violet-400">{totalAnalyses}</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400">Total Analyses</p>
           </div>
           <div className="stat-card">
             <span className="text-2xl">✉️</span>
             <p className="text-sm font-bold text-gray-800 dark:text-gray-200 truncate">{email}</p>
-            <p className="text-sm text-gray-500">Email Address</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400">Email Address</p>
           </div>
         </div>
 
@@ -168,7 +168,7 @@ export default function Profile() {
                   {skills.map((s) => (
                     <span key={s} className="chip-purple flex items-center gap-1">
                       {s}
-                      <button type="button" onClick={() => setSkills(skills.filter((x) => x !== s))} className="ml-1 hover:text-red-600">×</button>
+                      <button type="button" onClick={() => setSkills(skills.filter((x) => x !== s))} className="ml-1 hover:text-red-600 dark:text-red-400">×</button>
                     </span>
                   ))}
                 </div>

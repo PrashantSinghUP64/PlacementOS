@@ -176,9 +176,9 @@ Return ONLY valid JSON:
   };
 
   const getDifficultyColor = (diff: string) => {
-    if (diff === "Easy") return "bg-green-100 text-green-700 border-green-200";
-    if (diff === "Medium") return "bg-yellow-100 text-yellow-700 border-yellow-200";
-    return "bg-red-100 text-red-700 border-red-200";
+    if (diff === "Easy") return "bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 border-green-200 dark:border-green-800";
+    if (diff === "Medium") return "bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400 border-yellow-200 dark:border-yellow-800";
+    return "bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400 border-red-200 dark:border-red-800";
   };
 
   const renderSection = (title: string, questions: Question[], badgeColor: string) => {
@@ -218,7 +218,7 @@ Return ONLY valid JSON:
                     </span>
                     <button 
                       onClick={() => toggleAnswer(qId)}
-                      className="text-xs font-medium text-violet-600 hover:text-violet-800 transition-colors flex items-center gap-1"
+                      className="text-xs font-medium text-violet-600 dark:text-violet-400 hover:text-violet-800 transition-colors flex items-center gap-1"
                     >
                       {isOpen ? 'Hide Answer' : 'Show Answer'}
                       <svg className={`w-4 h-4 transition-transform ${isOpen ? "rotate-180" : ""}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -266,7 +266,7 @@ Return ONLY valid JSON:
                 value={resumeText}
                 onChange={(e) => setResumeText(e.target.value)}
                 placeholder="Paste your entire resume content here..."
-                className="w-full h-40 p-4 rounded-xl border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-950 focus:bg-white dark:bg-gray-900 focus:ring-2 focus:ring-violet-500 focus:border-transparent transition-all resize-none text-sm"
+                className="w-full h-40 p-4 rounded-xl border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-950 focus:bg-white dark:focus:bg-gray-900 dark:bg-gray-900 focus:ring-2 focus:ring-violet-500 focus:border-transparent transition-all resize-none text-sm"
               />
             </div>
             <div>
@@ -276,15 +276,15 @@ Return ONLY valid JSON:
               <select
                 value={jobRole}
                 onChange={(e) => setJobRole(e.target.value)}
-                className="w-full p-3.5 rounded-xl border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-950 focus:bg-white dark:bg-gray-900 focus:ring-2 focus:ring-violet-500 focus:border-transparent transition-all text-sm font-medium"
+                className="w-full p-3.5 rounded-xl border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-950 focus:bg-white dark:focus:bg-gray-900 dark:bg-gray-900 focus:ring-2 focus:ring-violet-500 focus:border-transparent transition-all text-sm font-medium"
               >
                 {ROLES.map(role => (
                   <option key={role} value={role}>{role}</option>
                 ))}
               </select>
               
-              <div className="mt-4 p-4 bg-violet-50 dark:bg-violet-900/20 rounded-xl border border-violet-100">
-                <p className="text-xs text-violet-800 font-medium">
+              <div className="mt-4 p-4 bg-violet-50 dark:bg-violet-900/20 rounded-xl border border-violet-100 dark:border-violet-900/50">
+                <p className="text-xs text-violet-800 dark:text-violet-300 font-medium">
                   💡 Tips: A complete resume gives better, more personalized questions.
                 </p>
               </div>
@@ -292,7 +292,7 @@ Return ONLY valid JSON:
           </div>
 
           {error && (
-            <div className="mb-6 p-4 bg-red-50 dark:bg-red-900/20 text-red-600 rounded-xl border border-red-100 flex items-center gap-3 animate-fade-in text-sm">
+            <div className="mb-6 p-4 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 rounded-xl border border-red-100 dark:border-red-900/50 flex items-center gap-3 animate-fade-in text-sm">
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
               {error}
             </div>
@@ -324,17 +324,17 @@ Return ONLY valid JSON:
               <h2 className="text-2xl font-black text-gray-900 dark:text-white">Your Custom Q&A</h2>
               <button 
                 onClick={downloadPDF}
-                className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 shadow-sm rounded-lg text-sm font-bold text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:bg-gray-950 transition-all"
+                className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 shadow-sm rounded-lg text-sm font-bold text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-900 dark:bg-gray-950 transition-all"
               >
                 <svg className="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 16l-5-5h3V4h4v7h3l-5 5zm9-5v10H3V11h2v8h14v-8h2z"/></svg>
                 Download PDF
               </button>
             </div>
 
-            {renderSection("Technical Questions", result.technical, "bg-blue-100 text-blue-700")}
-            {renderSection("Behavioral Questions", result.behavioral, "bg-green-100 text-green-700")}
-            {renderSection("Project-based Questions", result.projectBased, "bg-orange-100 text-orange-700")}
-            {renderSection("HR Questions", result.hr, "bg-purple-100 text-purple-700")}
+            {renderSection("Technical Questions", result.technical, "bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400")}
+            {renderSection("Behavioral Questions", result.behavioral, "bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400")}
+            {renderSection("Project-based Questions", result.projectBased, "bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-400")}
+            {renderSection("HR Questions", result.hr, "bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400")}
             
             <div className="mt-12 text-center">
               <button 

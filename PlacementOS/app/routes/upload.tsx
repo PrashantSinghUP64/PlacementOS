@@ -41,7 +41,7 @@ function ScoreCircle({ score, size = 140, label = "Match Score" }: { score: numb
         <text x={c} y={c + size * 0.14} textAnchor="middle"
           style={{ fontFamily: "Inter,sans-serif", fontSize: size * 0.095, fill: "#6b7280" }}>/ 100</text>
       </svg>
-      <p className="text-sm text-gray-500 font-medium">{label}</p>
+      <p className="text-sm text-gray-500 dark:text-gray-400 font-medium">{label}</p>
     </div>
   );
 }
@@ -381,7 +381,7 @@ Analyze carefully and return ONLY valid JSON (no markdown, no explanation):
   }
 
   const getColor = (s: number) => s >= 70 ? "#10B981" : s >= 40 ? "#F59E0B" : "#EF4444";
-  const getScoreBg = (s: number) => s >= 70 ? "bg-emerald-100 text-emerald-700" : s >= 40 ? "bg-yellow-100 text-yellow-700" : "bg-red-100 text-red-700";
+  const getScoreBg = (s: number) => s >= 70 ? "bg-emerald-100 text-emerald-700" : s >= 40 ? "bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400" : "bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400";
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
@@ -390,15 +390,15 @@ Analyze carefully and return ONLY valid JSON (no markdown, no explanation):
 
         <div className="mb-8 animate-fade-in">
           <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Analyze Resume</h1>
-          <p className="text-gray-500 mt-1">
+          <p className="text-gray-500 dark:text-gray-400 mt-1">
             Upload your PDF, paste a job description, and get instant
-            <span className="font-semibold text-violet-700"> real AI analysis</span> via Groq AI.
+            <span className="font-semibold text-violet-700 dark:text-violet-400"> real AI analysis</span> via Groq AI.
           </p>
         </div>
 
         <div className="card mb-6 animate-fade-in-up">
           {/* Step 1: PDF Upload */}
-          <p className="text-sm font-bold text-violet-600 mb-3">Step 1 — Upload Resume (PDF)</p>
+          <p className="text-sm font-bold text-violet-600 dark:text-violet-400 mb-3">Step 1 — Upload Resume (PDF)</p>
           <div
             ref={dropRef}
             className={`drop-zone mb-6 ${dragging ? "active" : ""}`}
@@ -420,7 +420,7 @@ Analyze carefully and return ONLY valid JSON (no markdown, no explanation):
                   <span className="text-3xl">📄</span>
                   <div className="text-left">
                     <p className="font-semibold text-sm text-gray-800 dark:text-gray-200">{file.name}</p>
-                    <p className="text-xs text-gray-500">{(file.size / 1024).toFixed(0)} KB</p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">{(file.size / 1024).toFixed(0)} KB</p>
                   </div>
                 </div>
                 <button
@@ -440,7 +440,7 @@ Analyze carefully and return ONLY valid JSON (no markdown, no explanation):
           </div>
 
           {/* Step 2: Job Details */}
-          <p className="text-sm font-bold text-violet-600 mb-3">Step 2 — Job Details</p>
+          <p className="text-sm font-bold text-violet-600 dark:text-violet-400 mb-3">Step 2 — Job Details</p>
           <div className="space-y-4 mb-6">
             <div className="form-group">
               <label className="form-label">Job Title (optional)</label>
@@ -507,7 +507,7 @@ Analyze carefully and return ONLY valid JSON (no markdown, no explanation):
                       {result.overallScore >= 70 ? "✅ Strong" : result.overallScore >= 40 ? "⚠️ Fair" : "❌ Weak"}
                     </span>
                   </div>
-                  <p className="text-gray-500 text-sm leading-relaxed mb-5">
+                  <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed mb-5">
                     {result.overallScore >= 70
                       ? "Great match! Your resume aligns well with this job description."
                       : result.overallScore >= 40
@@ -555,7 +555,7 @@ Analyze carefully and return ONLY valid JSON (no markdown, no explanation):
             {(result?.missingKeywords || []).length > 0 && (
               <div className="card">
                 <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-2">❌ Missing Keywords</h2>
-                <p className="text-sm text-gray-500 mb-3">
+                <p className="text-sm text-gray-500 dark:text-gray-400 mb-3">
                   These terms appear in the job description but not in your resume. Add them naturally:
                 </p>
                 <div className="flex flex-wrap gap-2">
@@ -622,14 +622,14 @@ Analyze carefully and return ONLY valid JSON (no markdown, no explanation):
                         <p className="font-semibold text-gray-900 dark:text-white text-sm leading-tight">{job.title}</p>
                         <span className="chip-green ml-2 shrink-0">{job.matchScore}%</span>
                       </div>
-                      <p className="text-xs text-gray-500 mb-1">{job.company} · {job.location}</p>
+                      <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">{job.company} · {job.location}</p>
                       <p className="text-xs text-gray-400 mb-2">{job.matchReason}</p>
                       {job.url !== "#" ? (
                         <a
                           href={job.url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-xs text-violet-600 font-semibold hover:underline"
+                          className="text-xs text-violet-600 dark:text-violet-400 font-semibold hover:underline"
                         >
                           Apply → {job.url.replace(/^https?:\/\//, "").slice(0, 30)}
                         </a>

@@ -99,7 +99,7 @@ export default function Certifications() {
             Discover the highest ROI certifications, get AI study plans, and track your global credentials.
           </p>
 
-          <div className="flex justify-center bg-white/10 p-1.5 rounded-2xl w-fit mx-auto border border-white/20 backdrop-blur-md">
+          <div className="flex justify-center bg-white dark:bg-gray-900/10 p-1.5 rounded-2xl w-fit mx-auto border border-white/20 backdrop-blur-md">
             {[
               { id: "dashboard", label: "📊 Vault", icon: "🔐" },
               { id: "catalog", label: "📚 Catalog", icon: "🌐" },
@@ -108,7 +108,7 @@ export default function Certifications() {
               <button 
                 key={t.id}
                 onClick={() => setActiveTab(t.id as any)}
-                className={`px-6 py-2.5 rounded-xl font-bold text-sm transition-all flex items-center gap-2 ${activeTab === t.id ? "bg-white text-slate-900 shadow-lg" : "text-white hover:bg-white/10"}`}
+                className={`px-6 py-2.5 rounded-xl font-bold text-sm transition-all flex items-center gap-2 ${activeTab === t.id ? "bg-white dark:bg-gray-900 text-slate-900 shadow-lg" : "text-white hover:bg-white dark:bg-gray-900/10"}`}
               >
                 <span>{t.icon}</span> {t.label}
               </button>
@@ -125,7 +125,7 @@ export default function Certifications() {
             
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
               <div className="bg-white dark:bg-gray-900 rounded-2xl p-6 shadow-sm border border-gray-200 dark:border-gray-800 text-center">
-                <p className="text-sm font-bold text-gray-500 uppercase">Total</p>
+                <p className="text-sm font-bold text-gray-500 dark:text-gray-400 uppercase">Total</p>
                 <h3 className="text-4xl font-black text-gray-900 dark:text-white mt-1">{total}</h3>
               </div>
               <div className="bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl p-6 text-white text-center shadow-lg">
@@ -134,10 +134,10 @@ export default function Certifications() {
               </div>
               <div className="bg-white dark:bg-gray-900 rounded-2xl p-6 shadow-sm border border-gray-200 dark:border-gray-800 text-center">
                 <p className="text-sm font-bold text-blue-500 uppercase">In Progress</p>
-                <h3 className="text-4xl font-black text-blue-600 mt-1">{inProgressCount}</h3>
+                <h3 className="text-4xl font-black text-blue-600 dark:text-blue-400 mt-1">{inProgressCount}</h3>
               </div>
               <div className="bg-white dark:bg-gray-900 rounded-2xl p-6 shadow-sm border border-gray-200 dark:border-gray-800 text-center">
-                <p className="text-sm font-bold text-gray-500 uppercase">Success Rate</p>
+                <p className="text-sm font-bold text-gray-500 dark:text-gray-400 uppercase">Success Rate</p>
                 <h3 className="text-4xl font-black text-gray-900 dark:text-white mt-1">{successRate}%</h3>
               </div>
             </div>
@@ -161,7 +161,7 @@ export default function Certifications() {
               {trackedCerts.length === 0 ? (
                 <div className="text-center py-10">
                   <span className="text-5xl opacity-30 mb-4 block">🗄️</span>
-                  <p className="text-gray-500 font-medium">Your vault is empty. Log your first certification above!</p>
+                  <p className="text-gray-500 dark:text-gray-400 font-medium">Your vault is empty. Log your first certification above!</p>
                 </div>
               ) : (
                 <div className="grid gap-4">
@@ -169,19 +169,19 @@ export default function Certifications() {
                     <div key={c.id} className="flex flex-col md:flex-row justify-between md:items-center p-5 bg-gray-50 dark:bg-gray-950 border border-gray-100 dark:border-gray-800 rounded-xl gap-4">
                       <div>
                         <h4 className="font-bold text-gray-900 dark:text-white text-lg">{c.name}</h4>
-                        <p className="text-sm text-gray-500 font-medium">{c.provider || "Unknown Provider"}</p>
+                        <p className="text-sm text-gray-500 dark:text-gray-400 font-medium">{c.provider || "Unknown Provider"}</p>
                       </div>
                       <div className="flex items-center gap-3">
                         <select 
                           value={c.status}
                           onChange={(e) => updateCertStatus(c.id, e.target.value)}
-                          className={`text-xs font-bold px-4 py-2 rounded-lg outline-none cursor-pointer border ${c.status === 'Completed' ? 'bg-green-100 text-green-800 border-green-200' : c.status === 'Expired' ? 'bg-red-100 text-red-800 border-red-200' : 'bg-blue-100 text-blue-800 border-blue-200'}`}
+                          className={`text-xs font-bold px-4 py-2 rounded-lg outline-none cursor-pointer border ${c.status === 'Completed' ? 'bg-green-100 text-green-800 border-green-200' : c.status === 'Expired' ? 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300 border-red-200 dark:border-red-800' : 'bg-blue-100 text-blue-800 border-blue-200'}`}
                         >
                           <option>In Progress</option>
                           <option>Completed</option>
                           <option>Expired</option>
                         </select>
-                        <button onClick={() => removeCert(c.id)} className="p-2 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors">🗑️</button>
+                        <button onClick={() => removeCert(c.id)} className="p-2 text-red-500 hover:bg-red-50 dark:bg-red-900/20 dark:hover:bg-red-900/20 rounded-lg transition-colors">🗑️</button>
                       </div>
                     </div>
                   ))}
@@ -200,28 +200,28 @@ export default function Certifications() {
                     <div className="p-6 flex-1">
                       <div className="flex justify-between items-start mb-4">
                         <span className="text-4xl">{c.icon}</span>
-                        <span className={`text-[10px] font-black uppercase tracking-wider px-2 py-1 rounded-md ${c.difficulty === 'Advanced' ? 'bg-red-100 text-red-700' : c.difficulty === 'Intermediate' ? 'bg-yellow-100 text-yellow-700' : 'bg-green-100 text-green-700'}`}>
+                        <span className={`text-[10px] font-black uppercase tracking-wider px-2 py-1 rounded-md ${c.difficulty === 'Advanced' ? 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400' : c.difficulty === 'Intermediate' ? 'bg-yellow-100 text-yellow-700' : 'bg-green-100 text-green-700'}`}>
                           {c.difficulty}
                         </span>
                       </div>
                       <h3 className="font-black text-xl text-gray-900 dark:text-white leading-tight mb-1 group-hover:text-blue-600 transition-colors">{c.name}</h3>
-                      <p className="text-sm font-bold text-gray-500 mb-6">{c.provider}</p>
+                      <p className="text-sm font-bold text-gray-500 dark:text-gray-400 mb-6">{c.provider}</p>
 
                       <div className="space-y-3">
                         <div className="flex justify-between text-sm">
-                          <span className="text-gray-500 font-medium">Domain</span>
+                          <span className="text-gray-500 dark:text-gray-400 font-medium">Domain</span>
                           <span className="font-bold text-gray-900 dark:text-white">{c.domain}</span>
                         </div>
                         <div className="flex justify-between text-sm">
-                          <span className="text-gray-500 font-medium">Cost</span>
+                          <span className="text-gray-500 dark:text-gray-400 font-medium">Cost</span>
                           <span className="font-bold text-gray-900 dark:text-white">{c.cost}</span>
                         </div>
                         <div className="flex justify-between text-sm">
-                          <span className="text-gray-500 font-medium">Duration</span>
+                          <span className="text-gray-500 dark:text-gray-400 font-medium">Duration</span>
                           <span className="font-bold text-gray-900 dark:text-white">{c.duration}</span>
                         </div>
                         <div className="flex justify-between text-sm">
-                          <span className="text-gray-500 font-medium">Validity</span>
+                          <span className="text-gray-500 dark:text-gray-400 font-medium">Validity</span>
                           <span className="font-bold text-gray-900 dark:text-white">{c.validity}</span>
                         </div>
                       </div>
@@ -249,22 +249,22 @@ export default function Certifications() {
                 <h2 className="text-2xl font-black text-gray-900 dark:text-white mb-6 border-b border-gray-100 dark:border-gray-800 pb-4">AI Copilot 🤖</h2>
                 
                 <div className="flex gap-2 mb-6 p-1 bg-gray-100 dark:bg-gray-950 rounded-xl">
-                  <button onClick={() => { setAiMode("Recommend"); setAiResult(""); }} className={`flex-1 py-2 rounded-lg text-sm font-bold transition-all ${aiMode === 'Recommend' ? 'bg-white dark:bg-gray-800 shadow text-blue-600' : 'text-gray-500'}`}>Recommender</button>
-                  <button onClick={() => { setAiMode("Plan"); setAiResult(""); }} className={`flex-1 py-2 rounded-lg text-sm font-bold transition-all ${aiMode === 'Plan' ? 'bg-white dark:bg-gray-800 shadow text-blue-600' : 'text-gray-500'}`}>Study Planner</button>
+                  <button onClick={() => { setAiMode("Recommend"); setAiResult(""); }} className={`flex-1 py-2 rounded-lg text-sm font-bold transition-all ${aiMode === 'Recommend' ? 'bg-white dark:bg-gray-800 shadow text-blue-600' : 'text-gray-500 dark:text-gray-400'}`}>Recommender</button>
+                  <button onClick={() => { setAiMode("Plan"); setAiResult(""); }} className={`flex-1 py-2 rounded-lg text-sm font-bold transition-all ${aiMode === 'Plan' ? 'bg-white dark:bg-gray-800 shadow text-blue-600' : 'text-gray-500 dark:text-gray-400'}`}>Study Planner</button>
                 </div>
 
                 {aiMode === "Recommend" ? (
                   <div className="space-y-4">
                     <div>
-                      <label className="block text-xs font-bold text-gray-500 uppercase mb-1">Career Goal</label>
+                      <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase mb-1">Career Goal</label>
                       <input type="text" value={aiTarget.goal} onChange={e => setAiTarget({...aiTarget, goal: e.target.value})} className="w-full p-3 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl text-sm font-medium focus:ring-2 focus:ring-blue-500 outline-none" />
                     </div>
                     <div>
-                      <label className="block text-xs font-bold text-gray-500 uppercase mb-1">Current Skills</label>
+                      <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase mb-1">Current Skills</label>
                       <input type="text" value={aiTarget.skills} onChange={e => setAiTarget({...aiTarget, skills: e.target.value})} className="w-full p-3 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl text-sm font-medium focus:ring-2 focus:ring-blue-500 outline-none" />
                     </div>
                     <div>
-                      <label className="block text-xs font-bold text-gray-500 uppercase mb-1">Preferred Domain</label>
+                      <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase mb-1">Preferred Domain</label>
                       <select value={aiTarget.domain} onChange={e => setAiTarget({...aiTarget, domain: e.target.value})} className="w-full p-3 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl text-sm font-bold focus:ring-2 focus:ring-blue-500 outline-none">
                         <option>Cloud Computing</option>
                         <option>Data Science</option>
@@ -276,7 +276,7 @@ export default function Certifications() {
                   </div>
                 ) : (
                   <div className="space-y-4">
-                    <p className="text-sm font-medium text-gray-500">Select a certification from the Catalog to generate a study plan.</p>
+                    <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Select a certification from the Catalog to generate a study plan.</p>
                     <div className="p-4 bg-blue-50 dark:bg-blue-900/10 border border-blue-100 dark:border-blue-900/30 rounded-xl">
                       {selectedCertForPlan ? (
                         <div>
@@ -299,7 +299,7 @@ export default function Certifications() {
                 {aiLoading ? (
                   <div className="absolute inset-0 flex flex-col items-center justify-center bg-gray-50/80 dark:bg-gray-950/80 backdrop-blur-sm z-10 rounded-2xl">
                     <div className="w-10 h-10 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mb-4 shadow"></div>
-                    <p className="text-blue-600 font-bold animate-pulse text-sm">Consulting AI Knowledge Base...</p>
+                    <p className="text-blue-600 dark:text-blue-400 font-bold animate-pulse text-sm">Consulting AI Knowledge Base...</p>
                   </div>
                 ) : null}
                 
@@ -311,7 +311,7 @@ export default function Certifications() {
                   <div className="h-full flex flex-col items-center justify-center text-center opacity-50">
                     <span className="text-6xl mb-4">✨</span>
                     <h3 className="text-xl font-bold text-gray-900 dark:text-white">Awaiting Instructions</h3>
-                    <p className="text-gray-500 text-sm max-w-sm mt-2">Fill out the parameters on the left and hit generate to see the magic.</p>
+                    <p className="text-gray-500 dark:text-gray-400 text-sm max-w-sm mt-2">Fill out the parameters on the left and hit generate to see the magic.</p>
                   </div>
                 )}
               </div>

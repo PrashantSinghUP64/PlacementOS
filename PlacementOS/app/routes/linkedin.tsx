@@ -129,9 +129,9 @@ Return ONLY valid JSON:
   };
 
   const getPriorityColor = (p: string) => {
-    if (p === "High") return "bg-red-100 text-red-700 border-red-200";
-    if (p === "Medium") return "bg-yellow-100 text-yellow-700 border-yellow-200";
-    return "bg-blue-100 text-blue-700 border-blue-200";
+    if (p === "High") return "bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400 border-red-200 dark:border-red-800";
+    if (p === "Medium") return "bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400 border-yellow-200 dark:border-yellow-800";
+    return "bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 border-blue-200 dark:border-blue-800";
   };
 
   const ScoreCircle = ({ score, label }: { score: number, label: string }) => {
@@ -141,7 +141,7 @@ Return ONLY valid JSON:
         <div className={`w-14 h-14 rounded-full border-4 flex items-center justify-center font-black ${cls} border-current bg-white dark:bg-gray-900 shadow-sm mb-2`}>
           {score}/20
         </div>
-        <span className="text-xs font-bold text-gray-500">{label}</span>
+        <span className="text-xs font-bold text-gray-500 dark:text-gray-400">{label}</span>
       </div>
     );
   };
@@ -178,29 +178,29 @@ Return ONLY valid JSON:
               <div className="space-y-5">
                 <div>
                   <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">Current Job Title</label>
-                  <input value={currentTitle} onChange={e => setCurrentTitle(e.target.value)} placeholder="e.g. Frontend Developer" className="w-full p-3 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl focus:bg-white dark:bg-gray-900 focus:border-[#0A66C2] focus:ring-1 focus:ring-[#0A66C2] outline-none transition-all text-sm"/>
+                  <input value={currentTitle} onChange={e => setCurrentTitle(e.target.value)} placeholder="e.g. Frontend Developer" className="w-full p-3 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl focus:bg-white dark:focus:bg-gray-900 dark:bg-gray-900 focus:border-[#0A66C2] focus:ring-1 focus:ring-[#0A66C2] outline-none transition-all text-sm"/>
                 </div>
 
                 <div>
                   <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">Target Role</label>
-                  <select value={targetRole} onChange={e => setTargetRole(e.target.value)} className="w-full p-3 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl focus:bg-white dark:bg-gray-900 focus:border-[#0A66C2] focus:ring-1 focus:ring-[#0A66C2] outline-none transition-all text-sm font-medium">
+                  <select value={targetRole} onChange={e => setTargetRole(e.target.value)} className="w-full p-3 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl focus:bg-white dark:focus:bg-gray-900 dark:bg-gray-900 focus:border-[#0A66C2] focus:ring-1 focus:ring-[#0A66C2] outline-none transition-all text-sm font-medium">
                     {ROLES.map(r => <option key={r} value={r}>{r}</option>)}
                   </select>
                 </div>
 
                 <div>
                   <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2 pr-2">LinkedIn About Section</label>
-                  <textarea value={aboutText} onChange={e => setAboutText(e.target.value)} placeholder="Paste your current About / Summary section here..." className="w-full h-32 p-3 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl focus:bg-white dark:bg-gray-900 focus:border-[#0A66C2] focus:ring-1 focus:ring-[#0A66C2] outline-none transition-all resize-none text-sm leading-relaxed"/>
+                  <textarea value={aboutText} onChange={e => setAboutText(e.target.value)} placeholder="Paste your current About / Summary section here..." className="w-full h-32 p-3 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl focus:bg-white dark:focus:bg-gray-900 dark:bg-gray-900 focus:border-[#0A66C2] focus:ring-1 focus:ring-[#0A66C2] outline-none transition-all resize-none text-sm leading-relaxed"/>
                 </div>
 
                 <div>
                   <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">Top Skills Listed</label>
-                  <textarea value={skills} onChange={e => setSkills(e.target.value)} placeholder="e.g. React, Node.js, Leadership, Agile..." className="w-full h-24 p-3 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl focus:bg-white dark:bg-gray-900 focus:border-[#0A66C2] focus:ring-1 focus:ring-[#0A66C2] outline-none transition-all resize-none text-sm leading-relaxed"/>
+                  <textarea value={skills} onChange={e => setSkills(e.target.value)} placeholder="e.g. React, Node.js, Leadership, Agile..." className="w-full h-24 p-3 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl focus:bg-white dark:focus:bg-gray-900 dark:bg-gray-900 focus:border-[#0A66C2] focus:ring-1 focus:ring-[#0A66C2] outline-none transition-all resize-none text-sm leading-relaxed"/>
                 </div>
               </div>
 
               {error && (
-                <div className="mt-5 p-3 bg-red-50 dark:bg-red-900/20 text-red-600 rounded-lg text-sm font-medium">
+                <div className="mt-5 p-3 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 rounded-lg text-sm font-medium">
                   {error}
                 </div>
               )}
@@ -235,7 +235,7 @@ Return ONLY valid JSON:
                       key={t.id}
                       onClick={() => setActiveTab(t.id)}
                       className={`flex-1 min-w-[100px] py-4 text-sm font-bold border-b-2 transition-all ${
-                        activeTab === t.id ? "border-[#0A66C2] text-[#0A66C2] bg-white dark:bg-gray-900" : "border-transparent text-gray-500 hover:text-gray-900 dark:text-white hover:bg-gray-100"
+                        activeTab === t.id ? "border-[#0A66C2] text-[#0A66C2] bg-white dark:bg-gray-900" : "border-transparent text-gray-500 hover:text-gray-900 dark:hover:text-white dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
                       }`}
                     >
                       {t.label}
@@ -262,7 +262,7 @@ Return ONLY valid JSON:
                           </svg>
                           <div className="absolute inset-0 flex flex-col items-center justify-center">
                             <span className="text-5xl font-black text-gray-900 dark:text-white">{result.overallScore}</span>
-                            <span className="text-sm font-bold text-gray-500 mt-1">/ 100</span>
+                            <span className="text-sm font-bold text-gray-500 dark:text-gray-400 mt-1">/ 100</span>
                           </div>
                         </div>
                       </div>
@@ -291,7 +291,7 @@ Return ONLY valid JSON:
                          <h3 className="text-sm font-black text-[#0A66C2] uppercase tracking-wider mb-3 flex items-center gap-2">
                            ✨ Top Recommendation
                          </h3>
-                         <div className="p-5 bg-[#E1F0FE] rounded-xl border border-blue-200">
+                         <div className="p-5 bg-[#E1F0FE] rounded-xl border border-blue-200 dark:border-blue-800">
                            <p className="text-lg font-bold text-gray-900 dark:text-white mb-4">{result.optimizedHeadline}</p>
                            <button onClick={() => copyToClipboard(result.optimizedHeadline, 'head-main')} className="text-sm font-bold text-[#0A66C2] flex items-center gap-1 hover:underline">
                              {copiedStates['head-main'] ? "✓ Copied" : "📋 Copy Headline"}
@@ -318,10 +318,10 @@ Return ONLY valid JSON:
                   {/* TAB 3: About */}
                   {activeTab === 3 && (
                     <div className="animate-fade-in space-y-6">
-                      <div className="flex justify-between items-center rounded-xl bg-[#E1F0FE] border border-blue-200 p-4">
+                      <div className="flex justify-between items-center rounded-xl bg-[#E1F0FE] border border-blue-200 dark:border-blue-800 p-4">
                         <div>
                           <h3 className="text-sm font-black text-[#0A66C2] uppercase tracking-wider">✨ Optimized About Section</h3>
-                          <p className="text-xs text-blue-700 mt-1">Structured for readability and rich in ATS keywords.</p>
+                          <p className="text-xs text-blue-700 dark:text-blue-400 mt-1">Structured for readability and rich in ATS keywords.</p>
                         </div>
                         <button onClick={() => copyToClipboard(result.improvedAbout, 'about')} className="bg-white dark:bg-gray-900 px-4 py-2 rounded-lg text-sm font-bold text-[#0A66C2] shadow-sm hover:shadow">
                           {copiedStates['about'] ? "✓ Copied" : "📋 Copy HTML/Text"}
@@ -334,7 +334,7 @@ Return ONLY valid JSON:
 
                       <div className="pt-6 border-t border-gray-100 dark:border-gray-800">
                          <h3 className="text-sm font-black text-gray-400 uppercase tracking-wider mb-3">Original Version</h3>
-                         <div className="p-4 bg-gray-50 dark:bg-gray-950 rounded-xl border border-gray-200 dark:border-gray-800 text-sm text-gray-500 whitespace-pre-wrap">
+                         <div className="p-4 bg-gray-50 dark:bg-gray-950 rounded-xl border border-gray-200 dark:border-gray-800 text-sm text-gray-500 dark:text-gray-400 whitespace-pre-wrap">
                            {aboutText}
                          </div>
                       </div>
@@ -360,23 +360,23 @@ Return ONLY valid JSON:
                            </div>
                          </div>
 
-                         <div className="bg-red-50 dark:bg-red-900/20 rounded-xl border border-red-100 p-5">
-                           <h3 className="text-sm font-black text-red-700 uppercase tracking-wider mb-4 flex items-center gap-2">
+                         <div className="bg-red-50 dark:bg-red-900/20 rounded-xl border border-red-100 dark:border-red-900/50 p-5">
+                           <h3 className="text-sm font-black text-red-700 dark:text-red-400 uppercase tracking-wider mb-4 flex items-center gap-2">
                              ❌ Skills to Remove
                            </h3>
                            <div className="flex flex-wrap gap-2">
                              {result.skillsToRemove.map((s,i) => (
-                               <span key={i} className="bg-white dark:bg-gray-900 text-red-700 border border-red-200 px-3 py-1.5 rounded-lg text-sm font-bold shadow-sm line-through">
+                               <span key={i} className="bg-white dark:bg-gray-900 text-red-700 dark:text-red-400 border border-red-200 dark:border-red-800 px-3 py-1.5 rounded-lg text-sm font-bold shadow-sm line-through">
                                  {s}
                                </span>
                              ))}
-                             {result.skillsToRemove.length === 0 && <p className="text-sm text-red-600/70 italic">No irrelevant skills found.</p>}
+                             {result.skillsToRemove.length === 0 && <p className="text-sm text-red-600 dark:text-red-400/70 italic">No irrelevant skills found.</p>}
                            </div>
                          </div>
 
                        </div>
 
-                       <div className="bg-blue-50 dark:bg-blue-900/20 rounded-xl border border-blue-100 p-5">
+                       <div className="bg-blue-50 dark:bg-blue-900/20 rounded-xl border border-blue-100 dark:border-blue-900/50 p-5">
                          <h3 className="text-sm font-black text-[#0A66C2] uppercase tracking-wider mb-4 flex items-center gap-2">
                            📈 Trending in your industry
                          </h3>
@@ -397,7 +397,7 @@ Return ONLY valid JSON:
                       <div className="flex justify-between items-center mb-6 border-b border-gray-100 dark:border-gray-800 pb-4">
                         <div>
                           <h3 className="text-lg font-bold text-gray-900 dark:text-white">Your Action Checklist</h3>
-                          <p className="text-sm text-gray-500">Complete these items to boost your profile views.</p>
+                          <p className="text-sm text-gray-500 dark:text-gray-400">Complete these items to boost your profile views.</p>
                         </div>
                         <div className="text-3xl font-black text-[#0A66C2]">
                           {checkedItems.length}<span className="text-lg text-gray-400">/{result.actionItems.length}</span>
@@ -416,7 +416,7 @@ Return ONLY valid JSON:
                               }`}
                             >
                               <div className={`mt-0.5 w-6 h-6 rounded-full flex items-center justify-center shrink-0 border-2 transition-colors ${
-                                isChecked ? "bg-emerald-500 border-emerald-500" : "bg-white dark:bg-gray-900 border-gray-300"
+                                isChecked ? "bg-emerald-500 border-emerald-500" : "bg-white dark:bg-gray-900 border-gray-300 dark:border-gray-700"
                               }`}>
                                 {isChecked && <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>}
                               </div>
@@ -445,7 +445,7 @@ Return ONLY valid JSON:
                   <svg className="w-10 h-10" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Optimize Your Profile</h3>
-                <p className="text-gray-500 text-sm max-w-sm">
+                <p className="text-gray-500 dark:text-gray-400 text-sm max-w-sm">
                   Provide your current LinkedIn details on the left, and our AI will restructure your headline, rewrite your summary, and give you an actionable checklist to improve your visibility.
                 </p>
               </div>

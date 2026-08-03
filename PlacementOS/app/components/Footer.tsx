@@ -126,13 +126,13 @@ export default function Footer() {
 
       {/* ROW 2 — Bottom Bar */}
       <div className="max-w-7xl mx-auto px-6 mt-16 pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center gap-4 text-sm font-medium">
-        <p className="text-gray-500 text-center md:text-left">
+        <p className="text-gray-500 dark:text-gray-400 text-center md:text-left">
           &copy; 2026 PlacementOS. All rights reserved.
         </p>
         <p className="text-gray-400 text-center">
           Made for students
         </p>
-        <p className="text-gray-500 text-center md:text-right">
+        <p className="text-gray-500 dark:text-gray-400 text-center md:text-right">
           Built by <span className="text-gray-300 font-bold">Prashant Kumar Singh</span>
         </p>
       </div>

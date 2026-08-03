@@ -4,6 +4,8 @@ import { useAppAuthStore } from "~/lib/app-auth";
 import { apiFetch } from "~/lib/api";
 import Navbar from "~/components/Navbar";
 import ProgressChart from "~/components/ProgressChart";
+import FeatureHeader from "~/components/FeatureHeader";
+
 export function meta() {
   return [
     { title: "Dashboard — PlacementOS" },
@@ -70,12 +72,34 @@ export default function Dashboard() {
     void load();
   }, [token]);
 
-  const getScoreColor = (s: number) => s >= 70 ? "text-emerald-600" : s >= 40 ? "text-yellow-600" : "text-red-600";
-  const getScoreBg = (s: number) => s >= 70 ? "bg-emerald-100" : s >= 40 ? "bg-yellow-100" : "bg-red-100";
+  const getScoreColor = (s: number) => s >= 70 ? "text-emerald-600" : s >= 40 ? "text-yellow-600 dark:text-yellow-400" : "text-red-600 dark:text-red-400";
+  const getScoreBg = (s: number) => s >= 70 ? "bg-emerald-100" : s >= 40 ? "bg-yellow-100 dark:bg-yellow-900/30" : "bg-red-100 dark:bg-red-900/30";
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
       <Navbar />
+
+      <FeatureHeader 
+        title="Placement Dashboard"
+        icon="📊"
+        description="Your central command center for all placement activities."
+        whatItDoes="This dashboard gives you a bird's-eye view of your resume scores, upcoming jobs, and quick access to all PlacementOS AI tools."
+        howItWorks={[
+          "Upload your resume to see your overall ATS score trajectory.",
+          "Click on any quick action to navigate to specific modules.",
+          "Monitor your past analyses and recent improvements."
+        ]}
+        whyItMatters={[
+          "Keeps you organized and focused on what matters.",
+          "Provides a quick snapshot of your placement readiness."
+        ]}
+        aiCapabilities={[]}
+        tips={[
+          "Check your dashboard daily for new insights.",
+          "Use the quick actions to jump straight into interview prep or job tracking."
+        ]}
+        gradient="from-blue-600 to-indigo-600"
+      />
 
       <div className="max-w-6xl mx-auto px-6 py-10">
         {/* Header */}
@@ -84,7 +108,7 @@ export default function Dashboard() {
             <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
               Welcome back, {user?.name?.split(" ")[0]} 👋
             </h1>
-            <p className="text-gray-500 mt-1">Here's your resume analysis overview.</p>
+            <p className="text-gray-500 dark:text-gray-400 mt-1">Here's your resume analysis overview.</p>
           </div>
           <Link to="/upload" className="btn-primary">
             + Analyze New Resume
@@ -137,7 +161,7 @@ export default function Dashboard() {
                   <p className="text-xs text-gray-500">Upload PDF + job description</p>
                 </div>
               </Link>
-              <Link to="/history" className="flex items-center gap-3 p-3 rounded-xl hover:bg-blue-50 dark:bg-blue-900/20 border border-blue-100 transition-all">
+              <Link to="/history" className="flex items-center gap-3 p-3 rounded-xl hover:bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-900/50 transition-all">
                 <span className="text-2xl">📋</span>
                 <div>
                   <p className="font-semibold text-sm text-gray-800 dark:text-gray-200">View History</p>
@@ -284,17 +308,17 @@ export default function Dashboard() {
             </Link>
 
             <Link to="/github-optimizer" className="card hover:border-gray-500 hover:shadow-xl transition-all group p-5 flex flex-col items-center text-center">
-              <div className="w-12 h-12 bg-gray-100 text-gray-700 dark:text-gray-300 rounded-full flex items-center justify-center text-2xl mb-3 group-hover:scale-110 transition-transform shadow-sm">🐙</div>
+              <div className="w-12 h-12 bg-gray-100 dark:bg-gray-900 text-gray-700 dark:text-gray-300 rounded-full flex items-center justify-center text-2xl mb-3 group-hover:scale-110 transition-transform shadow-sm">🐙</div>
               <h3 className="font-bold text-gray-900 dark:text-white mb-1">GitHub Profile</h3>
-              <p className="text-xs text-gray-500 mb-3">Impress recruiters</p>
+              <p className="text-xs text-gray-500 dark:text-gray-400 mb-3">Impress recruiters</p>
               <span className="text-xs font-semibold text-gray-600 dark:text-gray-400 mt-auto">Optimize →</span>
             </Link>
 
             <Link to="/linkedin-builder" className="card hover:border-blue-400 hover:shadow-xl transition-all group p-5 flex flex-col items-center text-center">
-              <div className="w-12 h-12 bg-blue-100 text-blue-700 rounded-full flex items-center justify-center text-2xl mb-3 group-hover:scale-110 transition-transform shadow-sm">💼</div>
+              <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 rounded-full flex items-center justify-center text-2xl mb-3 group-hover:scale-110 transition-transform shadow-sm">💼</div>
               <h3 className="font-bold text-gray-900 dark:text-white mb-1">LinkedIn Builder</h3>
-              <p className="text-xs text-gray-500 mb-3">Step-by-step profile</p>
-              <span className="text-xs font-semibold text-blue-600 mt-auto">Build →</span>
+              <p className="text-xs text-gray-500 dark:text-gray-400 mb-3">Step-by-step profile</p>
+              <span className="text-xs font-semibold text-blue-600 dark:text-blue-400 mt-auto">Build →</span>
             </Link>
           </div>
         </div>
@@ -304,37 +328,37 @@ export default function Dashboard() {
           <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-5">Explore Real-World Tools</h2>
           <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
             <Link to="/roast" className="card hover:border-red-400 hover:shadow-xl transition-all group p-5 flex flex-col items-center text-center">
-              <div className="w-12 h-12 bg-red-100 text-red-600 rounded-full flex items-center justify-center text-2xl mb-3 group-hover:scale-110 transition-transform shadow-sm">🔥</div>
+              <div className="w-12 h-12 bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 rounded-full flex items-center justify-center text-2xl mb-3 group-hover:scale-110 transition-transform shadow-sm">🔥</div>
               <h3 className="font-bold text-gray-900 dark:text-white mb-1">Resume Roast</h3>
-              <p className="text-xs text-gray-500 mb-3">Brutal honest feedback</p>
-              <span className="text-xs font-semibold text-red-600 mt-auto">Open →</span>
+              <p className="text-xs text-gray-500 dark:text-gray-400 mb-3">Brutal honest feedback</p>
+              <span className="text-xs font-semibold text-red-600 dark:text-red-400 mt-auto">Open →</span>
             </Link>
             
             <Link to="/mock-interview" className="card hover:border-indigo-400 hover:shadow-xl transition-all group p-5 flex flex-col items-center text-center">
-              <div className="w-12 h-12 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center text-2xl mb-3 group-hover:scale-110 transition-transform shadow-sm">🎤</div>
+              <div className="w-12 h-12 bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 rounded-full flex items-center justify-center text-2xl mb-3 group-hover:scale-110 transition-transform shadow-sm">🎤</div>
               <h3 className="font-bold text-gray-900 dark:text-white mb-1">Mock Interview</h3>
-              <p className="text-xs text-gray-500 mb-3">Practice with AI</p>
-              <span className="text-xs font-semibold text-indigo-600 mt-auto">Open →</span>
+              <p className="text-xs text-gray-500 dark:text-gray-400 mb-3">Practice with AI</p>
+              <span className="text-xs font-semibold text-indigo-600 dark:text-indigo-400 mt-auto">Open →</span>
             </Link>
 
             <Link to="/skill-gap" className="card hover:border-teal-400 hover:shadow-xl transition-all group p-5 flex flex-col items-center text-center">
-              <div className="w-12 h-12 bg-teal-100 text-teal-600 rounded-full flex items-center justify-center text-2xl mb-3 group-hover:scale-110 transition-transform shadow-sm">📊</div>
+              <div className="w-12 h-12 bg-teal-100 dark:bg-teal-900/30 text-teal-600 dark:text-teal-400 rounded-full flex items-center justify-center text-2xl mb-3 group-hover:scale-110 transition-transform shadow-sm">📊</div>
               <h3 className="font-bold text-gray-900 dark:text-white mb-1">Skill Gap</h3>
-              <p className="text-xs text-gray-500 mb-3">Find what's missing</p>
-              <span className="text-xs font-semibold text-teal-600 mt-auto">Open →</span>
+              <p className="text-xs text-gray-500 dark:text-gray-400 mb-3">Find what's missing</p>
+              <span className="text-xs font-semibold text-teal-600 dark:text-teal-400 mt-auto">Open →</span>
             </Link>
 
             <Link to="/job-tracker" className="card hover:border-blue-500 hover:shadow-xl transition-all group p-5 flex flex-col items-center text-center">
-              <div className="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-2xl mb-3 group-hover:scale-110 transition-transform shadow-sm">📋</div>
+              <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-full flex items-center justify-center text-2xl mb-3 group-hover:scale-110 transition-transform shadow-sm">📋</div>
               <h3 className="font-bold text-gray-900 dark:text-white mb-1">Job Tracker</h3>
-              <p className="text-xs text-gray-500 mb-3">Track applications</p>
-              <span className="text-xs font-semibold text-blue-600 mt-auto">Open →</span>
+              <p className="text-xs text-gray-500 dark:text-gray-400 mb-3">Track applications</p>
+              <span className="text-xs font-semibold text-blue-600 dark:text-blue-400 mt-auto">Open →</span>
             </Link>
 
             <Link to="/campus" className="card hover:border-fuchsia-400 hover:shadow-xl transition-all group p-5 flex flex-col items-center text-center">
               <div className="w-12 h-12 bg-fuchsia-100 text-fuchsia-600 rounded-full flex items-center justify-center text-2xl mb-3 group-hover:scale-110 transition-transform shadow-sm">🏫</div>
               <h3 className="font-bold text-gray-900 dark:text-white mb-1">Campus Data</h3>
-              <p className="text-xs text-gray-500 mb-3">See placement trends</p>
+              <p className="text-xs text-gray-500 dark:text-gray-400 mb-3">See placement trends</p>
               <span className="text-xs font-semibold text-fuchsia-600 mt-auto">Open →</span>
             </Link>
           </div>
@@ -344,7 +368,7 @@ export default function Dashboard() {
         <div className="mt-6 card animate-fade-in-up delay-[300ms]">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-lg font-bold text-gray-900 dark:text-white">Recent Analyses</h2>
-            <Link to="/history" className="text-sm text-violet-600 font-medium hover:underline">View all →</Link>
+            <Link to="/history" className="text-sm text-violet-600 dark:text-violet-400 font-medium hover:underline">View all →</Link>
           </div>
 
           {loading ? (
@@ -360,15 +384,15 @@ export default function Dashboard() {
           ) : (
             <div className="space-y-3">
               {recent.map((a) => (
-                <div key={a._id} className="flex items-center gap-4 p-4 bg-gray-50 dark:bg-gray-950 rounded-xl hover:bg-gray-100 transition-all">
+                <div key={a._id} className="flex items-center gap-4 p-4 bg-gray-50 dark:bg-gray-950 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-all">
                   <div className={`w-14 h-14 rounded-2xl flex items-center justify-center font-black text-lg ${getScoreBg(a.atsScore)} ${getScoreColor(a.atsScore)} shrink-0`}>
                     {a.atsScore}
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="font-semibold text-gray-800 dark:text-gray-200 text-sm truncate">{a.jobTitle || "Resume Analysis"}</p>
-                    <p className="text-xs text-gray-500">{new Date(a.createdAt).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" })}</p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">{new Date(a.createdAt).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" })}</p>
                     {a.improvements?.[0] && (
-                      <p className="text-xs text-gray-500 mt-0.5 truncate">💡 {a.improvements[0]}</p>
+                      <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5 truncate">💡 {a.improvements[0]}</p>
                     )}
                   </div>
                   <div className={`text-xs font-bold px-2 py-1 rounded-full ${getScoreBg(a.atsScore)} ${getScoreColor(a.atsScore)}`}>

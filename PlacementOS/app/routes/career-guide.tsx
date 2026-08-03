@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router";
 import Navbar from "~/components/Navbar";
+import FeatureHeader from "~/components/FeatureHeader";
 
 export function meta() {
   return [
@@ -170,7 +171,7 @@ const DILEMMAS = [
   {
     q: "GATE dena chahiye ya seedha job?",
     tag: "Most asked",
-    tagColor: "bg-purple-100 text-purple-700",
+    tagColor: "bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400",
     answers: [
       { title: "GATE lo agar:", points: ["PSU mein interest hai (BHEL, NTPC, ONGC)", "Research/IIT MTech chahiye", "Financially 1-2 years wait kar sakte ho", "Core CS subjects strong hain"] },
       { title: "Seedha job lo agar:", points: ["Financial pressure hai ghar par", "Already 2+ backlogs hain", "Software engineering passionate hona", "1-2 years job karke decision le sakte ho"] },
@@ -180,7 +181,7 @@ const DILEMMAS = [
   {
     q: "Tier 3 se FAANG possible hai kya?",
     tag: "Reality check",
-    tagColor: "bg-blue-100 text-blue-700",
+    tagColor: "bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400",
     answers: [
       { title: "Haan, possible hai — but:", points: ["Extra 1-2 years preparation needed", "300-500 LeetCode problems solve karne honge", "System design strong karna hoga", "Off-campus + referral route se aana hoga"] },
       { title: "Success ke examples:", points: ["Many IIT/NIT rejects in FAANG from tier 3", "Striver himself tier 3 se hai", "Skills matter more than college", "LinkedIn pe search karo — bhaut milenge"] },
@@ -200,7 +201,7 @@ const DILEMMAS = [
   {
     q: "Low CGPA (below 6.5) to kya karein?",
     tag: "Don't panic",
-    tagColor: "bg-green-100 text-green-700",
+    tagColor: "bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400",
     answers: [
       { title: "Companies without CGPA cutoff:", points: ["Startups (most don't care)", "AMCAT/eLitmus based companies", "Referral based applications", "Freelancing & remote work"] },
       { title: "Compensate karo isse:", points: ["Strong GitHub (5+ projects)", "Certifications (AWS, Google, Microsoft)", "Open source contributions", "Strong DSA skills (LeetCode problems)"] },
@@ -267,15 +268,15 @@ const RESOURCES = [
 ];
 
 const COLOR_MAP: Record<string, { bg: string; border: string; text: string; badge: string }> = {
-  blue: { bg: "bg-blue-50 dark:bg-blue-900/20", border: "border-blue-200 hover:border-blue-400", text: "text-blue-700", badge: "bg-blue-100 text-blue-700" },
-  green: { bg: "bg-green-50 dark:bg-green-900/20", border: "border-green-200 hover:border-green-400", text: "text-green-700", badge: "bg-green-100 text-green-700" },
+  blue: { bg: "bg-blue-50 dark:bg-blue-900/20", border: "border-blue-200 dark:border-blue-800 hover:border-blue-400", text: "text-blue-700 dark:text-blue-400", badge: "bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400" },
+  green: { bg: "bg-green-50 dark:bg-green-900/20", border: "border-green-200 dark:border-green-800 hover:border-green-400", text: "text-green-700 dark:text-green-400", badge: "bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400" },
   amber: { bg: "bg-amber-50 dark:bg-amber-900/20", border: "border-amber-200 hover:border-amber-400", text: "text-amber-700", badge: "bg-amber-100 text-amber-700" },
-  violet: { bg: "bg-violet-50 dark:bg-violet-900/20", border: "border-violet-200 dark:border-violet-800 hover:border-violet-400", text: "text-violet-700", badge: "bg-violet-100 text-violet-700" },
-  red: { bg: "bg-red-50 dark:bg-red-900/20", border: "border-red-200 hover:border-red-400", text: "text-red-700", badge: "bg-red-100 text-red-700" },
+  violet: { bg: "bg-violet-50 dark:bg-violet-900/20", border: "border-violet-200 dark:border-violet-800 hover:border-violet-400", text: "text-violet-700 dark:text-violet-400", badge: "bg-violet-100 dark:bg-violet-900/30 text-violet-700 dark:text-violet-400" },
+  red: { bg: "bg-red-50 dark:bg-red-900/20", border: "border-red-200 dark:border-red-800 hover:border-red-400", text: "text-red-700 dark:text-red-400", badge: "bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400" },
   emerald: { bg: "bg-emerald-50", border: "border-emerald-200 hover:border-emerald-400", text: "text-emerald-700", badge: "bg-emerald-100 text-emerald-700" },
-  orange: { bg: "bg-orange-50", border: "border-orange-200 hover:border-orange-400", text: "text-orange-700", badge: "bg-orange-100 text-orange-700" },
-  cyan: { bg: "bg-cyan-50", border: "border-cyan-200 hover:border-cyan-400", text: "text-cyan-700", badge: "bg-cyan-100 text-cyan-700" },
-  teal: { bg: "bg-teal-50", border: "border-teal-200 hover:border-teal-400", text: "text-teal-700", badge: "bg-teal-100 text-teal-700" },
+  orange: { bg: "bg-orange-50 dark:bg-orange-900/20", border: "border-orange-200 dark:border-orange-800 hover:border-orange-400", text: "text-orange-700 dark:text-orange-400", badge: "bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-400" },
+  cyan: { bg: "bg-cyan-50 dark:bg-cyan-900/20", border: "border-cyan-200 dark:border-cyan-800 hover:border-cyan-400", text: "text-cyan-700 dark:text-cyan-400", badge: "bg-cyan-100 dark:bg-cyan-900/30 text-cyan-700 dark:text-cyan-400" },
+  teal: { bg: "bg-teal-50 dark:bg-teal-900/20", border: "border-teal-200 dark:border-teal-800 hover:border-teal-400", text: "text-teal-700 dark:text-teal-400", badge: "bg-teal-100 dark:bg-teal-900/30 text-teal-700 dark:text-teal-400" },
   rose: { bg: "bg-rose-50", border: "border-rose-200 hover:border-rose-400", text: "text-rose-700", badge: "bg-rose-100 text-rose-700" },
 };
 
@@ -367,32 +368,35 @@ export default function CareerGuide() {
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950 pb-24 font-sans">
       <Navbar />
 
-      {/* ─── HERO ─── */}
-      <div className="bg-gradient-to-br from-[#1e1b4b] via-[#312e81] to-[#4C1D95] text-white pt-16 pb-32 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "radial-gradient(circle at 25% 50%, #818cf8 0%, transparent 50%), radial-gradient(circle at 75% 20%, #c084fc 0%, transparent 50%)" }} />
-        <div className="max-w-6xl mx-auto px-6 relative z-10 text-center">
-          <div className="inline-flex items-center gap-2 bg-white dark:bg-gray-900/10 border border-white/20 rounded-full px-4 py-2 text-sm font-bold text-indigo-200 mb-6">
-            🎓 Career Guidance Center
-          </div>
-          <h1 className="text-4xl md:text-6xl font-black mb-4 tracking-tight">BTech CSE Career Guide</h1>
-          <p className="text-xl text-indigo-200 font-medium max-w-2xl mx-auto mb-8">
-            Tier 3 college se bhi <span className="text-white font-black">top career possible hai</span> — sahi plan ke saath
-          </p>
-          <div className="flex justify-center gap-6 flex-wrap text-sm font-bold text-indigo-200">
-            <span>✅ 10,000+ students helped</span>
-            <span>✅ 50+ career paths covered</span>
-            <span>✅ 100% free guidance</span>
-          </div>
-        </div>
-      </div>
+      <FeatureHeader
+        title="BTech CSE Career Guide"
+        icon="🎓"
+        description="Tier 3 college se bhi top career possible hai — sahi plan ke saath."
+        whatItDoes="This guide outlines every possible career path for a CSE graduate, including software engineering, PSU, MS abroad, MBA, and even YouTube content creation."
+        howItWorks={[
+          "Browse the Career Path Explorer to see roadmaps and timelines for each path.",
+          "Read 'Common Dilemmas' to find honest answers to your biggest confusions.",
+          "Use the Decision Wizard to get a personalized recommendation based on your CGPA and goals."
+        ]}
+        whyItMatters={[
+          "Most tier 3 students fail because they don't know their options, not because they lack skills.",
+          "Choosing the right path early saves you years of frustration."
+        ]}
+        aiCapabilities={[]}
+        tips={[
+          "Don't try to prepare for GATE and private jobs at the exact same time without a clear primary goal.",
+          "Chat with the Career Guide AI at the bottom if you are still confused."
+        ]}
+        gradient="from-[#1e1b4b] via-[#312e81] to-[#4C1D95]"
+      />
 
-      <div className="max-w-6xl mx-auto px-6 -mt-20 relative z-20 space-y-12">
+      <div className="max-w-6xl mx-auto px-6 py-12 relative z-20 space-y-12">
 
         {/* ─── CAREER PATH EXPLORER ─── */}
         <section>
           <div className="text-center mb-8">
             <h2 className="text-3xl font-black text-gray-900 dark:text-white mb-2">Career Path Explorer 🗺️</h2>
-            <p className="text-gray-500 font-medium">Click any card to explore that path in detail</p>
+            <p className="text-gray-500 dark:text-gray-400 font-medium">Click any card to explore that path in detail</p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
             {CAREER_PATHS.map((cp) => {
@@ -402,13 +406,13 @@ export default function CareerGuide() {
                 <div key={cp.id} className={`bg-white dark:bg-gray-900 rounded-2xl border-2 transition-all duration-300 overflow-hidden ${c.border} ${isExp ? "md:col-span-2 lg:col-span-3 xl:col-span-4" : ""}`}>
                   <button
                     onClick={() => setExpandedCard(isExp ? null : cp.id)}
-                    className="w-full text-left p-5 flex items-start justify-between gap-3 hover:bg-gray-50 dark:bg-gray-950/50 transition-colors"
+                    className="w-full text-left p-5 flex items-start justify-between gap-3 hover:bg-gray-50 dark:hover:bg-gray-900 dark:bg-gray-950/50 transition-colors"
                   >
                     <div className="flex items-start gap-3">
                       <span className="text-3xl">{cp.icon}</span>
                       <div>
                         <h3 className="font-black text-gray-900 dark:text-white text-base leading-tight">{cp.title}</h3>
-                        <p className="text-xs font-bold text-gray-500 mt-0.5">{cp.tagline}</p>
+                        <p className="text-xs font-bold text-gray-500 dark:text-gray-400 mt-0.5">{cp.tagline}</p>
                         <div className="flex flex-wrap gap-1.5 mt-2">
                           {cp.stats.map(s => (
                             <span key={s} className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${c.badge}`}>{s}</span>
@@ -442,7 +446,7 @@ export default function CareerGuide() {
                           <div className="space-y-3">
                             {Object.entries(cp.content.companies).map(([tier, names]) => (
                               <div key={tier} className="bg-white dark:bg-gray-900 rounded-xl p-3 border border-gray-200 dark:border-gray-800">
-                                <p className="text-[11px] font-black text-gray-500 uppercase tracking-wider mb-1">{tier}</p>
+                                <p className="text-[11px] font-black text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-1">{tier}</p>
                                 <p className="text-sm font-medium text-gray-800 dark:text-gray-200">{names}</p>
                               </div>
                             ))}
@@ -482,14 +486,14 @@ export default function CareerGuide() {
         <section>
           <div className="text-center mb-8">
             <h2 className="text-3xl font-black text-gray-900 dark:text-white mb-2">Common Dilemmas 🤔</h2>
-            <p className="text-gray-500 font-medium">Honest answers to the questions every tier 3 student has</p>
+            <p className="text-gray-500 dark:text-gray-400 font-medium">Honest answers to the questions every tier 3 student has</p>
           </div>
           <div className="space-y-4">
             {DILEMMAS.map((d, i) => (
               <div key={i} className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 overflow-hidden">
                 <button
                   onClick={() => setExpandedDilemma(expandedDilemma === i ? null : i)}
-                  className="w-full text-left p-5 flex items-center justify-between gap-4 hover:bg-gray-50 dark:bg-gray-950 transition-colors"
+                  className="w-full text-left p-5 flex items-center justify-between gap-4 hover:bg-gray-50 dark:hover:bg-gray-900 dark:bg-gray-950 transition-colors"
                 >
                   <div className="flex items-center gap-3">
                     <span className="text-2xl font-black text-gray-300">Q{i + 1}</span>
@@ -516,10 +520,10 @@ export default function CareerGuide() {
                         </div>
                       ))}
                     </div>
-                    <div className="bg-gradient-to-r from-purple-50 to-indigo-50 border border-purple-100 rounded-xl p-4 flex items-start gap-3">
+                    <div className="bg-gradient-to-r from-purple-50 to-indigo-50 border border-purple-100 dark:border-purple-900/50 rounded-xl p-4 flex items-start gap-3">
                       <span className="text-2xl">💡</span>
                       <div>
-                        <p className="text-xs font-black text-purple-700 uppercase tracking-wider mb-1">Recommendation</p>
+                        <p className="text-xs font-black text-purple-700 dark:text-purple-400 uppercase tracking-wider mb-1">Recommendation</p>
                         <p className="text-sm font-bold text-gray-800 dark:text-gray-200">{d.recommendation}</p>
                       </div>
                     </div>
@@ -534,7 +538,7 @@ export default function CareerGuide() {
         <section>
           <div className="text-center mb-8">
             <h2 className="text-3xl font-black text-gray-900 dark:text-white mb-2">Free Resource Library 📚</h2>
-            <p className="text-gray-500 font-medium">100% free, handpicked resources for tier 3 students</p>
+            <p className="text-gray-500 dark:text-gray-400 font-medium">100% free, handpicked resources for tier 3 students</p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {RESOURCES.map((r) => {
@@ -550,9 +554,9 @@ export default function CareerGuide() {
                         key={item.name}
                         href={item.link}
                         target="_blank" rel="noreferrer"
-                        className="flex items-center justify-between p-2.5 rounded-xl border border-gray-100 dark:border-gray-800 hover:border-gray-300 hover:bg-gray-50 dark:bg-gray-950 transition-all group"
+                        className="flex items-center justify-between p-2.5 rounded-xl border border-gray-100 dark:border-gray-800 hover:border-gray-300 hover:bg-gray-50 dark:hover:bg-gray-900 dark:bg-gray-950 transition-all group"
                       >
-                        <span className="font-bold text-sm text-gray-800 dark:text-gray-200 group-hover:text-gray-900 dark:text-white">{item.name}</span>
+                        <span className="font-bold text-sm text-gray-800 dark:text-gray-200 group-hover:text-gray-900 dark:hover:text-white dark:text-white">{item.name}</span>
                         <span className={`text-[10px] font-black px-2 py-0.5 rounded-full ${c.badge} flex-shrink-0 ml-2`}>{item.tag}</span>
                       </a>
                     ))}
@@ -567,7 +571,7 @@ export default function CareerGuide() {
         <section>
           <div className="text-center mb-8">
             <h2 className="text-3xl font-black text-gray-900 dark:text-white mb-2">Help Me Choose My Path 🧭</h2>
-            <p className="text-gray-500 font-medium">3 quick questions → personalized career recommendation</p>
+            <p className="text-gray-500 dark:text-gray-400 font-medium">3 quick questions → personalized career recommendation</p>
           </div>
           <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 shadow-xl overflow-hidden max-w-2xl mx-auto">
             {!wizardDone ? (
@@ -578,7 +582,7 @@ export default function CareerGuide() {
                     <div key={i} className={`flex-1 h-1.5 rounded-full transition-all ${i <= wizardStep ? "bg-purple-50 dark:bg-purple-900/200" : "bg-gray-100"}`} />
                   ))}
                 </div>
-                <p className="text-xs font-black text-purple-600 uppercase tracking-widest mb-2">Step {wizardStep + 1} of {WIZARD_STEPS.length}</p>
+                <p className="text-xs font-black text-purple-600 dark:text-purple-400 uppercase tracking-widest mb-2">Step {wizardStep + 1} of {WIZARD_STEPS.length}</p>
                 <h3 className="text-xl font-black text-gray-900 dark:text-white mb-6">{WIZARD_STEPS[wizardStep].q}</h3>
                 <div className="space-y-3">
                   {WIZARD_STEPS[wizardStep].options.map(opt => (
@@ -595,22 +599,22 @@ export default function CareerGuide() {
             ) : (
               <div className="p-8 text-center">
                 <div className="text-5xl mb-4">🎯</div>
-                <p className="text-xs font-black text-purple-600 uppercase tracking-widest mb-2">Your Recommended Path</p>
+                <p className="text-xs font-black text-purple-600 dark:text-purple-400 uppercase tracking-widest mb-2">Your Recommended Path</p>
                 <h3 className="text-2xl font-black text-gray-900 dark:text-white mb-1">{wizardResult!.path}</h3>
-                <p className="text-purple-600 font-bold mb-6">{wizardResult!.college}</p>
-                <div className="bg-gradient-to-br from-purple-50 to-indigo-50 border border-purple-100 rounded-2xl p-5 text-left mb-6">
-                  <p className="text-xs font-black text-purple-700 uppercase tracking-widest mb-3">Your 3-Month Action Plan</p>
+                <p className="text-purple-600 dark:text-purple-400 font-bold mb-6">{wizardResult!.college}</p>
+                <div className="bg-gradient-to-br from-purple-50 to-indigo-50 border border-purple-100 dark:border-purple-900/50 rounded-2xl p-5 text-left mb-6">
+                  <p className="text-xs font-black text-purple-700 dark:text-purple-400 uppercase tracking-widest mb-3">Your 3-Month Action Plan</p>
                   <ol className="space-y-2">
                     {wizardResult!.action.map((a, i) => (
                       <li key={i} className="flex items-start gap-2 text-sm font-bold text-gray-800 dark:text-gray-200">
-                        <span className="w-5 h-5 bg-purple-100 rounded-full text-purple-700 text-[10px] font-black flex items-center justify-center flex-shrink-0 mt-0.5">{i + 1}</span>
+                        <span className="w-5 h-5 bg-purple-100 dark:bg-purple-900/30 rounded-full text-purple-700 dark:text-purple-400 text-[10px] font-black flex items-center justify-center flex-shrink-0 mt-0.5">{i + 1}</span>
                         {a}
                       </li>
                     ))}
                   </ol>
                 </div>
                 <div className="flex gap-3 justify-center">
-                  <button onClick={resetWizard} className="px-5 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-700 dark:text-gray-300 font-bold rounded-xl text-sm transition-colors">
+                  <button onClick={resetWizard} className="px-5 py-2.5 bg-gray-100 dark:bg-gray-900 hover:bg-gray-200 text-gray-700 dark:text-gray-300 font-bold rounded-xl text-sm transition-colors">
                     Try Again
                   </button>
                   <Link to="/roadmap" className="px-5 py-2.5 bg-purple-600 hover:bg-purple-700 text-white font-bold rounded-xl text-sm transition-colors">
@@ -634,7 +638,7 @@ export default function CareerGuide() {
               const btn = document.querySelector<HTMLButtonElement>('[aria-label="Open Career Guide Chatbot"]');
               btn?.click();
             }}
-            className="px-8 py-4 bg-white dark:bg-gray-900 text-purple-700 font-black rounded-2xl shadow-xl text-lg hover:scale-105 transition-transform"
+            className="px-8 py-4 bg-white dark:bg-gray-900 text-purple-700 dark:text-purple-400 font-black rounded-2xl shadow-xl text-lg hover:scale-105 transition-transform"
           >
             Open Career Guide Chatbot 🎓
           </button>

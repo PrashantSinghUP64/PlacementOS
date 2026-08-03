@@ -25,11 +25,11 @@ interface DSAProblem {
 }
 
 const COLORS = { Easy: '#10B981', Medium: '#F59E0B', Hard: '#EF4444' };
-const STATUS_COLORS = { Solved: 'bg-green-100 text-green-700', Attempted: 'bg-yellow-100 text-yellow-700', Revisit: 'bg-red-100 text-red-700' };
+const STATUS_COLORS = { Solved: 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400', Attempted: 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400', Revisit: 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400' };
 const DIFF_STYLE: Record<string, string> = {
   Easy: 'bg-emerald-100 text-emerald-700 border border-emerald-200',
   Medium: 'bg-amber-100 text-amber-700 border border-amber-200',
-  Hard: 'bg-red-100 text-red-700 border border-red-200',
+  Hard: 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400 border border-red-200 dark:border-red-800',
 };
 
 const LS_KEY = "dsa_progress";
@@ -112,7 +112,7 @@ export default function DSATracker() {
       // Inline dynamic import or callAI wrapper
       const { callAI } = await import("~/lib/aiHelper");
       const prompt = `Act as an expert competitive programming mentor. Provide a conceptual hint, intuition, and optimal time/space complexity to solve the DSA problem "${problemName}". Do NOT write the full code. Keep it short and encouraging.`;
-      const res = await callAI(prompt);
+      const res = await callAI(prompt, "💡 Hint: Start by thinking about the brute force approach, then see if you can optimize it using a HashMap, Two Pointers, or Binary Search. You've got this!");
       setAiHintResult(res);
     } catch (err) {
       setAiHintResult("💡 Hint: Start by thinking about the brute force approach, then see if you can optimize it using a HashMap, Two Pointers, or Binary Search. You've got this!");
@@ -125,9 +125,15 @@ export default function DSATracker() {
     if (!token) return;
     try {
       const probRes = await apiFetch("/dsa", { token });
-      if (Array.isArray(probRes)) setProblems(probRes);
+      if (probRes.ok) {
+        const data = await probRes.json();
+        if (Array.isArray(data)) setProblems(data);
+      }
       const statRes = await apiFetch("/dsa/stats", { token });
-      if (statRes) setStats(statRes);
+      if (statRes.ok) {
+        const statData = await statRes.json();
+        if (statData) setStats(statData);
+      }
     } catch (err) { console.error(err); }
   }, [token]);
 
@@ -243,7 +249,7 @@ export default function DSATracker() {
             <button
               key={t.id}
               onClick={() => setActiveTab(t.id)}
-              className={`px-5 py-2.5 rounded-xl font-bold text-sm transition-all ${activeTab === t.id ? "bg-slate-900 text-white shadow" : "text-gray-500 hover:bg-gray-50 dark:bg-gray-950"}`}
+              className={`px-5 py-2.5 rounded-xl font-bold text-sm transition-all ${activeTab === t.id ? "bg-slate-900 text-white shadow" : "text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-900 dark:bg-gray-950"}`}
             >
               {t.label}
             </button>
@@ -348,7 +354,7 @@ export default function DSATracker() {
               <div className="lg:col-span-2 bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-800 overflow-hidden flex flex-col h-[800px]">
                 <div className="p-4 border-b border-gray-100 dark:border-gray-800 bg-gray-50 dark:bg-gray-950/50 flex justify-between items-center">
                   <h3 className="font-bold text-gray-900 dark:text-white">Recent Logs</h3>
-                  <span className="text-xs font-bold text-gray-500 bg-gray-200 px-2.5 py-1 rounded-full">{problems.length} records</span>
+                  <span className="text-xs font-bold text-gray-500 dark:text-gray-400 bg-gray-200 dark:bg-gray-800 px-2.5 py-1 rounded-full">{problems.length} records</span>
                 </div>
                 <div className="flex-1 overflow-y-auto p-2">
                   {problems.length === 0 ? (
@@ -360,19 +366,19 @@ export default function DSATracker() {
                     <table className="w-full text-left">
                       <tbody className="divide-y divide-gray-100">
                         {problems.map(p => (
-                          <tr key={p._id} className="hover:bg-gray-50 dark:bg-gray-950 transition-colors group">
+                          <tr key={p._id} className="hover:bg-gray-50 dark:hover:bg-gray-900 dark:bg-gray-950 transition-colors group">
                             <td className="p-4">
                               <div className="font-bold text-gray-900 dark:text-white text-[15px] mb-1">{p.name}</div>
                               <div className="flex gap-2 text-xs font-medium">
-                                <span className="text-gray-500">{p.platform}</span>
+                                <span className="text-gray-500 dark:text-gray-400">{p.platform}</span>
                                 <span className="text-gray-300">•</span>
-                                <span className="text-gray-500">{p.topic}</span>
+                                <span className="text-gray-500 dark:text-gray-400">{p.topic}</span>
                                 {p.timeTaken > 0 && <><span className="text-gray-300">•</span><span className="text-gray-400">⏱️ {p.timeTaken}m</span></>}
                               </div>
-                              {p.notes && <p className="text-xs text-gray-500 mt-2 bg-gray-100 p-2 rounded truncate max-w-sm">{p.notes}</p>}
+                              {p.notes && <p className="text-xs text-gray-500 dark:text-gray-400 mt-2 bg-gray-100 dark:bg-gray-900 p-2 rounded truncate max-w-sm">{p.notes}</p>}
                             </td>
                             <td className="p-4 align-top w-24">
-                              <span className={`inline-block w-full text-center px-2 py-1 rounded text-xs font-bold ${p.difficulty === 'Easy' ? 'bg-emerald-100 text-emerald-700' : p.difficulty === 'Medium' ? 'bg-amber-100 text-amber-700' : 'bg-red-100 text-red-700'}`}>{p.difficulty}</span>
+                              <span className={`inline-block w-full text-center px-2 py-1 rounded text-xs font-bold ${p.difficulty === 'Easy' ? 'bg-emerald-100 text-emerald-700' : p.difficulty === 'Medium' ? 'bg-amber-100 text-amber-700' : 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400'}`}>{p.difficulty}</span>
                             </td>
                             <td className="p-4 align-top w-28">
                               <span className={`inline-block w-full text-center px-2 py-1 rounded text-xs font-bold ${(STATUS_COLORS as any)[p.status]}`}>{p.status}</span>
@@ -396,7 +402,7 @@ export default function DSATracker() {
           <div className="animate-fade-in-up">
             <div className="text-center mb-8">
               <h2 className="text-2xl font-black text-gray-900 dark:text-white mb-2">Targeted DSA Sheets</h2>
-              <p className="text-gray-500 font-medium">Which companies ask what — categorized by package tier.</p>
+              <p className="text-gray-500 dark:text-gray-400 font-medium">Which companies ask what — categorized by package tier.</p>
             </div>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {[
@@ -409,7 +415,7 @@ export default function DSATracker() {
                   <div className={`absolute top-0 left-0 w-1 h-full bg-${c.color}-400`} />
                   <div className="text-3xl mb-3">{c.emoji}</div>
                   <h3 className="text-xl font-black text-gray-900 dark:text-white mb-1">{c.lpa}</h3>
-                  <p className={`text-xs font-bold text-gray-500 uppercase tracking-wider mb-4`}>{c.tier}</p>
+                  <p className={`text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-4`}>{c.tier}</p>
                   <div className="space-y-2 mb-6">
                     {c.topics.map(t => <div key={t} className="text-sm border-b border-gray-100 dark:border-gray-800 pb-2"><span className={`text-${c.color}-500 mr-2`}>✓</span>{t}</div>)}
                   </div>
@@ -457,17 +463,17 @@ export default function DSATracker() {
                     <div className="text-xs font-bold text-gray-400 uppercase tracking-wide">Solved</div>
                   </div>
                   <div>
-                    <div className="text-2xl font-black text-blue-600">{TOTAL_PROBLEMS - totalSolved}</div>
+                    <div className="text-2xl font-black text-blue-600 dark:text-blue-400">{TOTAL_PROBLEMS - totalSolved}</div>
                     <div className="text-xs font-bold text-gray-400 uppercase tracking-wide">Remaining</div>
                   </div>
                   <div>
-                    <div className="text-2xl font-black text-violet-600">{progressPct}%</div>
+                    <div className="text-2xl font-black text-violet-600 dark:text-violet-400">{progressPct}%</div>
                     <div className="text-xs font-bold text-gray-400 uppercase tracking-wide">Progress</div>
                   </div>
                 </div>
               </div>
               {/* Main progress bar */}
-              <div className="w-full bg-gray-100 rounded-full h-3 overflow-hidden">
+              <div className="w-full bg-gray-100 dark:bg-gray-900 rounded-full h-3 overflow-hidden">
                 <div
                   className="h-3 rounded-full bg-gradient-to-r from-emerald-400 to-blue-500 transition-all duration-700"
                   style={{ width: `${progressPct}%` }}
@@ -495,7 +501,7 @@ export default function DSATracker() {
                           : d === "Medium" ? "bg-amber-50 dark:bg-amber-900/200 text-white border-amber-500"
                           : d === "Hard" ? "bg-red-50 dark:bg-red-900/200 text-white border-red-500"
                           : "bg-slate-900 text-white border-slate-900"
-                        : "bg-white dark:bg-gray-900 text-gray-600 dark:text-gray-400 border-gray-200 dark:border-gray-800 hover:bg-gray-50 dark:bg-gray-950"
+                        : "bg-white dark:bg-gray-900 text-gray-600 dark:text-gray-400 border-gray-200 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-900 dark:bg-gray-950"
                     }`}
                   >{d}</button>
                 ))}
@@ -524,18 +530,18 @@ export default function DSATracker() {
                     {/* Pattern Header */}
                     <button
                       onClick={() => togglePattern(pi)}
-                      className="w-full flex items-center gap-4 p-5 text-left hover:bg-gray-50 dark:bg-gray-950 transition-colors"
+                      className="w-full flex items-center gap-4 p-5 text-left hover:bg-gray-50 dark:hover:bg-gray-900 dark:bg-gray-950 transition-colors"
                     >
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-3 mb-2 flex-wrap">
                           <h3 className="text-base font-black text-gray-900 dark:text-white leading-tight">{pat.pattern}</h3>
-                          <span className="text-xs font-bold text-gray-400 bg-gray-100 px-2 py-0.5 rounded">{totalInPat} problems</span>
-                          <span className={`text-xs font-black px-2 py-0.5 rounded ${solvedInPat === totalInPat ? 'bg-emerald-100 text-emerald-700' : 'bg-gray-100 text-gray-600 dark:text-gray-400'}`}>
+                          <span className="text-xs font-bold text-gray-400 bg-gray-100 dark:bg-gray-900 px-2 py-0.5 rounded">{totalInPat} problems</span>
+                          <span className={`text-xs font-black px-2 py-0.5 rounded ${solvedInPat === totalInPat ? 'bg-emerald-100 text-emerald-700' : 'bg-gray-100 dark:bg-gray-900 text-gray-600 dark:text-gray-400'}`}>
                             {solvedInPat}/{totalInPat} solved {solvedInPat === totalInPat ? '✅' : ''}
                           </span>
                         </div>
                         {/* Mini progress bar */}
-                        <div className="w-full bg-gray-100 rounded-full h-1.5 overflow-hidden">
+                        <div className="w-full bg-gray-100 dark:bg-gray-900 rounded-full h-1.5 overflow-hidden">
                           <div
                             className={`h-1.5 rounded-full transition-all duration-500 ${solvedInPat === totalInPat ? 'bg-emerald-500' : 'bg-blue-50 dark:bg-blue-900/200'}`}
                             style={{ width: `${patPct}%` }}
@@ -561,7 +567,7 @@ export default function DSATracker() {
                             {pat.filteredProblems.map((p, rowIdx) => {
                               const solved = !!progress[p._key];
                               return (
-                                <tr key={p._key} className={`transition-colors hover:bg-gray-50 dark:bg-gray-950/80 ${solved ? 'bg-emerald-50/30' : ''}`}>
+                                <tr key={p._key} className={`transition-colors hover:bg-gray-50 dark:hover:bg-gray-900 dark:bg-gray-950/80 ${solved ? 'bg-emerald-50/30' : ''}`}>
                                   <td className="px-4 py-3 align-middle">
                                     <input
                                       type="checkbox"
@@ -579,9 +585,9 @@ export default function DSATracker() {
                                   <td className="px-4 py-3 align-middle">
                                     <div className="flex gap-2 flex-wrap">
                                       <button onClick={() => getAiHint(p.name)} className="text-[11px] font-bold px-2.5 py-1 bg-purple-50 dark:bg-purple-900/20 text-purple-700 dark:text-purple-300 hover:bg-purple-600 hover:text-white rounded-lg transition-colors border border-purple-100 dark:border-purple-800">💡 AI Hint</button>
-                                      <a href={p.link1} target="_blank" rel="noreferrer" className="text-[11px] font-bold px-2.5 py-1 bg-blue-50 dark:bg-blue-900/20 text-blue-700 hover:bg-blue-600 hover:text-white rounded-lg transition-colors">Solve ↗</a>
-                                      {p.link2 && <a href={p.link2} target="_blank" rel="noreferrer" className="text-[11px] font-bold px-2.5 py-1 bg-gray-100 text-gray-600 dark:text-gray-400 hover:bg-gray-200 rounded-lg transition-colors">Alt 1</a>}
-                                      {p.link3 && <a href={p.link3} target="_blank" rel="noreferrer" className="text-[11px] font-bold px-2.5 py-1 bg-gray-100 text-gray-600 dark:text-gray-400 hover:bg-gray-200 rounded-lg transition-colors">Alt 2</a>}
+                                      <a href={p.link1} target="_blank" rel="noreferrer" className="text-[11px] font-bold px-2.5 py-1 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400 hover:bg-blue-600 hover:text-white rounded-lg transition-colors">Solve ↗</a>
+                                      {p.link2 && <a href={p.link2} target="_blank" rel="noreferrer" className="text-[11px] font-bold px-2.5 py-1 bg-gray-100 dark:bg-gray-900 text-gray-600 dark:text-gray-400 hover:bg-gray-200 rounded-lg transition-colors">Alt 1</a>}
+                                      {p.link3 && <a href={p.link3} target="_blank" rel="noreferrer" className="text-[11px] font-bold px-2.5 py-1 bg-gray-100 dark:bg-gray-900 text-gray-600 dark:text-gray-400 hover:bg-gray-200 rounded-lg transition-colors">Alt 2</a>}
                                     </div>
                                   </td>
                                 </tr>
@@ -614,14 +620,14 @@ export default function DSATracker() {
                       <div className="font-black text-amber-700 text-lg">{mediumSolved}</div>
                       <div className="text-xs text-amber-500 font-bold uppercase tracking-wide mt-1">Medium Solved</div>
                     </div>
-                    <div className="bg-red-50 dark:bg-red-900/20 p-3 rounded-xl border border-red-100 text-center">
-                      <div className="font-black text-red-700 text-lg">{hardSolved}</div>
+                    <div className="bg-red-50 dark:bg-red-900/20 p-3 rounded-xl border border-red-100 dark:border-red-900/50 text-center">
+                      <div className="font-black text-red-700 dark:text-red-400 text-lg">{hardSolved}</div>
                       <div className="text-xs text-red-500 font-bold uppercase tracking-wide mt-1">Hard Solved</div>
                     </div>
                   </div>
                 </div>
                 <div className="flex flex-col items-center justify-center gap-4">
-                  <p className="text-center text-gray-500 font-medium text-sm max-w-xs">
+                  <p className="text-center text-gray-500 dark:text-gray-400 font-medium text-sm max-w-xs">
                     Keep grinding! {totalSolved === 0 ? "Start with Pattern 1 — Two Pointers 🚀" : `You've solved ${totalSolved} problem${totalSolved !== 1 ? 's' : ''} so far. Keep it up! 💪`}
                   </p>
                   <button
@@ -642,7 +648,7 @@ export default function DSATracker() {
           <div className="animate-fade-in-up flex flex-col items-center justify-center p-12 bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-800 text-center">
             <div className="text-6xl mb-6">📅</div>
             <h2 className="text-2xl font-black text-gray-900 dark:text-white mb-2">Streak Calendar Coming Soon</h2>
-            <p className="text-gray-500 font-medium max-w-md">
+            <p className="text-gray-500 dark:text-gray-400 font-medium max-w-md">
               A GitHub-style contribution calendar will be mounted here to visually track your daily coding hustle. Keep logging problems in the meantime!
             </p>
           </div>

@@ -62,7 +62,13 @@ export default function Leaderboard() {
     try {
       // Get leaderboard
       const lbRes = await apiFetch(`/leaderboard?college=${encodeURIComponent(filterCollege)}&filter=${filterTime}`, { token });
-      let finalData = Array.isArray(lbRes) && lbRes.length > 0 ? lbRes : mockLeaderboardData;
+      let finalData = mockLeaderboardData;
+      if (lbRes.ok) {
+        const lbData = await lbRes.json();
+        if (Array.isArray(lbData) && lbData.length > 0) {
+          finalData = lbData;
+        }
+      }
       
       if (filterCollege !== "All") {
         finalData = finalData.filter((d: any) => d.college.toLowerCase().includes(filterCollege.toLowerCase()));
@@ -71,8 +77,13 @@ export default function Leaderboard() {
 
       // Get user rank info
       const rankRes = await apiFetch("/leaderboard/rank", { token });
-      if (rankRes && !(rankRes as any).message) {
-        setUserRank(rankRes as any);
+      let rankData = null;
+      if (rankRes.ok) {
+        rankData = await rankRes.json();
+      }
+
+      if (rankData && !(rankData as any).message) {
+        setUserRank(rankData as any);
       } else {
         // Mock user rank if not found
         setUserRank({
@@ -112,7 +123,7 @@ export default function Leaderboard() {
       There are ${data.length} top students. Their top scores are ${topScores}. 
       Give a very short (2 sentences max) encouraging insight and tip on how other students in this college can reach these scores. Don't use markdown.`;
       
-      const res = await callAI(prompt);
+      const res = await callAI(prompt, "Keep practicing and optimizing your resume to climb the ranks!");
       setAiInsights(res);
     } catch (err) {
       setAiInsights("Keep practicing and optimizing your resume to climb the ranks!");
@@ -197,7 +208,7 @@ export default function Leaderboard() {
                 </div>
                 <div>
                   <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">College Avg</p>
-                  <p className="text-2xl font-black text-indigo-600">{userRank.avgScore}</p>
+                  <p className="text-2xl font-black text-indigo-600 dark:text-indigo-400">{userRank.avgScore}</p>
                 </div>
               </div>
 
@@ -212,7 +223,7 @@ export default function Leaderboard() {
            <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-800 p-8 mb-8 text-center flex flex-col items-center">
              <div className="text-5xl mb-4">🎯</div>
              <h2 className="text-2xl font-black text-gray-900 dark:text-white mb-2">Join the Competition</h2>
-             <p className="text-gray-500 max-w-md mb-6">See how your resume stacks up against thousands of students from top colleges.</p>
+             <p className="text-gray-500 dark:text-gray-400 max-w-md mb-6">See how your resume stacks up against thousands of students from top colleges.</p>
              <button onClick={() => setShowJoinModal(true)} className="px-8 py-3 bg-amber-500 hover:bg-amber-600 text-white font-bold rounded-xl shadow-lg transition-all text-lg">
                Join Leaderboard
              </button>
@@ -237,7 +248,7 @@ export default function Leaderboard() {
         {/* CONTROLS */}
         <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-800 p-4 mb-6 flex flex-col md:flex-row justify-between items-center gap-4">
           <div className="flex w-full md:w-auto gap-2">
-            <span className="flex items-center px-3 bg-gray-50 dark:bg-gray-950 border border-r-0 border-gray-200 dark:border-gray-800 rounded-l-lg text-gray-500 font-bold text-sm">🏛️</span>
+            <span className="flex items-center px-3 bg-gray-50 dark:bg-gray-950 border border-r-0 border-gray-200 dark:border-gray-800 rounded-l-lg text-gray-500 dark:text-gray-400 font-bold text-sm">🏛️</span>
             <input 
               type="text" 
               placeholder="Filter by college (e.g. IIT Delhi)"
@@ -246,7 +257,7 @@ export default function Leaderboard() {
               className="px-4 py-2 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-r-lg focus:ring-2 focus:ring-indigo-500 w-full md:w-64 font-medium"
             />
             {filterCollege !== 'All' && (
-              <button onClick={() => setFilterCollege("All")} className="ml-2 text-sm text-indigo-600 font-bold">Clear</button>
+              <button onClick={() => setFilterCollege("All")} className="ml-2 text-sm text-indigo-600 dark:text-indigo-400 font-bold">Clear</button>
             )}
           </div>
           
@@ -264,39 +275,39 @@ export default function Leaderboard() {
           ) : data.length === 0 ? (
              <div className="p-12 text-center">
                <div className="text-4xl mb-3">👻</div>
-               <p className="text-gray-500 font-bold">No students found matching this criteria.</p>
+               <p className="text-gray-500 dark:text-gray-400 font-bold">No students found matching this criteria.</p>
              </div>
           ) : (
             <div className="overflow-x-auto">
               <table className="w-full text-left border-collapse">
                 <thead>
                   <tr className="bg-gray-50 dark:bg-gray-950 border-b border-gray-200 dark:border-gray-800">
-                    <th className="p-4 text-xs font-black text-gray-500 uppercase tracking-widest text-center">Rank</th>
-                    <th className="p-4 text-xs font-black text-gray-500 uppercase tracking-widest">Student</th>
-                    <th className="p-4 text-xs font-black text-gray-500 uppercase tracking-widest">College</th>
-                    <th className="p-4 text-xs font-black text-gray-500 uppercase tracking-widest text-center">Analyses</th>
-                    <th className="p-4 text-xs font-black text-gray-500 uppercase tracking-widest text-center">Badge</th>
-                    <th className="p-4 text-xs font-black text-gray-500 uppercase tracking-widest text-right">Best Score</th>
+                    <th className="p-4 text-xs font-black text-gray-500 dark:text-gray-400 uppercase tracking-widest text-center">Rank</th>
+                    <th className="p-4 text-xs font-black text-gray-500 dark:text-gray-400 uppercase tracking-widest">Student</th>
+                    <th className="p-4 text-xs font-black text-gray-500 dark:text-gray-400 uppercase tracking-widest">College</th>
+                    <th className="p-4 text-xs font-black text-gray-500 dark:text-gray-400 uppercase tracking-widest text-center">Analyses</th>
+                    <th className="p-4 text-xs font-black text-gray-500 dark:text-gray-400 uppercase tracking-widest text-center">Badge</th>
+                    <th className="p-4 text-xs font-black text-gray-500 dark:text-gray-400 uppercase tracking-widest text-right">Best Score</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-100 dark:divide-gray-800">
                   {data.map((entry, idx) => (
                     <tr key={entry._id} className={`hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors ${entry.userId === user?.id ? 'bg-amber-50 dark:bg-amber-900/20' : ''}`}>
                       <td className="p-4 text-center">
-                        <span className={`inline-flex items-center justify-center w-8 h-8 rounded-full font-black text-sm ${idx === 0 ? 'bg-yellow-100 text-yellow-700' : idx === 1 ? 'bg-gray-200 text-gray-700' : idx === 2 ? 'bg-orange-100 text-orange-800' : 'text-gray-500'}`}>
+                        <span className={`inline-flex items-center justify-center w-8 h-8 rounded-full font-black text-sm ${idx === 0 ? 'bg-yellow-100 text-yellow-700' : idx === 1 ? 'bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300' : idx === 2 ? 'bg-orange-100 text-orange-800' : 'text-gray-500'}`}>
                           #{idx + 1}
                         </span>
                       </td>
-                      <td className="p-4 font-bold text-gray-900 dark:text-white">{entry.name} {entry.userId === user?.id && <span className="ml-2 text-xs bg-indigo-100 text-indigo-700 px-2 py-0.5 rounded-full">You</span>}</td>
+                      <td className="p-4 font-bold text-gray-900 dark:text-white">{entry.name} {entry.userId === user?.id && <span className="ml-2 text-xs bg-indigo-100 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-400 px-2 py-0.5 rounded-full">You</span>}</td>
                       <td className="p-4 text-sm font-medium text-gray-600 dark:text-gray-400">{entry.college}</td>
-                      <td className="p-4 text-center text-sm font-bold text-gray-500">{entry.totalAnalyses}</td>
+                      <td className="p-4 text-center text-sm font-bold text-gray-500 dark:text-gray-400">{entry.totalAnalyses}</td>
                       <td className="p-4 text-center">
                         <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-full text-xs font-bold text-gray-700 dark:text-gray-300">
                           {getBadgeIcon(entry.badge)} {entry.badge}
                         </span>
                       </td>
                       <td className="p-4 text-right">
-                        <span className={`text-lg font-black ${entry.bestScore >= 80 ? 'text-green-600' : entry.bestScore >= 60 ? 'text-blue-600' : 'text-orange-600'}`}>
+                        <span className={`text-lg font-black ${entry.bestScore >= 80 ? 'text-green-600 dark:text-green-400' : entry.bestScore >= 60 ? 'text-blue-600' : 'text-orange-600'}`}>
                           {entry.bestScore}
                         </span>
                       </td>
@@ -314,7 +325,7 @@ export default function Leaderboard() {
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
           <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl max-w-md w-full p-6 animate-fade-in-up">
             <h2 className="text-2xl font-black text-gray-900 dark:text-white mb-2">Join Leaderboard</h2>
-            <p className="text-gray-500 text-sm mb-6">Enter your college to see how you rank among your peers.</p>
+            <p className="text-gray-500 dark:text-gray-400 text-sm mb-6">Enter your college to see how you rank among your peers.</p>
             
             <form onSubmit={handleJoin}>
               <div className="mb-6">
@@ -326,7 +337,7 @@ export default function Leaderboard() {
                   placeholder="e.g. VIT Vellore, IIT Delhi"
                   required
                   autoFocus
-                  className="w-full p-3 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl focus:bg-white dark:bg-gray-900 focus:ring-2 focus:ring-amber-500 font-medium"
+                  className="w-full p-3 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl focus:bg-white dark:focus:bg-gray-900 dark:bg-gray-900 focus:ring-2 focus:ring-amber-500 font-medium"
                 />
               </div>
               <div className="flex gap-3">

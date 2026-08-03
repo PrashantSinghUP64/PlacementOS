@@ -187,7 +187,7 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-gray-800 py-8 px-6 text-center text-sm text-gray-500 bg-gray-950">
+      <footer className="border-t border-gray-800 py-8 px-6 text-center text-sm text-gray-500 dark:text-gray-400 bg-gray-950">
         <p>PlacementOS — Powered by Puter.js AI &middot; Built with React + Node.js</p>
       </footer>
     </div>

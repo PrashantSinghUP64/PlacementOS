@@ -8,7 +8,7 @@ import { getMockFallback } from "./mockData";
  * Send a prompt to the backend Groq AI endpoint.
  * Replaces all previous window.puter.ai.chat calls.
  */
-export async function callAI(prompt: string): Promise<string> {
+export async function callAI(prompt: string, fallbackText?: string): Promise<string> {
   try {
     const res = await fetch(`${getApiBase()}/api/ai/chat`, {
       method: "POST",
@@ -38,6 +38,10 @@ export async function callAI(prompt: string): Promise<string> {
     return data.text as string;
   } catch (error: any) {
     console.error(error);
+    if (fallbackText) {
+      console.warn(`AI failed, using fallback text: ${fallbackText}`);
+      return fallbackText;
+    }
     throw new Error("AI call failed: " + (error.message ?? "Unknown error"));
   }
 }

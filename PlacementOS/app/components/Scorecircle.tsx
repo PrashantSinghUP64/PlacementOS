@@ -52,7 +52,7 @@ export default function ScoreCircle({ score, size = 140, strokeWidth = 10, label
           / 100
         </text>
       </svg>
-      <p className="text-sm text-gray-500 font-medium">{label}</p>
+      <p className="text-sm text-gray-500 dark:text-gray-400 font-medium">{label}</p>
     </div>
   );
 }

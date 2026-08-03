@@ -75,10 +75,10 @@ const CURATED = [
 const QUICK_SEARCHES = ["DSA Course", "Full Stack", "Machine Learning", "System Design", "React Course", "Python Basics", "DevOps", "Android Dev"];
 
 const COLOR_MAP: Record<string, { bg: string; border: string; text: string; badge: string }> = {
-  indigo: { bg: "bg-indigo-50", border: "border-indigo-200", text: "text-indigo-700", badge: "bg-indigo-100 text-indigo-700" },
+  indigo: { bg: "bg-indigo-50 dark:bg-indigo-900/20", border: "border-indigo-200 dark:border-indigo-800", text: "text-indigo-700 dark:text-indigo-400", badge: "bg-indigo-100 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-400" },
   emerald: { bg: "bg-emerald-50", border: "border-emerald-200", text: "text-emerald-700", badge: "bg-emerald-100 text-emerald-700" },
-  violet: { bg: "bg-violet-50 dark:bg-violet-900/20", border: "border-violet-200 dark:border-violet-800", text: "text-violet-700", badge: "bg-violet-100 text-violet-700" },
-  orange: { bg: "bg-orange-50", border: "border-orange-200", text: "text-orange-700", badge: "bg-orange-100 text-orange-700" },
+  violet: { bg: "bg-violet-50 dark:bg-violet-900/20", border: "border-violet-200 dark:border-violet-800", text: "text-violet-700 dark:text-violet-400", badge: "bg-violet-100 dark:bg-violet-900/30 text-violet-700 dark:text-violet-400" },
+  orange: { bg: "bg-orange-50 dark:bg-orange-900/20", border: "border-orange-200 dark:border-orange-800", text: "text-orange-700 dark:text-orange-400", badge: "bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-400" },
   amber: { bg: "bg-amber-50 dark:bg-amber-900/20", border: "border-amber-200", text: "text-amber-700", badge: "bg-amber-100 text-amber-700" },
 };
 
@@ -178,7 +178,7 @@ Give 4-6 real, accurate results. Only include real working links.`;
             <h2 className="text-xl font-black text-gray-900 dark:text-white mb-4">🤖 AI Found These Free Alternatives</h2>
             {loading && (
               <div className="space-y-3">
-                {[1, 2, 3].map(i => <div key={i} className="h-16 bg-gray-100 animate-pulse rounded-xl" />)}
+                {[1, 2, 3].map(i => <div key={i} className="h-16 bg-gray-100 dark:bg-gray-900 animate-pulse rounded-xl" />)}
               </div>
             )}
             {error && <p className="text-amber-600 font-bold text-sm bg-amber-50 dark:bg-amber-900/20 p-4 rounded-xl">{error}</p>}
@@ -186,14 +186,14 @@ Give 4-6 real, accurate results. Only include real working links.`;
               <>
                 <div className="space-y-3">
                   {results.map((r, i) => (
-                    <div key={i} className="flex items-start gap-4 p-4 border border-gray-200 dark:border-gray-800 rounded-xl hover:border-indigo-200 hover:bg-indigo-50/30 transition-all">
-                      <div className="w-10 h-10 bg-indigo-100 text-indigo-600 rounded-xl flex items-center justify-center font-black text-lg flex-shrink-0">{i + 1}</div>
+                    <div key={i} className="flex items-start gap-4 p-4 border border-gray-200 dark:border-gray-800 rounded-xl hover:border-indigo-200 hover:bg-indigo-50 dark:bg-indigo-900/20/30 transition-all">
+                      <div className="w-10 h-10 bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 rounded-xl flex items-center justify-center font-black text-lg flex-shrink-0">{i + 1}</div>
                       <div className="flex-1 min-w-0">
                         <div className="flex flex-wrap items-center gap-2 mb-1">
                           <h3 className="font-black text-gray-900 dark:text-white">{r.name}</h3>
-                          <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-gray-100 text-gray-600 dark:text-gray-400">{r.platform}</span>
-                          <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${r.isFree ? "bg-green-100 text-green-700" : "bg-yellow-100 text-yellow-700"}`}>{r.isFree ? "✓ FREE" : "Freemium"}</span>
-                          <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-blue-100 text-blue-700">{r.type}</span>
+                          <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-gray-100 dark:bg-gray-900 text-gray-600 dark:text-gray-400">{r.platform}</span>
+                          <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${r.isFree ? "bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400" : "bg-yellow-100 text-yellow-700"}`}>{r.isFree ? "✓ FREE" : "Freemium"}</span>
+                          <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400">{r.type}</span>
                         </div>
                         <p className="text-sm text-gray-600 dark:text-gray-400 font-medium">{r.whyGood}</p>
                         <p className="text-xs text-gray-400 mt-0.5">{"⭐".repeat(r.rating)}</p>
@@ -206,9 +206,9 @@ Give 4-6 real, accurate results. Only include real working links.`;
                   ))}
                 </div>
                 {tip && (
-                  <div className="mt-4 p-4 bg-indigo-50 border border-indigo-100 rounded-xl flex items-start gap-3">
+                  <div className="mt-4 p-4 bg-indigo-50 dark:bg-indigo-900/20 border border-indigo-100 dark:border-indigo-900/50 rounded-xl flex items-start gap-3">
                     <span className="text-xl">💡</span>
-                    <p className="text-sm font-bold text-indigo-800">{tip}</p>
+                    <p className="text-sm font-bold text-indigo-800 dark:text-indigo-300">{tip}</p>
                   </div>
                 )}
               </>
@@ -226,17 +226,17 @@ Give 4-6 real, accurate results. Only include real working links.`;
               </div>
               <div className="divide-y divide-gray-50">
                 {cat.items.map(item => (
-                  <div key={item.name} className="flex items-center gap-4 p-4 hover:bg-gray-50 dark:bg-gray-950 transition-colors">
+                  <div key={item.name} className="flex items-center gap-4 p-4 hover:bg-gray-50 dark:hover:bg-gray-900 dark:bg-gray-950 transition-colors">
                     <div className="flex-1 min-w-0">
                       <div className="flex flex-wrap items-center gap-2 mb-0.5">
                         <h3 className="font-bold text-gray-900 dark:text-white text-sm">{item.name}</h3>
-                        <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-gray-100 text-gray-500">{item.platform}</span>
-                        <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded-full ${item.isFree ? "bg-green-100 text-green-700" : "bg-yellow-100 text-yellow-700"}`}>{item.isFree ? "FREE" : "Freemium"}</span>
+                        <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-gray-100 dark:bg-gray-900 text-gray-500 dark:text-gray-400">{item.platform}</span>
+                        <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded-full ${item.isFree ? "bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400" : "bg-yellow-100 text-yellow-700"}`}>{item.isFree ? "FREE" : "Freemium"}</span>
                       </div>
-                      <p className="text-xs text-gray-500 font-medium">{item.whyGood}</p>
+                      <p className="text-xs text-gray-500 dark:text-gray-400 font-medium">{item.whyGood}</p>
                     </div>
                     <a href={item.link} target="_blank" rel="noreferrer"
-                      className="flex-shrink-0 px-3 py-1.5 text-xs font-bold border border-gray-200 dark:border-gray-800 hover:border-indigo-400 hover:text-indigo-600 rounded-lg transition-all">
+                      className="flex-shrink-0 px-3 py-1.5 text-xs font-bold border border-gray-200 dark:border-gray-800 hover:border-indigo-400 hover:text-indigo-600 dark:text-indigo-400 rounded-lg transition-all">
                       Visit ↗
                     </a>
                   </div>

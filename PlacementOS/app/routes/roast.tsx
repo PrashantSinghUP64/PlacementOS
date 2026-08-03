@@ -5,6 +5,9 @@ import { useAppAuthStore } from "~/lib/app-auth";
 import { callAIForJSON } from "~/lib/aiHelper";
 import { apiFetch } from "~/lib/api";
 
+import FeatureHeader from "~/components/FeatureHeader";
+import Navbar from "~/components/Navbar";
+
 export default function Roast() {
   const token = useAppAuthStore((s) => s.token);
   
@@ -170,19 +173,32 @@ Return ONLY valid JSON:
   };
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a] text-gray-200 pb-20 font-sans selection:bg-red-50 dark:bg-red-900/200/30">
-      
-      {/* Header */}
-      <div className="bg-gradient-to-b from-red-950/40 to-transparent border-b border-red-900/30 pt-16 pb-12">
-        <div className="max-w-4xl mx-auto px-6 text-center">
-          <h1 className="text-5xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-orange-500 tracking-tight mb-4 animate-fade-in-up">
-            Resume Roast Mode 🔥
-          </h1>
-          <p className="text-xl text-red-200/70 font-medium">
-            Your resume, brutally reviewed. No sugar coating.
-          </p>
-        </div>
-      </div>
+    <div className="min-h-screen bg-[#0a0a0a] text-gray-200 pb-20 font-sans selection:bg-red-50 dark:bg-gray-950">
+      <Navbar />
+      <FeatureHeader
+        title="Resume Roast Mode"
+        icon="🔥"
+        description="Your resume, brutally reviewed by a savage Senior Engineer. No sugar coating."
+        whatItDoes="This AI agent reads your resume and points out every single red flag, cliché, and formatting disaster that recruiters silently judge you for."
+        howItWorks={[
+          "Upload your resume PDF.",
+          "Our AI extracts the text and analyzes it against thousands of rejected resumes.",
+          "You receive a brutal overall verdict, specific scores, and direct fixes."
+        ]}
+        whyItMatters={[
+          "Recruiters spend 6 seconds on a resume. If it's bad, you're out.",
+          "Sugar-coated feedback doesn't get you hired. Brutal honesty does."
+        ]}
+        aiCapabilities={[
+          "Savage yet highly actionable feedback generation.",
+          "Context-aware analysis of skills and projects."
+        ]}
+        tips={[
+          "Don't take it personally. The AI has no feelings.",
+          "Implement 'The Fixes' before submitting to real companies."
+        ]}
+        gradient="from-red-600 to-orange-600"
+      />
 
       <div className="max-w-5xl mx-auto px-6 mt-12">
         {error && (
@@ -205,7 +221,7 @@ Return ONLY valid JSON:
               <h3 className="text-xl font-bold text-gray-200 mb-2">
                 {resumeText ? "Resume Loaded & Ready" : "Upload Resume PDF"}
               </h3>
-              <p className="text-gray-500 mb-6 text-sm">
+              <p className="text-gray-500 dark:text-gray-400 mb-6 text-sm">
                 {resumeText ? "Click the button below if you're brave enough." : "Drag & drop your PDF here, or click to browse"}
               </p>
               

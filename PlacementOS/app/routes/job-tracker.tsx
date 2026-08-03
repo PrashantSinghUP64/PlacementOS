@@ -122,11 +122,11 @@ export default function JobTracker() {
   };
 
   const getStatusColor = (status: string) => {
-    if (["Saved", "Applied", "Under Review"].includes(status)) return "bg-blue-100 text-blue-700 border-blue-200";
-    if (["Online Assessment", "Shortlisted"].includes(status)) return "bg-yellow-100 text-yellow-700 border-yellow-200";
-    if (["Tech Round", "Managerial Round", "HR Round"].includes(status)) return "bg-purple-100 text-purple-700 border-purple-200";
-    if (status === "Offered") return "bg-green-100 text-green-700 border-green-200";
-    return "bg-red-100 text-red-700 border-red-200";
+    if (["Saved", "Applied", "Under Review"].includes(status)) return "bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 border-blue-200 dark:border-blue-800";
+    if (["Online Assessment", "Shortlisted"].includes(status)) return "bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400 border-yellow-200 dark:border-yellow-800";
+    if (["Tech Round", "Managerial Round", "HR Round"].includes(status)) return "bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400 border-purple-200 dark:border-purple-800";
+    if (status === "Offered") return "bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 border-green-200 dark:border-green-800";
+    return "bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400 border-red-200 dark:border-red-800";
   };
 
   // Stats
@@ -180,7 +180,7 @@ export default function JobTracker() {
              <button 
                 key={t.id}
                 onClick={() => setActiveTab(t.id as any)}
-                className={`px-6 py-3 rounded-xl font-bold text-sm transition-all shadow-sm ${activeTab === t.id ? "bg-blue-600 text-white" : "bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300 hover:bg-gray-100"}`}
+                className={`px-6 py-3 rounded-xl font-bold text-sm transition-all shadow-sm ${activeTab === t.id ? "bg-blue-600 text-white" : "bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"}`}
               >
                 {t.label}
               </button>
@@ -222,15 +222,15 @@ export default function JobTracker() {
                         className="bg-white dark:bg-gray-900 p-4 rounded-xl shadow-sm border border-gray-200 dark:border-gray-800 cursor-grab active:cursor-grabbing hover:border-blue-400 transition-colors group relative"
                       >
                         <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 flex gap-1 bg-white/90 dark:bg-gray-900/90 backdrop-blur rounded p-1 shadow border border-gray-100 dark:border-gray-800">
-                          <button onClick={() => { setAiModalTarget(job); setAiMode("Insights"); getAiAction(job, "Insights"); }} className="p-1 text-xs hover:bg-gray-100 dark:hover:bg-gray-800 rounded">🤖</button>
-                          <button onClick={() => openForm(job)} className="p-1 text-xs hover:bg-gray-100 dark:hover:bg-gray-800 rounded">✏️</button>
-                          <button onClick={() => removeJob(job.id)} className="p-1 text-xs text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded">🗑️</button>
+                          <button onClick={() => { setAiModalTarget(job); setAiMode("Insights"); getAiAction(job, "Insights"); }} className="p-1 text-xs hover:bg-gray-100 dark:bg-gray-900 dark:hover:bg-gray-800 rounded">🤖</button>
+                          <button onClick={() => openForm(job)} className="p-1 text-xs hover:bg-gray-100 dark:bg-gray-900 dark:hover:bg-gray-800 rounded">✏️</button>
+                          <button onClick={() => removeJob(job.id)} className="p-1 text-xs text-red-500 hover:bg-red-50 dark:bg-red-900/20 dark:hover:bg-red-900/20 rounded">🗑️</button>
                         </div>
                         
                         <h4 className="font-black text-gray-900 dark:text-white mb-1 pr-16 leading-tight">{job.company}</h4>
-                        <p className="text-xs font-bold text-blue-600 mb-3">{job.role}</p>
+                        <p className="text-xs font-bold text-blue-600 dark:text-blue-400 mb-3">{job.role}</p>
                         
-                        {job.salary && <p className="text-[10px] font-bold bg-green-50 text-green-700 px-2 py-1 rounded inline-block mb-3 border border-green-100">💰 {job.salary}</p>}
+                        {job.salary && <p className="text-[10px] font-bold bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-400 px-2 py-1 rounded inline-block mb-3 border border-green-100 dark:border-green-900/50">💰 {job.salary}</p>}
                         
                         <div className="flex justify-between items-center text-[10px] font-bold text-gray-400 pt-3 border-t border-gray-100 dark:border-gray-800">
                           <span>📅 {job.appliedDate}</span>
@@ -258,7 +258,7 @@ export default function JobTracker() {
                 <div key={job.id} className="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-800 p-6 flex flex-col hover:shadow-lg transition-all">
                   <div className="flex justify-between items-start mb-4">
                     <div>
-                      <span className="text-[10px] font-black uppercase tracking-widest text-blue-500 bg-blue-50 dark:bg-blue-900/20 px-2 py-1 rounded-md mb-2 inline-block border border-blue-100">{job.source}</span>
+                      <span className="text-[10px] font-black uppercase tracking-widest text-blue-500 bg-blue-50 dark:bg-blue-900/20 px-2 py-1 rounded-md mb-2 inline-block border border-blue-100 dark:border-blue-900/50">{job.source}</span>
                       <h3 className="text-xl font-black text-gray-900 dark:text-white">{job.company}</h3>
                       <p className="font-bold text-gray-600 dark:text-gray-400">{job.role}</p>
                     </div>
@@ -268,14 +268,14 @@ export default function JobTracker() {
                   </div>
                   
                   <div className="space-y-2 mb-6 flex-1 text-sm font-medium">
-                    <p className="flex justify-between border-b border-gray-50 dark:border-gray-800 pb-1"><span className="text-gray-500">Location</span> <span className="text-gray-900 dark:text-gray-100">{job.location}</span></p>
-                    <p className="flex justify-between border-b border-gray-50 dark:border-gray-800 pb-1"><span className="text-gray-500">Salary</span> <span className="text-green-600 font-bold">{job.salary}</span></p>
+                    <p className="flex justify-between border-b border-gray-50 dark:border-gray-800 pb-1"><span className="text-gray-500 dark:text-gray-400">Location</span> <span className="text-gray-900 dark:text-gray-100">{job.location}</span></p>
+                    <p className="flex justify-between border-b border-gray-50 dark:border-gray-800 pb-1"><span className="text-gray-500 dark:text-gray-400">Salary</span> <span className="text-green-600 dark:text-green-400 font-bold">{job.salary}</span></p>
                     <div className="flex flex-wrap gap-1 mt-2 pt-2">
                       {job.skills.map(s => <span key={s} className="bg-gray-100 dark:bg-gray-800 text-xs px-2 py-1 rounded text-gray-600 dark:text-gray-300 font-bold">{s}</span>)}
                     </div>
                   </div>
                   
-                  <button onClick={() => { setAiModalTarget(job); setAiMode("Insights"); getAiAction(job, "DiscoveryScore"); }} className="w-full py-2.5 bg-blue-50 dark:bg-blue-900/20 text-blue-600 hover:bg-blue-100 font-bold rounded-xl transition-colors border border-blue-100 dark:border-blue-900/30">
+                  <button onClick={() => { setAiModalTarget(job); setAiMode("Insights"); getAiAction(job, "DiscoveryScore"); }} className="w-full py-2.5 bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 hover:bg-blue-100 font-bold rounded-xl transition-colors border border-blue-100 dark:border-blue-900/30">
                     🤖 AI Score Match
                   </button>
                 </div>
@@ -289,20 +289,20 @@ export default function JobTracker() {
           <div className="animate-fade-in-up max-w-5xl mx-auto space-y-6">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               <div className="bg-white dark:bg-gray-900 p-6 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-800 text-center">
-                <p className="text-xs font-bold text-gray-500 uppercase">Total Apps</p>
+                <p className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase">Total Apps</p>
                 <h3 className="text-4xl font-black mt-1">{total}</h3>
               </div>
-              <div className="bg-purple-50 dark:bg-purple-900/20 p-6 rounded-2xl shadow-sm border border-purple-200 text-center">
-                <p className="text-xs font-bold text-purple-600 uppercase">Interviewing</p>
-                <h3 className="text-4xl font-black text-purple-700 mt-1">{interviewing}</h3>
+              <div className="bg-purple-50 dark:bg-purple-900/20 p-6 rounded-2xl shadow-sm border border-purple-200 dark:border-purple-800 text-center">
+                <p className="text-xs font-bold text-purple-600 dark:text-purple-400 uppercase">Interviewing</p>
+                <h3 className="text-4xl font-black text-purple-700 dark:text-purple-400 mt-1">{interviewing}</h3>
               </div>
-              <div className="bg-green-50 dark:bg-green-900/20 p-6 rounded-2xl shadow-sm border border-green-200 text-center">
-                <p className="text-xs font-bold text-green-600 uppercase">Offers</p>
-                <h3 className="text-4xl font-black text-green-700 mt-1">{offered}</h3>
+              <div className="bg-green-50 dark:bg-green-900/20 p-6 rounded-2xl shadow-sm border border-green-200 dark:border-green-800 text-center">
+                <p className="text-xs font-bold text-green-600 dark:text-green-400 uppercase">Offers</p>
+                <h3 className="text-4xl font-black text-green-700 dark:text-green-400 mt-1">{offered}</h3>
               </div>
-              <div className="bg-red-50 dark:bg-red-900/20 p-6 rounded-2xl shadow-sm border border-red-200 text-center">
-                <p className="text-xs font-bold text-red-600 uppercase">Rejected</p>
-                <h3 className="text-4xl font-black text-red-700 mt-1">{rejected}</h3>
+              <div className="bg-red-50 dark:bg-red-900/20 p-6 rounded-2xl shadow-sm border border-red-200 dark:border-red-800 text-center">
+                <p className="text-xs font-bold text-red-600 dark:text-red-400 uppercase">Rejected</p>
+                <h3 className="text-4xl font-black text-red-700 dark:text-red-400 mt-1">{rejected}</h3>
               </div>
             </div>
             
@@ -315,10 +315,10 @@ export default function JobTracker() {
                   </svg>
                   <div className="absolute text-center">
                     <span className="text-3xl font-black text-gray-900 dark:text-white">{total > 0 ? Math.round((offered/total)*100) : 0}%</span>
-                    <span className="block text-xs font-bold text-gray-500 uppercase">Conversion</span>
+                    <span className="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase">Conversion</span>
                   </div>
                </div>
-               <p className="text-sm font-medium text-gray-500 mt-6 text-center max-w-sm">Industry average conversion from application to offer is ~2%. A rate above 5% means your resume and interview skills are excellent!</p>
+               <p className="text-sm font-medium text-gray-500 dark:text-gray-400 mt-6 text-center max-w-sm">Industry average conversion from application to offer is ~2%. A rate above 5% means your resume and interview skills are excellent!</p>
             </div>
           </div>
         )}
@@ -333,35 +333,35 @@ export default function JobTracker() {
           <div className="bg-white dark:bg-gray-900 rounded-3xl shadow-2xl w-full max-w-lg overflow-hidden flex flex-col max-h-[90vh] animate-fade-in-up">
             <div className="p-6 border-b border-gray-100 dark:border-gray-800 flex justify-between items-center bg-gray-50 dark:bg-gray-950/50">
               <h2 className="text-xl font-bold text-gray-900 dark:text-white">{editingJob ? 'Edit Application' : 'Add Application'}</h2>
-              <button onClick={() => setIsModalOpen(false)} className="text-gray-400 hover:text-gray-600 bg-white shadow-sm border w-8 h-8 rounded-full flex items-center justify-center font-bold">✕</button>
+              <button onClick={() => setIsModalOpen(false)} className="text-gray-400 hover:text-gray-600 dark:text-gray-400 bg-white dark:bg-gray-900 shadow-sm border w-8 h-8 rounded-full flex items-center justify-center font-bold">✕</button>
             </div>
             
             <form onSubmit={handleSaveForm} className="p-6 overflow-y-auto space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div className="col-span-2">
-                  <label className="block text-xs font-bold text-gray-500 uppercase mb-1">Company Name *</label>
+                  <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase mb-1">Company Name *</label>
                   <input required type="text" value={formData.company} onChange={e => setFormData({...formData, company: e.target.value})} className="w-full p-3 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl text-sm font-medium outline-none" />
                 </div>
                 <div className="col-span-2">
-                  <label className="block text-xs font-bold text-gray-500 uppercase mb-1">Job Role *</label>
+                  <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase mb-1">Job Role *</label>
                   <input required type="text" value={formData.role} onChange={e => setFormData({...formData, role: e.target.value})} className="w-full p-3 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl text-sm font-medium outline-none" />
                 </div>
                 <div>
-                  <label className="block text-xs font-bold text-gray-500 uppercase mb-1">Status</label>
+                  <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase mb-1">Status</label>
                   <select value={formData.status} onChange={e => setFormData({...formData, status: e.target.value})} className="w-full p-3 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl text-sm font-bold outline-none">
                     {JOB_STATUSES.map(s => <option key={s}>{s}</option>)}
                   </select>
                 </div>
                 <div>
-                  <label className="block text-xs font-bold text-gray-500 uppercase mb-1">Applied Date</label>
+                  <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase mb-1">Applied Date</label>
                   <input type="date" value={formData.appliedDate} onChange={e => setFormData({...formData, appliedDate: e.target.value})} className="w-full p-3 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl text-sm font-medium outline-none" />
                 </div>
                 <div className="col-span-2">
-                  <label className="block text-xs font-bold text-gray-500 uppercase mb-1">Expected Salary</label>
+                  <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase mb-1">Expected Salary</label>
                   <input type="text" placeholder="e.g. ₹20L - ₹25L" value={formData.salary} onChange={e => setFormData({...formData, salary: e.target.value})} className="w-full p-3 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl text-sm font-medium outline-none" />
                 </div>
                 <div className="col-span-2">
-                  <label className="block text-xs font-bold text-gray-500 uppercase mb-1">Notes</label>
+                  <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase mb-1">Notes</label>
                   <textarea rows={2} value={formData.notes} onChange={e => setFormData({...formData, notes: e.target.value})} className="w-full p-3 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl text-sm font-medium outline-none resize-none" />
                 </div>
               </div>
@@ -382,14 +382,14 @@ export default function JobTracker() {
                 <h2 className="text-xl font-black text-gray-900 dark:text-white flex items-center gap-2">
                   <span className="text-3xl">🤖</span> AI Copilot: {aiModalTarget.company}
                 </h2>
-                <p className="text-xs font-bold text-gray-500 mt-1">{aiModalTarget.role}</p>
+                <p className="text-xs font-bold text-gray-500 dark:text-gray-400 mt-1">{aiModalTarget.role}</p>
               </div>
               <button onClick={() => setAiModalTarget(null)} className="text-gray-400 hover:text-red-500 bg-white dark:bg-gray-800 shadow-sm border w-8 h-8 rounded-full flex items-center justify-center font-bold">✕</button>
             </div>
             
             <div className="flex bg-gray-100 dark:bg-gray-950 p-2 gap-2 justify-center border-b border-gray-200 dark:border-gray-800">
-              <button onClick={() => { setAiMode("Insights"); getAiAction(aiModalTarget, "Insights"); }} className={`px-4 py-2 rounded-lg text-sm font-bold transition-all ${aiMode === 'Insights' ? 'bg-white dark:bg-gray-800 shadow text-blue-600' : 'text-gray-500 hover:bg-gray-200'}`}>Resume Insights</button>
-              <button onClick={() => { setAiMode("Prep"); getAiAction(aiModalTarget, "Prep"); }} className={`px-4 py-2 rounded-lg text-sm font-bold transition-all ${aiMode === 'Prep' ? 'bg-white dark:bg-gray-800 shadow text-blue-600' : 'text-gray-500 hover:bg-gray-200'}`}>Interview Prep</button>
+              <button onClick={() => { setAiMode("Insights"); getAiAction(aiModalTarget, "Insights"); }} className={`px-4 py-2 rounded-lg text-sm font-bold transition-all ${aiMode === 'Insights' ? 'bg-white dark:bg-gray-800 shadow text-blue-600' : 'text-gray-500 dark:text-gray-400 hover:bg-gray-200'}`}>Resume Insights</button>
+              <button onClick={() => { setAiMode("Prep"); getAiAction(aiModalTarget, "Prep"); }} className={`px-4 py-2 rounded-lg text-sm font-bold transition-all ${aiMode === 'Prep' ? 'bg-white dark:bg-gray-800 shadow text-blue-600' : 'text-gray-500 dark:text-gray-400 hover:bg-gray-200'}`}>Interview Prep</button>
             </div>
 
             <div className="flex-1 overflow-y-auto p-6 bg-blue-50/50 dark:bg-blue-900/10 custom-scrollbar">

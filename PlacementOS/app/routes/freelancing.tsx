@@ -109,7 +109,7 @@ export default function Freelancing() {
             Find high-paying gigs, generate winning proposals with AI, and track your global earnings.
           </p>
 
-          <div className="flex justify-center bg-white/10 p-1.5 rounded-2xl w-fit mx-auto border border-white/20 backdrop-blur-md">
+          <div className="flex justify-center bg-white dark:bg-gray-900/10 p-1.5 rounded-2xl w-fit mx-auto border border-white/20 backdrop-blur-md">
             {[
               { id: "discover", label: "🔍 Find Gigs", icon: "💼" },
               { id: "aiTools", label: "🤖 AI Tools", icon: "🛠️" },
@@ -118,7 +118,7 @@ export default function Freelancing() {
               <button 
                 key={t.id}
                 onClick={() => setActiveTab(t.id as any)}
-                className={`px-6 py-2.5 rounded-xl font-bold text-sm transition-all flex items-center gap-2 ${activeTab === t.id ? "bg-white text-slate-900 shadow-lg" : "text-white hover:bg-white/10"}`}
+                className={`px-6 py-2.5 rounded-xl font-bold text-sm transition-all flex items-center gap-2 ${activeTab === t.id ? "bg-white dark:bg-gray-900 text-slate-900 shadow-lg" : "text-white hover:bg-white dark:bg-gray-900/10"}`}
               >
                 <span>{t.icon}</span> {t.label}
               </button>
@@ -153,7 +153,7 @@ export default function Freelancing() {
                     className={`bg-white dark:bg-gray-900 rounded-2xl p-5 border cursor-pointer transition-all ${selectedGig?.id === g.id ? 'border-emerald-500 shadow-md ring-2 ring-emerald-500/20' : 'border-gray-200 dark:border-gray-800 hover:border-emerald-300'}`}
                   >
                     <div className="flex justify-between items-start mb-2">
-                      <span className={`text-[10px] font-black uppercase px-2 py-1 rounded-full ${g.platform === 'Upwork' ? 'bg-green-100 text-green-700' : g.platform === 'Fiverr' ? 'bg-emerald-100 text-emerald-700' : 'bg-blue-100 text-blue-700'}`}>
+                      <span className={`text-[10px] font-black uppercase px-2 py-1 rounded-full ${g.platform === 'Upwork' ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400' : g.platform === 'Fiverr' ? 'bg-emerald-100 text-emerald-700' : 'bg-blue-100 text-blue-700'}`}>
                         {g.platform}
                       </span>
                       <span className="text-xs font-black text-gray-900 dark:text-white bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded-md">{g.budget}</span>
@@ -174,7 +174,7 @@ export default function Freelancing() {
                   <div className="flex justify-between items-start mb-6 border-b border-gray-100 dark:border-gray-800 pb-4">
                     <div>
                       <h2 className="text-2xl font-black text-gray-900 dark:text-white mb-2">{selectedGig.title}</h2>
-                      <p className="text-sm font-medium text-gray-500">Client: {selectedGig.client} • Type: {selectedGig.type}</p>
+                      <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Client: {selectedGig.client} • Type: {selectedGig.type}</p>
                     </div>
                     <div className="text-right">
                       <p className="text-sm font-bold text-gray-400 uppercase tracking-wider mb-1">Budget</p>
@@ -224,7 +224,7 @@ export default function Freelancing() {
                 <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-800 p-12 text-center h-full flex flex-col items-center justify-center">
                   <span className="text-6xl mb-4 opacity-30">💼</span>
                   <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Select a Gig</h3>
-                  <p className="text-gray-500 font-medium max-w-sm mx-auto">Click on any freelance opportunity on the left to view details and generate AI proposals.</p>
+                  <p className="text-gray-500 dark:text-gray-400 font-medium max-w-sm mx-auto">Click on any freelance opportunity on the left to view details and generate AI proposals.</p>
                 </div>
               )}
             </div>
@@ -237,7 +237,7 @@ export default function Freelancing() {
             
             <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-800 p-6">
               <h2 className="text-2xl font-black text-gray-900 dark:text-white mb-2 flex items-center gap-2">👨‍💻 My Profile Context</h2>
-              <p className="text-sm font-medium text-gray-500 mb-6">This context is used by the AI to write your proposals.</p>
+              <p className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-6">This context is used by the AI to write your proposals.</p>
               
               <textarea 
                 value={userProfile} 
@@ -253,7 +253,7 @@ export default function Freelancing() {
 
             <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-800 p-6">
               <h2 className="text-2xl font-black text-gray-900 dark:text-white mb-2 flex items-center gap-2">✨ AI Bio Generator</h2>
-              <p className="text-sm font-medium text-gray-500 mb-6">Generate an SEO-optimized Fiverr/Upwork profile bio.</p>
+              <p className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-6">Generate an SEO-optimized Fiverr/Upwork profile bio.</p>
               
               <input 
                 type="text" 
@@ -286,12 +286,12 @@ export default function Freelancing() {
                   <h3 className="text-4xl font-black">${totalEarned.toLocaleString()}</h3>
                 </div>
                 <div className="bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-2xl p-6">
-                  <p className="text-sm font-bold text-gray-500 uppercase tracking-wider mb-2">Projects Completed</p>
+                  <p className="text-sm font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">Projects Completed</p>
                   <h3 className="text-4xl font-black text-gray-900 dark:text-white">{earnings.length}</h3>
                 </div>
                 <div className="bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-2xl p-6">
-                  <p className="text-sm font-bold text-gray-500 uppercase tracking-wider mb-2">Avg. per Project</p>
-                  <h3 className="text-4xl font-black text-blue-600">${earnings.length > 0 ? Math.round(totalEarned / earnings.length).toLocaleString() : 0}</h3>
+                  <p className="text-sm font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">Avg. per Project</p>
+                  <h3 className="text-4xl font-black text-blue-600 dark:text-blue-400">${earnings.length > 0 ? Math.round(totalEarned / earnings.length).toLocaleString() : 0}</h3>
                 </div>
               </div>
 
@@ -319,7 +319,7 @@ export default function Freelancing() {
                   <h2 className="text-2xl font-black text-gray-900 dark:text-white mb-6 border-b border-gray-100 dark:border-gray-800 pb-4">Transaction History 📜</h2>
                   {earnings.length === 0 ? (
                     <div className="text-center py-10">
-                      <p className="text-gray-500 font-medium">No earnings logged yet. Time to close your first client!</p>
+                      <p className="text-gray-500 dark:text-gray-400 font-medium">No earnings logged yet. Time to close your first client!</p>
                     </div>
                   ) : (
                     <div className="space-y-3 max-h-80 overflow-y-auto pr-2 custom-scrollbar">
@@ -327,7 +327,7 @@ export default function Freelancing() {
                         <div key={e.id} className="flex justify-between items-center p-4 bg-gray-50 dark:bg-gray-950 border border-gray-100 dark:border-gray-800 rounded-xl">
                           <div>
                             <h4 className="font-bold text-gray-900 dark:text-white mb-1">{e.project}</h4>
-                            <span className="text-[10px] font-black uppercase text-gray-500 bg-gray-200 dark:bg-gray-800 px-2 py-0.5 rounded">{e.platform}</span>
+                            <span className="text-[10px] font-black uppercase text-gray-500 dark:text-gray-400 bg-gray-200 dark:bg-gray-800 px-2 py-0.5 rounded">{e.platform}</span>
                           </div>
                           <span className="text-xl font-black text-emerald-600">+ ${e.amount.toLocaleString()}</span>
                         </div>

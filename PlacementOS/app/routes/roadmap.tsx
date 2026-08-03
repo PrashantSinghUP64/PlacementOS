@@ -203,7 +203,7 @@ Return ONLY valid JSON matching this structure perfectly without any markdown bl
           <div className="grid md:grid-cols-3 gap-6">
             <div>
                <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1.5">Target Role</label>
-               <select value={targetRole} onChange={e=>setTargetRole(e.target.value)} className="w-full p-3 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl focus:bg-white dark:bg-gray-900 focus:ring-2 focus:ring-purple-500 font-medium font-sans">
+               <select value={targetRole} onChange={e=>setTargetRole(e.target.value)} className="w-full p-3 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl focus:bg-white dark:focus:bg-gray-900 dark:bg-gray-900 focus:ring-2 focus:ring-purple-500 font-medium font-sans">
                  <option>Frontend Dev</option><option>Backend Dev</option><option>Full Stack Dev</option>
                  <option>Data Scientist</option><option>AI/ML Engineer</option><option>DevOps</option>
                  <option>Android Dev</option><option>iOS Dev</option><option>Cybersecurity</option>
@@ -211,14 +211,14 @@ Return ONLY valid JSON matching this structure perfectly without any markdown bl
             </div>
             <div>
                <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1.5">Target Company Tier</label>
-               <select value={targetCompany} onChange={e=>setTargetCompany(e.target.value)} className="w-full p-3 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl focus:bg-white dark:bg-gray-900 focus:ring-2 focus:ring-purple-500 font-medium font-sans">
+               <select value={targetCompany} onChange={e=>setTargetCompany(e.target.value)} className="w-full p-3 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl focus:bg-white dark:focus:bg-gray-900 dark:bg-gray-900 focus:ring-2 focus:ring-purple-500 font-medium font-sans">
                  <option>Tier 1 (MAANG)</option><option>Tier 2 (Flipkart/Swiggy)</option>
                  <option>Service (TCS/Infosys)</option><option>Startup</option><option>Any</option>
                </select>
             </div>
             <div>
                <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1.5">Target Package</label>
-               <select value={targetPackage} onChange={e=>setTargetPackage(e.target.value)} className="w-full p-3 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl focus:bg-white dark:bg-gray-900 focus:ring-2 focus:ring-purple-500 font-medium font-sans">
+               <select value={targetPackage} onChange={e=>setTargetPackage(e.target.value)} className="w-full p-3 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl focus:bg-white dark:focus:bg-gray-900 dark:bg-gray-900 focus:ring-2 focus:ring-purple-500 font-medium font-sans">
                  <option>4-6 LPA</option><option>6-10 LPA</option><option>10-15 LPA</option><option>15-25 LPA</option><option>25+ LPA</option>
                </select>
             </div>
@@ -227,17 +227,17 @@ Return ONLY valid JSON matching this structure perfectly without any markdown bl
               <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1.5">Current Skills (Press Enter)</label>
               <div className="flex flex-wrap gap-2 mb-2">
                 {skills.map(s => (
-                  <span key={s} className="px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-sm font-bold flex items-center gap-1">
+                  <span key={s} className="px-3 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-300 rounded-full text-sm font-bold flex items-center gap-1">
                     {s} <button onClick={() => removeSkill(s)} className="hover:text-red-500 rounded-full w-4 h-4 flex justify-center items-center">×</button>
                   </span>
                 ))}
               </div>
-              <input type="text" value={skillInput} onChange={e=>setSkillInput(e.target.value)} onKeyDown={addSkill} placeholder="React, Python, Node..." className="w-full p-3 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl focus:bg-white dark:bg-gray-900 focus:ring-2 focus:ring-purple-500 font-medium"/>
+              <input type="text" value={skillInput} onChange={e=>setSkillInput(e.target.value)} onKeyDown={addSkill} placeholder="React, Python, Node..." className="w-full p-3 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl focus:bg-white dark:focus:bg-gray-900 dark:bg-gray-900 focus:ring-2 focus:ring-purple-500 font-medium"/>
             </div>
 
             <div>
               <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1.5">Time Available</label>
-               <select value={duration} onChange={e=>setDuration(e.target.value)} className="w-full p-3 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl focus:bg-white dark:bg-gray-900 focus:ring-2 focus:ring-purple-500 font-medium font-sans mb-4">
+               <select value={duration} onChange={e=>setDuration(e.target.value)} className="w-full p-3 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl focus:bg-white dark:focus:bg-gray-900 dark:bg-gray-900 focus:ring-2 focus:ring-purple-500 font-medium font-sans mb-4">
                  <option>1 month</option><option>2 months</option><option>3 months</option><option>6 months</option>
                </select>
               <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1.5">Daily Study: {dailyHours} hours</label>
@@ -247,7 +247,7 @@ Return ONLY valid JSON matching this structure perfectly without any markdown bl
           
           <div className="mt-6 flex justify-between items-center border-t border-gray-100 dark:border-gray-800 pt-6">
             {error && <p className="text-red-500 font-bold text-sm">{error}</p>}
-            {!error && <p className="text-gray-500 font-medium text-sm">Takes ~15 seconds to generate</p>}
+            {!error && <p className="text-gray-500 dark:text-gray-400 font-medium text-sm">Takes ~15 seconds to generate</p>}
             <button 
               onClick={generateRoadmap} 
               disabled={loading}
@@ -266,17 +266,17 @@ Return ONLY valid JSON matching this structure perfectly without any markdown bl
               <div>
                 <h2 className="text-2xl font-black text-gray-900 dark:text-white mb-2">{roadmap.title}</h2>
                 <div className="flex flex-wrap gap-2 text-sm font-bold text-gray-600 dark:text-gray-400">
-                  <span className="bg-purple-50 dark:bg-purple-900/20 text-purple-700 px-3 py-1 rounded-lg">Target: {targetRole} ({targetPackage})</span>
-                  <span className="bg-blue-50 dark:bg-blue-900/20 text-blue-700 px-3 py-1 rounded-lg">Duration: {roadmap.totalWeeks} Weeks</span>
+                  <span className="bg-purple-50 dark:bg-purple-900/20 text-purple-700 dark:text-purple-400 px-3 py-1 rounded-lg">Target: {targetRole} ({targetPackage})</span>
+                  <span className="bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400 px-3 py-1 rounded-lg">Duration: {roadmap.totalWeeks} Weeks</span>
                 </div>
               </div>
               <div className="text-center md:text-right w-full md:w-auto">
-                <p className="text-sm font-bold text-gray-500 mb-1">Overall Progress</p>
+                <p className="text-sm font-bold text-gray-500 dark:text-gray-400 mb-1">Overall Progress</p>
                 <div className="flex items-center justify-end gap-3 w-full">
-                  <div className="w-full md:w-48 h-3 bg-gray-100 rounded-full overflow-hidden">
+                  <div className="w-full md:w-48 h-3 bg-gray-100 dark:bg-gray-900 rounded-full overflow-hidden">
                     <div className="h-full bg-gradient-to-r from-purple-500 to-indigo-600 transition-all duration-1000" style={{ width: `${roadmap.overallProgress}%` }}></div>
                   </div>
-                  <span className="text-2xl font-black text-purple-700">{roadmap.overallProgress}%</span>
+                  <span className="text-2xl font-black text-purple-700 dark:text-purple-400">{roadmap.overallProgress}%</span>
                 </div>
               </div>
             </div>
@@ -285,9 +285,9 @@ Return ONLY valid JSON matching this structure perfectly without any markdown bl
             <div className="flex gap-2 overflow-x-auto hide-scrollbar pb-2">
               {roadmap.phases.map((p, i) => (
                 <div key={i} className="flex-1 min-w-[150px] bg-white dark:bg-gray-900 p-4 rounded-xl shadow border border-gray-100 dark:border-gray-800 border-t-4 border-t-purple-500 text-center">
-                  <p className="text-xs font-bold text-purple-600 uppercase tracking-widest mb-1">Phase {p.phase}</p>
+                  <p className="text-xs font-bold text-purple-600 dark:text-purple-400 uppercase tracking-widest mb-1">Phase {p.phase}</p>
                   <p className="font-bold text-gray-900 dark:text-white">{p.name}</p>
-                  <p className="text-xs text-gray-500 font-medium">({p.duration})</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 font-medium">({p.duration})</p>
                 </div>
               ))}
             </div>
@@ -310,16 +310,16 @@ Return ONLY valid JSON matching this structure perfectly without any markdown bl
                         <div key={id} className={`bg-white dark:bg-gray-900 rounded-xl shadow-sm border transition-all ${isWeekDone ? 'border-green-200 bg-green-50 dark:bg-green-900/20/30' : 'border-gray-200 dark:border-gray-800'}`}>
                           {/* Accordion Header */}
                           <div 
-                            className="p-4 flex items-center justify-between cursor-pointer hover:bg-gray-50 dark:bg-gray-950/50"
+                            className="p-4 flex items-center justify-between cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-900 dark:bg-gray-950/50"
                             onClick={() => setExpandedWeek(isExpanded ? null : id)}
                           >
                             <div className="flex items-center gap-4">
-                              <div className={`w-10 h-10 rounded-full flex items-center justify-center font-black ${isWeekDone ? 'bg-green-100 text-green-600' : 'bg-purple-100 text-purple-700'}`}>
+                              <div className={`w-10 h-10 rounded-full flex items-center justify-center font-black ${isWeekDone ? 'bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400' : 'bg-purple-100 text-purple-700'}`}>
                                 {isWeekDone ? '✓' : `W${week.week}`}
                               </div>
                               <div>
                                 <h4 className={`font-bold text-[15px] ${isWeekDone ? 'text-gray-500 line-through' : 'text-gray-900 dark:text-white'}`}>{week.theme}</h4>
-                                <p className="text-xs text-gray-500 font-medium">{week.hours} hrs expected</p>
+                                <p className="text-xs text-gray-500 dark:text-gray-400 font-medium">{week.hours} hrs expected</p>
                               </div>
                             </div>
                             <div className="flex items-center gap-3">
@@ -339,7 +339,7 @@ Return ONLY valid JSON matching this structure perfectly without any markdown bl
                                         type="checkbox" 
                                         checked={topic.completed} 
                                         onChange={() => toggleTopic(pIdx, wIdx, tIdx, topic.completed)}
-                                        className="w-5 h-5 text-purple-600 bg-gray-100 border-gray-300 rounded focus:ring-purple-500 cursor-pointer"
+                                        className="w-5 h-5 text-purple-600 dark:text-purple-400 bg-gray-100 dark:bg-gray-900 border-gray-300 dark:border-gray-700 rounded focus:ring-purple-500 cursor-pointer"
                                       />
                                     </div>
                                     <div className="flex-1">
@@ -348,12 +348,12 @@ Return ONLY valid JSON matching this structure perfectly without any markdown bl
                                       
                                       <div className="flex flex-wrap gap-2">
                                         {topic.youtubeLink && (
-                                          <a href={`https://www.youtube.com/results?search_query=${encodeURIComponent(topic.youtubeLink)}`} target="_blank" rel="noreferrer" className="text-xs px-2.5 py-1.5 bg-red-50 dark:bg-red-900/20 text-red-600 hover:bg-red-100 rounded-lg font-bold flex items-center gap-1 transition-colors">
+                                          <a href={`https://www.youtube.com/results?search_query=${encodeURIComponent(topic.youtubeLink)}`} target="_blank" rel="noreferrer" className="text-xs px-2.5 py-1.5 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 hover:bg-red-100 rounded-lg font-bold flex items-center gap-1 transition-colors">
                                             ▶️ {topic.youtubeLink}
                                           </a>
                                         )}
                                         {topic.docLink && (
-                                          <a href={`https://www.google.com/search?q=${encodeURIComponent(topic.docLink)}`} target="_blank" rel="noreferrer" className="text-xs px-2.5 py-1.5 bg-blue-50 dark:bg-blue-900/20 text-blue-600 hover:bg-blue-100 rounded-lg font-bold flex items-center gap-1 transition-colors">
+                                          <a href={`https://www.google.com/search?q=${encodeURIComponent(topic.docLink)}`} target="_blank" rel="noreferrer" className="text-xs px-2.5 py-1.5 bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 hover:bg-blue-100 rounded-lg font-bold flex items-center gap-1 transition-colors">
                                             📄 {topic.docLink}
                                           </a>
                                         )}
@@ -362,11 +362,11 @@ Return ONLY valid JSON matching this structure perfectly without any markdown bl
                                   </div>
                                 ))}
                               </div>
-                              <div className="mt-4 p-4 bg-purple-50 dark:bg-purple-900/20 border border-purple-100 rounded-xl flex items-start gap-3">
+                              <div className="mt-4 p-4 bg-purple-50 dark:bg-purple-900/20 border border-purple-100 dark:border-purple-900/50 rounded-xl flex items-start gap-3">
                                 <span className="text-xl">🏆</span>
                                 <div>
-                                  <p className="text-xs font-bold text-purple-800 uppercase tracking-widest mb-1">Week Milestone</p>
-                                  <p className="text-sm font-medium text-purple-900">{week.milestone}</p>
+                                  <p className="text-xs font-bold text-purple-800 dark:text-purple-300 uppercase tracking-widest mb-1">Week Milestone</p>
+                                  <p className="text-sm font-medium text-purple-900 dark:text-purple-200">{week.milestone}</p>
                                 </div>
                               </div>
                             </div>

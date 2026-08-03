@@ -153,7 +153,7 @@ Return ONLY the cover letter text.`;
                 placeholder="E.g., Google, Microsoft, Startup Inc"
                 value={companyName}
                 onChange={(e) => setCompanyName(e.target.value)}
-                className="w-full p-3 rounded-xl border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-950 focus:bg-white dark:bg-gray-900 focus:ring-2 focus:ring-blue-500 transition-all font-medium"
+                className="w-full p-3 rounded-xl border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-950 focus:bg-white dark:focus:bg-gray-900 dark:bg-gray-900 focus:ring-2 focus:ring-blue-500 transition-all font-medium"
               />
             </div>
             
@@ -163,7 +163,7 @@ Return ONLY the cover letter text.`;
                 type="text"
                 value={candidateName}
                 onChange={(e) => setCandidateName(e.target.value)}
-                className="w-full p-3 rounded-xl border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-950 focus:bg-white dark:bg-gray-900 focus:ring-2 focus:ring-blue-500 transition-all"
+                className="w-full p-3 rounded-xl border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-950 focus:bg-white dark:focus:bg-gray-900 dark:bg-gray-900 focus:ring-2 focus:ring-blue-500 transition-all"
               />
             </div>
 
@@ -173,7 +173,7 @@ Return ONLY the cover letter text.`;
                 value={jobDescription}
                 onChange={(e) => setJobDescription(e.target.value)}
                 placeholder="Paste the job requirements here..."
-                className="w-full h-32 p-3 rounded-xl border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-950 focus:bg-white dark:bg-gray-900 focus:ring-2 focus:ring-blue-500 transition-all resize-none text-sm"
+                className="w-full h-32 p-3 rounded-xl border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-950 focus:bg-white dark:focus:bg-gray-900 dark:bg-gray-900 focus:ring-2 focus:ring-blue-500 transition-all resize-none text-sm"
               />
             </div>
 
@@ -183,19 +183,19 @@ Return ONLY the cover letter text.`;
                 value={resumeText}
                 onChange={(e) => setResumeText(e.target.value)}
                 placeholder="Paste your resume..."
-                className="w-full h-32 p-3 rounded-xl border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-950 focus:bg-white dark:bg-gray-900 focus:ring-2 focus:ring-blue-500 transition-all resize-none text-sm"
+                className="w-full h-32 p-3 rounded-xl border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-950 focus:bg-white dark:focus:bg-gray-900 dark:bg-gray-900 focus:ring-2 focus:ring-blue-500 transition-all resize-none text-sm"
               />
             </div>
 
             <div>
               <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1.5">Writing Tone</label>
-              <div className="flex bg-gray-100 p-1 rounded-xl">
+              <div className="flex bg-gray-100 dark:bg-gray-900 p-1 rounded-xl">
                 {TONES.map(t => (
                   <button
                     key={t}
                     onClick={() => setTone(t)}
                     className={`flex-1 py-2 text-sm font-bold rounded-lg transition-all ${
-                      tone === t ? "bg-white dark:bg-gray-900 text-blue-600 shadow-sm" : "text-gray-500 hover:text-gray-700 dark:text-gray-300"
+                      tone === t ? "bg-white dark:bg-gray-900 text-blue-600 shadow-sm" : "text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 dark:text-gray-300"
                     }`}
                   >
                     {t}
@@ -204,7 +204,7 @@ Return ONLY the cover letter text.`;
               </div>
             </div>
 
-            {error && <p className="text-red-600 text-sm font-medium">{error}</p>}
+            {error && <p className="text-red-600 dark:text-red-400 text-sm font-medium">{error}</p>}
 
             <button
               onClick={() => handleGenerate(false)}
@@ -227,10 +227,10 @@ Return ONLY the cover letter text.`;
             {result ? (
               <div className="flex flex-col h-full animate-fade-in">
                 {/* Stats row */}
-                <div className="flex flex-wrap gap-2 mb-4 text-xs font-bold text-gray-500">
-                  <span className="bg-gray-100 px-3 py-1.5 rounded-lg">{wordCount} Words</span>
-                  <span className="bg-gray-100 px-3 py-1.5 rounded-lg">{charCount} Characters</span>
-                  <span className="bg-blue-50 dark:bg-blue-900/20 text-blue-700 px-3 py-1.5 rounded-lg">Tone: {tone}</span>
+                <div className="flex flex-wrap gap-2 mb-4 text-xs font-bold text-gray-500 dark:text-gray-400">
+                  <span className="bg-gray-100 dark:bg-gray-900 px-3 py-1.5 rounded-lg">{wordCount} Words</span>
+                  <span className="bg-gray-100 dark:bg-gray-900 px-3 py-1.5 rounded-lg">{charCount} Characters</span>
+                  <span className="bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400 px-3 py-1.5 rounded-lg">Tone: {tone}</span>
                 </div>
 
                 {/* The Letter */}
@@ -243,21 +243,21 @@ Return ONLY the cover letter text.`;
                   <button 
                     onClick={copyToClipboard}
                     className={`flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-sm font-bold transition-all ${
-                      copied ? "bg-green-100 text-green-700 border-green-200" : "bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:bg-gray-950"
+                      copied ? "bg-green-100 text-green-700 border-green-200" : "bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-900 dark:bg-gray-950"
                     }`}
                   >
                     {copied ? "✓ Copied!" : "📋 Copy"}
                   </button>
                   <button 
                     onClick={downloadPDF}
-                    className="flex items-center justify-center gap-2 px-4 py-3 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl text-sm font-bold text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:bg-gray-950 transition-all"
+                    className="flex items-center justify-center gap-2 px-4 py-3 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl text-sm font-bold text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-900 dark:bg-gray-950 transition-all"
                   >
                    📕 PDF
                   </button>
                   <button 
                     onClick={() => handleGenerate(true)}
                     disabled={loading}
-                    className="flex items-center justify-center gap-2 px-4 py-3 bg-blue-50 dark:bg-blue-900/20 text-blue-700 hover:bg-blue-100 rounded-xl text-sm font-bold transition-all"
+                    className="flex items-center justify-center gap-2 px-4 py-3 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400 hover:bg-blue-100 rounded-xl text-sm font-bold transition-all"
                   >
                     <svg className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>
                     Regenerate
@@ -270,7 +270,7 @@ Return ONLY the cover letter text.`;
                   📝
                 </div>
                 <h3 className="font-bold text-gray-900 dark:text-white mb-2">Ready to Write</h3>
-                <p className="text-gray-500 text-sm max-w-[250px]">
+                <p className="text-gray-500 dark:text-gray-400 text-sm max-w-[250px]">
                   Fill out the form on the left and click generate to create your custom cover letter.
                 </p>
               </div>

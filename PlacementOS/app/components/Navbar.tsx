@@ -103,7 +103,7 @@ export default function Navbar() {
         <div className="hidden lg:flex items-center gap-1 flex-1 mx-4 lg:justify-center">
           {navLinksLeft.map((link) => (
             <Link key={link.href} to={link.href}
-              className={`px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 whitespace-nowrap flex-shrink-0 ${isActive(link.href) ? "bg-violet-100 text-violet-700" : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:text-white hover:bg-gray-100"}`}>
+              className={`px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 whitespace-nowrap flex-shrink-0 ${isActive(link.href) ? "bg-violet-100 text-violet-700" : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800 dark:bg-gray-900"}`}>
               {link.label}
             </Link>
           ))}
@@ -111,7 +111,7 @@ export default function Navbar() {
           {/* Tools Dropdown */}
           <div className="relative flex-shrink-0" ref={toolsRef}>
             <button onClick={() => setToolsOpen(!toolsOpen)}
-              className={`flex items-center gap-1 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 whitespace-nowrap ${toolsLinks.some((t) => isActive(t.href)) ? "bg-violet-100 text-violet-700" : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:text-white hover:bg-gray-100"}`}>
+              className={`flex items-center gap-1 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 whitespace-nowrap ${toolsLinks.some((t) => isActive(t.href)) ? "bg-violet-100 text-violet-700" : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800 dark:bg-gray-900"}`}>
               Tools
               <svg className={`w-3.5 h-3.5 transition-transform ${toolsOpen ? "rotate-180" : ""}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
@@ -121,7 +121,7 @@ export default function Navbar() {
               <div className="absolute top-full left-0 mt-1 w-56 bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 shadow-xl rounded-xl z-50 overflow-hidden" style={{ maxHeight: "70vh", overflowY: "auto" }}>
                 {toolsLinks.map((link) => (
                   <Link key={link.href} to={link.href} onClick={() => setToolsOpen(false)}
-                    className={`block px-4 py-2.5 text-sm ${isActive(link.href) ? "bg-violet-50 dark:bg-violet-900/20 text-violet-700 font-semibold" : "text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:bg-gray-950"}`}>
+                    className={`block px-4 py-2.5 text-sm ${isActive(link.href) ? "bg-violet-50 dark:bg-violet-900/20 text-violet-700 font-semibold" : "text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-900 dark:bg-gray-950"}`}>
                     {link.label}
                   </Link>
                 ))}
@@ -132,7 +132,7 @@ export default function Navbar() {
           {/* Remaining nav links */}
           {navLinksRight.map((link) => (
             <Link key={link.href} to={link.href}
-              className={`px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 whitespace-nowrap flex-shrink-0 ${isActive(link.href) ? "bg-violet-100 text-violet-700" : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:text-white hover:bg-gray-100"}`}>
+              className={`px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 whitespace-nowrap flex-shrink-0 ${isActive(link.href) ? "bg-violet-100 text-violet-700" : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800 dark:bg-gray-900"}`}>
               {link.label}
             </Link>
           ))}
@@ -143,7 +143,7 @@ export default function Navbar() {
       <div className="flex items-center gap-1.5 flex-shrink-0">
         {/* Dark Mode Toggle */}
         <button onClick={toggleDark} title={dark ? "Switch to Light" : "Switch to Dark"}
-          className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-gray-100 transition-colors text-gray-600 dark:text-gray-400 flex-shrink-0">
+          className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 dark:bg-gray-900 transition-colors text-gray-600 dark:text-gray-400 flex-shrink-0">
           {dark ? (
             <svg className="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707M17.657 17.657l-.707-.707M6.343 6.343l-.707-.707M12 7a5 5 0 100 10 5 5 0 000-10z" />
@@ -158,12 +158,12 @@ export default function Navbar() {
         {isAuthenticated && user ? (
           <div className="relative">
             <button onClick={() => setDropdownOpen((v) => !v)}
-              className="flex items-center gap-1.5 px-2 py-1.5 rounded-xl hover:bg-gray-100 transition-all duration-200">
+              className="flex items-center gap-1.5 px-2 py-1.5 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 dark:bg-gray-900 transition-all duration-200">
               <div className="w-8 h-8 rounded-full primary-gradient flex items-center justify-center text-white text-sm font-bold flex-shrink-0">
                 {user.name?.charAt(0).toUpperCase()}
               </div>
               <span className="hidden lg:block text-sm font-medium text-gray-700 dark:text-gray-300 max-w-[90px] truncate">{user.name}</span>
-              <svg className="w-3.5 h-3.5 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <svg className="w-3.5 h-3.5 text-gray-500 dark:text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
               </svg>
             </button>
@@ -172,11 +172,11 @@ export default function Navbar() {
               <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-900 rounded-xl border border-gray-100 dark:border-gray-800 shadow-lg animate-slide-down z-50">
                 <div className="px-4 py-3 border-b border-gray-100 dark:border-gray-800">
                   <p className="text-sm font-semibold text-gray-900 dark:text-white truncate">{user.name}</p>
-                  <p className="text-xs text-gray-500 truncate">{user.email}</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 truncate">{user.email}</p>
                 </div>
-                <Link to="/profile" onClick={() => setDropdownOpen(false)} className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:bg-gray-950">Profile Settings</Link>
-                <Link to="/history" onClick={() => setDropdownOpen(false)} className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:bg-gray-950">History</Link>
-                <button onClick={handleLogout} className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 dark:bg-red-900/20 rounded-b-xl border-t border-gray-100 dark:border-gray-800">Sign Out</button>
+                <Link to="/profile" onClick={() => setDropdownOpen(false)} className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-900 dark:bg-gray-950">Profile Settings</Link>
+                <Link to="/history" onClick={() => setDropdownOpen(false)} className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-900 dark:bg-gray-950">History</Link>
+                <button onClick={handleLogout} className="w-full text-left px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:bg-red-900/20 rounded-b-xl border-t border-gray-100 dark:border-gray-800">Sign Out</button>
               </div>
             )}
           </div>
@@ -190,7 +190,7 @@ export default function Navbar() {
 
         {/* Mobile menu toggle */}
         {isAuthenticated && (
-          <button className="md:hidden p-2 rounded-lg hover:bg-gray-100" onClick={() => setMenuOpen((v) => !v)}>
+          <button className="md:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 dark:bg-gray-900" onClick={() => setMenuOpen((v) => !v)}>
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d={menuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"} />
             </svg>
@@ -205,14 +205,14 @@ export default function Navbar() {
             <div className="px-4 py-2 text-xs font-black text-gray-400 uppercase tracking-wider mt-2">Navigation</div>
             {[...navLinksLeft, ...navLinksRight].map((link) => (
               <Link key={link.href} to={link.href} onClick={() => setMenuOpen(false)}
-                className={`block px-6 py-3 text-sm font-medium ${isActive(link.href) ? "text-violet-700 bg-violet-50 dark:bg-violet-900/20" : "text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:bg-gray-950"}`}>
+                className={`block px-6 py-3 text-sm font-medium ${isActive(link.href) ? "text-violet-700 bg-violet-50 dark:bg-violet-900/20" : "text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-900 dark:bg-gray-950"}`}>
                 {link.label}
               </Link>
             ))}
             <div className="px-4 py-2 text-xs font-black text-gray-400 uppercase tracking-wider border-t border-gray-100 dark:border-gray-800 mt-1">Tools</div>
             {toolsLinks.map((link) => (
               <Link key={link.href} to={link.href} onClick={() => setMenuOpen(false)}
-                className={`block px-6 py-2.5 text-sm ${isActive(link.href) ? "text-violet-700 bg-violet-50 dark:bg-violet-900/20 font-semibold" : "text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:bg-gray-950"}`}>
+                className={`block px-6 py-2.5 text-sm ${isActive(link.href) ? "text-violet-700 bg-violet-50 dark:bg-violet-900/20 font-semibold" : "text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-900 dark:bg-gray-950"}`}>
                 {link.label}
               </Link>
             ))}
@@ -221,7 +221,7 @@ export default function Navbar() {
                 {dark ? "☀️ Light Mode" : "🌙 Dark Mode"}
               </button>
             </div>
-            <button onClick={handleLogout} className="w-full text-left px-6 py-3 text-sm text-red-600 hover:bg-red-50 dark:bg-red-900/20 font-medium border-t border-gray-100 dark:border-gray-800">Sign Out</button>
+            <button onClick={handleLogout} className="w-full text-left px-6 py-3 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:bg-red-900/20 font-medium border-t border-gray-100 dark:border-gray-800">Sign Out</button>
           </div>
         </div>
       )}

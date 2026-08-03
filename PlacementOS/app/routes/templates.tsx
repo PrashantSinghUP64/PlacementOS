@@ -162,9 +162,9 @@ export default function Templates() {
                     <div className="p-4 bg-gray-50 dark:bg-gray-950 border-t border-gray-100 dark:border-gray-800">
                       <div className="flex items-center justify-between mb-1">
                         <h3 className="font-black text-gray-900 dark:text-white flex items-center gap-1">{t.icon} {t.name}</h3>
-                        <span className="text-xs font-black text-green-600">ATS {t.atsScore}%</span>
+                        <span className="text-xs font-black text-green-600 dark:text-green-400">ATS {t.atsScore}%</span>
                       </div>
-                      <p className="text-xs text-gray-500 font-medium mb-1">{t.desc}</p>
+                      <p className="text-xs text-gray-500 dark:text-gray-400 font-medium mb-1">{t.desc}</p>
                       <p className="text-[10px] text-gray-400 font-bold">Best for: {t.best}</p>
                     </div>
                   </div>
@@ -177,10 +177,10 @@ export default function Templates() {
             {/* Back + Template info */}
             <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-800 p-5 mb-5 flex items-center justify-between">
               <div className="flex items-center gap-4">
-                <button onClick={() => { setSelected(null); setPreview(false); }} className="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 dark:text-gray-300 font-bold rounded-xl text-sm transition-colors">← Back</button>
+                <button onClick={() => { setSelected(null); setPreview(false); }} className="px-4 py-2 bg-gray-100 dark:bg-gray-900 hover:bg-gray-200 text-gray-700 dark:text-gray-300 font-bold rounded-xl text-sm transition-colors">← Back</button>
                 <div>
                   <h2 className="font-black text-gray-900 dark:text-white">{TEMPLATES.find(t => t.id === selected)?.icon} {TEMPLATES.find(t => t.id === selected)?.name} Template</h2>
-                  <p className="text-xs text-gray-500 font-medium">Fill the form below → Download PDF</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 font-medium">Fill the form below → Download PDF</p>
                 </div>
               </div>
               <div className="flex gap-2">
@@ -215,7 +215,7 @@ export default function Templates() {
                 <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 p-6">
                   <div className="flex justify-between items-center mb-4">
                     <h3 className="font-black text-gray-900 dark:text-white">Education</h3>
-                    <button onClick={() => setData(d => ({ ...d, education: [...d.education, { degree: "", college: "", year: "", cgpa: "" }] }))} className="text-xs font-bold text-violet-600 hover:text-violet-800">+ Add</button>
+                    <button onClick={() => setData(d => ({ ...d, education: [...d.education, { degree: "", college: "", year: "", cgpa: "" }] }))} className="text-xs font-bold text-violet-600 dark:text-violet-400 hover:text-violet-800">+ Add</button>
                   </div>
                   {data.education.map((e, i) => (
                     <div key={i} className="grid md:grid-cols-2 gap-3 mb-3 p-3 bg-gray-50 dark:bg-gray-950 rounded-xl">
@@ -240,7 +240,7 @@ export default function Templates() {
                 <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 p-6">
                   <div className="flex justify-between items-center mb-4">
                     <h3 className="font-black text-gray-900 dark:text-white">Projects</h3>
-                    <button onClick={() => setData(d => ({ ...d, projects: [...d.projects, { name: "", tech: "", link: "", desc: "" }] }))} className="text-xs font-bold text-violet-600">+ Add</button>
+                    <button onClick={() => setData(d => ({ ...d, projects: [...d.projects, { name: "", tech: "", link: "", desc: "" }] }))} className="text-xs font-bold text-violet-600 dark:text-violet-400">+ Add</button>
                   </div>
                   {data.projects.map((p, i) => (
                     <div key={i} className="p-3 bg-gray-50 dark:bg-gray-950 rounded-xl mb-3">
@@ -258,7 +258,7 @@ export default function Templates() {
                 <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 p-6">
                   <div className="flex justify-between items-center mb-4">
                     <h3 className="font-black text-gray-900 dark:text-white">Experience (Internship / Part-time)</h3>
-                    <button onClick={() => setData(d => ({ ...d, experience: [...d.experience, { company: "", role: "", duration: "", desc: "" }] }))} className="text-xs font-bold text-violet-600">+ Add</button>
+                    <button onClick={() => setData(d => ({ ...d, experience: [...d.experience, { company: "", role: "", duration: "", desc: "" }] }))} className="text-xs font-bold text-violet-600 dark:text-violet-400">+ Add</button>
                   </div>
                   {data.experience.map((e, i) => (
                     <div key={i} className="p-3 bg-gray-50 dark:bg-gray-950 rounded-xl mb-3">

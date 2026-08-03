@@ -108,7 +108,7 @@ export default function Register() {
 
           {serverError && (
             <div
-              className="rounded-lg border border-red-200 bg-red-50 dark:bg-red-900/20 px-3 py-2 text-sm text-red-800"
+              className="rounded-lg border border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-900/20 px-3 py-2 text-sm text-red-800 dark:text-red-300"
               role="alert"
             >
               {serverError}
@@ -125,10 +125,10 @@ export default function Register() {
                 autoComplete="username"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                className="w-full rounded-lg border border-gray-300 dark:border-gray-700 px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
               />
               {fieldErrors.name && (
-                <p className="mt-1 text-sm text-red-600">{fieldErrors.name}</p>
+                <p className="mt-1 text-sm text-red-600 dark:text-red-400">{fieldErrors.name}</p>
               )}
             </div>
 
@@ -142,10 +142,10 @@ export default function Register() {
                 autoComplete="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                className="w-full rounded-lg border border-gray-300 dark:border-gray-700 px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
               />
               {fieldErrors.email && (
-                <p className="mt-1 text-sm text-red-600">{fieldErrors.email}</p>
+                <p className="mt-1 text-sm text-red-600 dark:text-red-400">{fieldErrors.email}</p>
               )}
             </div>
 
@@ -160,18 +160,18 @@ export default function Register() {
                   autoComplete="new-password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full rounded-lg border border-gray-300 px-3 py-2 pr-10 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                  className="w-full rounded-lg border border-gray-300 dark:border-gray-700 px-3 py-2 pr-10 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
                 />
                 <button
                   type="button"
-                  className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 text-xs px-1"
+                  className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400 text-xs px-1"
                   onClick={() => setShowPw((v) => !v)}
                 >
                   {showPw ? "Hide" : "Show"}
                 </button>
               </div>
               {fieldErrors.password && (
-                <p className="mt-1 text-sm text-red-600">{fieldErrors.password}</p>
+                <p className="mt-1 text-sm text-red-600 dark:text-red-400">{fieldErrors.password}</p>
               )}
             </div>
 
@@ -186,18 +186,18 @@ export default function Register() {
                   autoComplete="new-password"
                   value={confirm}
                   onChange={(e) => setConfirm(e.target.value)}
-                  className="w-full rounded-lg border border-gray-300 px-3 py-2 pr-10 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                  className="w-full rounded-lg border border-gray-300 dark:border-gray-700 px-3 py-2 pr-10 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
                 />
                 <button
                   type="button"
-                  className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 text-xs px-1"
+                  className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400 text-xs px-1"
                   onClick={() => setShowConfirm((v) => !v)}
                 >
                   {showConfirm ? "Hide" : "Show"}
                 </button>
               </div>
               {fieldErrors.confirm && (
-                <p className="mt-1 text-sm text-red-600">{fieldErrors.confirm}</p>
+                <p className="mt-1 text-sm text-red-600 dark:text-red-400">{fieldErrors.confirm}</p>
               )}
             </div>
 
@@ -212,12 +212,12 @@ export default function Register() {
 
           <p className="text-center text-sm text-gray-600 dark:text-gray-400">
             Already have an account?{" "}
-            <Link to="/login" className="text-blue-600 font-medium hover:underline">
+            <Link to="/login" className="text-blue-600 dark:text-blue-400 font-medium hover:underline">
               Log in
             </Link>
           </p>
 
-          <p className="text-xs text-gray-500 text-center border-t border-gray-100 dark:border-gray-800 pt-4">
+          <p className="text-xs text-gray-500 dark:text-gray-400 text-center border-t border-gray-100 dark:border-gray-800 pt-4">
             The Puter “Create Free Account” popup is hosted by Puter — use this form instead to avoid
             its validation quirks.
           </p>
