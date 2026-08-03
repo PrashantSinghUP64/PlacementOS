@@ -125,10 +125,10 @@ export default function Dashboard() {
         ) : (
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
             {[
-              { label: "Total Analyses", value: stats?.totalAnalyses || 0, icon: "📊", color: "text-violet-600", bg: "bg-violet-50 dark:bg-violet-900/20" },
-              { label: "Best Score", value: `${stats?.bestScore || 0}/100`, icon: "🏆", color: "text-yellow-600", bg: "bg-yellow-50" },
-              { label: "Avg. Score", value: `${stats?.averageScore || 0}/100`, icon: "📈", color: "text-blue-600", bg: "bg-blue-50 dark:bg-blue-900/20" },
-              { label: "Improvement", value: `${(stats?.improvement || 0) > 0 ? "+" : ""}${stats?.improvement || 0}pts`, icon: "⚡", color: "text-emerald-600", bg: "bg-emerald-50" },
+              { label: "Total Analyses", value: stats?.totalAnalyses || 0, icon: "📊", color: "text-violet-600 dark:text-violet-400", bg: "bg-violet-50 dark:bg-violet-900/20" },
+              { label: "Best Score", value: `${stats?.bestScore || 0}/100`, icon: "🏆", color: "text-yellow-600 dark:text-yellow-400", bg: "bg-yellow-50 dark:bg-yellow-900/20" },
+              { label: "Avg. Score", value: `${stats?.averageScore || 0}/100`, icon: "📈", color: "text-blue-600 dark:text-blue-400", bg: "bg-blue-50 dark:bg-blue-900/20" },
+              { label: "Improvement", value: `${(stats?.improvement || 0) > 0 ? "+" : ""}${stats?.improvement || 0}pts`, icon: "⚡", color: "text-emerald-600 dark:text-emerald-400", bg: "bg-emerald-50 dark:bg-emerald-900/20" },
             ].map((s, i) => (
               <div key={s.label} className={`stat-card animate-fade-in-up delay-${i * 100}`}>
                 <div className={`w-10 h-10 ${s.bg} rounded-xl flex items-center justify-center text-xl mb-2`}>{s.icon}</div>
@@ -154,21 +154,21 @@ export default function Dashboard() {
           <div className="card animate-fade-in-up delay-100">
             <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-4">Quick Actions</h2>
             <div className="space-y-3">
-              <Link to="/upload" className="flex items-center gap-3 p-3 rounded-xl hover:bg-violet-50 dark:bg-violet-900/20 border border-violet-100 transition-all">
+              <Link to="/upload" className="flex items-center gap-3 p-3 rounded-xl hover:bg-violet-50 dark:hover:bg-violet-900/20 border border-violet-100 dark:border-violet-900/50 transition-all">
                 <span className="text-2xl">🚀</span>
                 <div>
                   <p className="font-semibold text-sm text-gray-800 dark:text-gray-200">Analyze Resume</p>
                   <p className="text-xs text-gray-500">Upload PDF + job description</p>
                 </div>
               </Link>
-              <Link to="/history" className="flex items-center gap-3 p-3 rounded-xl hover:bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-900/50 transition-all">
+              <Link to="/history" className="flex items-center gap-3 p-3 rounded-xl hover:bg-blue-50 dark:hover:bg-blue-900/20 border border-blue-100 dark:border-blue-900/50 transition-all">
                 <span className="text-2xl">📋</span>
                 <div>
                   <p className="font-semibold text-sm text-gray-800 dark:text-gray-200">View History</p>
                   <p className="text-xs text-gray-500">All {stats?.totalAnalyses || 0} past analyses</p>
                 </div>
               </Link>
-              <Link to="/profile" className="flex items-center gap-3 p-3 rounded-xl hover:bg-emerald-50 border border-emerald-100 transition-all">
+              <Link to="/profile" className="flex items-center gap-3 p-3 rounded-xl hover:bg-emerald-50 dark:hover:bg-emerald-900/20 border border-emerald-100 dark:border-emerald-900/50 transition-all">
                 <span className="text-2xl">⚙️</span>
                 <div>
                   <p className="font-semibold text-sm text-gray-800 dark:text-gray-200">Edit Profile</p>
