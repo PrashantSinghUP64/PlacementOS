@@ -57,7 +57,7 @@ export default function ReferralNetwork() {
 
   const mockProviders = [
     { _id: "p1", name: "Ravi Kumar", company: "Google", role: "Software Engineer L4", college: "IIT Delhi", rolesReferredFor: ["SDE", "Frontend", "Backend"], responseRate: 95 },
-    { _id: "p2", name: "Anjali Gupta", company: "Microsoft", role: "SDE II", college: "VIT Vellore", rolesReferredFor: ["SDE", "Data Engineer"], responseRate: 88 },
+    { _id: "p2", name: "Prashant Gupta", company: "Microsoft", role: "SDE II", college: "VIT Vellore", rolesReferredFor: ["SDE", "Data Engineer"], responseRate: 88 },
     { _id: "p3", name: "Suresh Menon", company: "Amazon", role: "SDE I", college: "NIT Warangal", rolesReferredFor: ["SDE", "Full Stack"], responseRate: 75 },
   ];
 
