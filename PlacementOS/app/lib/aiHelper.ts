@@ -23,18 +23,18 @@ export async function callAI(prompt: string, fallbackText?: string): Promise<str
         errMsg = body.error ?? errMsg;
       } catch {}
       console.error(errMsg);
+      
+      if (res.status === 429) {
+        const err = new Error(errMsg);
+        err.name = "RateLimitError";
+        throw err;
+      }
+      
       throw new Error(errMsg);
     }
 
     const data = await res.json();
     if (!data.text) throw new Error("Empty response from AI");
-    
-    // The backend sometimes returns this string on a 200 OK when rate limited.
-    if (data.text.includes("Something went wrong") || data.text.includes("service is currently busy")) {
-      const err = new Error("AI service unavailable (Rate Limited or Error)");
-      err.name = "RateLimitError";
-      throw err;
-    }
     
     return data.text as string;
   } catch (error: any) {

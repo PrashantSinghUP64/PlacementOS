@@ -56,12 +56,15 @@ router.post("/chat", async (req, res) => {
       err?.message?.includes("RESOURCE_EXHAUSTED") ||
       err?.message?.includes("quota");
 
-    let message = "🔧 Something went wrong. Please try again in a moment.";
     if (isRateLimit) {
-      message = "⏳ AI service is currently busy. Please wait a moment and try again.";
+      return res.status(429).json({ error: "⏳ AI service is currently busy. Please wait a moment and try again." });
     }
 
-    return res.json({ text: message });
+    const errorMsg = err?.message?.includes("GROQ_API_KEY") 
+      ? "GROQ_API_KEY is not configured. Please add it to server/.env"
+      : "🔧 Something went wrong. Please try again in a moment.";
+
+    return res.status(500).json({ error: errorMsg });
   }
 });
 
