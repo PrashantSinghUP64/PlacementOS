@@ -99,7 +99,7 @@ Return ONLY valid JSON:
   "insight": "React developers in Bangalore command premium salaries due to startup boom."
 }`;
 
-      const parsed = await callAIForJSON(prompt) as SalaryPrediction;
+      const parsed = await callAIForJSON(prompt, 'salary') as SalaryPrediction;
       setResult(parsed);
 
     } catch (err: any) {

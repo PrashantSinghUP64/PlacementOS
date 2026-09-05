@@ -117,7 +117,7 @@ Return ONLY valid JSON:
   ]
 }`;
 
-      const parsed = await callAIForJSON(prompt) as LinkedInAnalysis;
+      const parsed = await callAIForJSON(prompt, 'linkedin') as LinkedInAnalysis;
       setResult(parsed);
 
     } catch (err: any) {

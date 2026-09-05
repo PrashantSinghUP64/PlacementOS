@@ -118,7 +118,7 @@ Use this JSON structure:
 }
 Give 4-6 real, accurate results. Only include real working links.`;
 
-      const parsed: any = await callAIForJSON(prompt);
+      const parsed: any = await callAIForJSON(prompt, 'resources');
       setResults(parsed.results || []);
       setTip(parsed.tip || "");
     } catch (e) {

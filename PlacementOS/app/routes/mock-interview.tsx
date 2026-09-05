@@ -57,7 +57,7 @@ export default function MockInterview() {
 }`;
 
     try {
-      const parsed = await callAIForJSON(startPrompt);
+      const parsed = await callAIForJSON(startPrompt, 'mock-start');
       
       setCurrentQuestion(parsed.question);
       setCurrentCategory(parsed.category);
@@ -120,7 +120,7 @@ Return ONLY JSON:
 }`;
 
     try {
-      const parsed = await callAIForJSON(evalPrompt);
+      const parsed = await callAIForJSON(evalPrompt, 'mock-eval');
 
       const newQnA: QnA = {
         question: currentQuestion,
@@ -175,7 +175,7 @@ Return ONLY JSON:
 }`;
 
     try {
-      const parsed = await callAIForJSON(finalPrompt);
+      const parsed = await callAIForJSON(finalPrompt, 'mock-final');
       setResultsData(parsed);
       setPhase("results");
 

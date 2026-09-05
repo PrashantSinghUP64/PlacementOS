@@ -117,7 +117,7 @@ Return ONLY valid JSON exactly matching this structure:
   "preparationChecklist": ["Study X"]
 }`;
 
-      const parsedData = await callAIForJSON(prompt) as CompanyData;
+      const parsedData = await callAIForJSON(prompt, 'company') as CompanyData;
       setCompany(parsedData);
       setSearchInput("");
       

@@ -129,7 +129,7 @@ Return ONLY valid JSON:
 }`;
 
     try {
-      const parsedData = await callAIForJSON(prompt);
+      const parsedData = await callAIForJSON(prompt, 'roast');
       setRoastData(parsedData);
 
       // Save to backend

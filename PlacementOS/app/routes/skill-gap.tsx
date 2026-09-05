@@ -78,7 +78,7 @@ Return ONLY valid JSON:
 }`;
 
     try {
-      const parsed = await callAIForJSON(prompt);
+      const parsed = await callAIForJSON(prompt, 'skill-gap');
       setResults(parsed);
 
       try {
