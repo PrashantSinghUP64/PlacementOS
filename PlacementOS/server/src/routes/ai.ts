@@ -62,7 +62,7 @@ router.post("/chat", async (req, res) => {
 
     const errorMsg = err?.message?.includes("GROQ_API_KEY") 
       ? "GROQ_API_KEY is not configured. Please add it to server/.env"
-      : "🔧 Something went wrong. Please try again in a moment.";
+      : `🔧 Backend Error: ${err?.message || "Unknown error"}`;
 
     return res.status(500).json({ error: errorMsg });
   }
