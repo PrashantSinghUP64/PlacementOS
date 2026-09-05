@@ -39,9 +39,9 @@ router.post("/chat", async (req, res) => {
     const groq = getGroqClient();
 
     const completion = await groq.chat.completions.create({
-      model: "llama-3.1-8b-instant",
+      model: "mixtral-8x7b-32768",
       messages: [{ role: "user", content: prompt }],
-      max_tokens: 1000
+      max_tokens: 2048
     });
     
     const text = completion.choices[0].message.content || "";
