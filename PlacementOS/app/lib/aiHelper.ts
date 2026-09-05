@@ -30,18 +30,29 @@ export async function callAI(prompt: string, fallbackText?: string): Promise<str
     if (!data.text) throw new Error("Empty response from AI");
     
     // The backend sometimes returns this string on a 200 OK when rate limited.
-    // We throw it so the try/catch in individual routes can use their custom fallback logic.
     if (data.text.includes("Something went wrong") || data.text.includes("service is currently busy")) {
-      throw new Error("AI service unavailable (Rate Limited or Error)");
+      const err = new Error("AI service unavailable (Rate Limited or Error)");
+      err.name = "RateLimitError";
+      throw err;
     }
     
     return data.text as string;
   } catch (error: any) {
-    console.error(error);
+    // Only log actual unexpected errors, not our known rate limit error
+    if (error.name !== "RateLimitError") {
+      console.error(error);
+    }
+    
     if (fallbackText) {
       console.warn(`AI failed, using fallback text: ${fallbackText}`);
       return fallbackText;
     }
+    
+    // Rethrow rate limit errors directly without wrapping
+    if (error.name === "RateLimitError") {
+      throw error;
+    }
+    
     throw new Error("AI call failed: " + (error.message ?? "Unknown error"));
   }
 }

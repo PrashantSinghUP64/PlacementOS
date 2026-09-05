@@ -132,25 +132,25 @@ export default function CareerChatbot() {
 
       const aiText = await callAI(fullPrompt);
 
-      if (aiText.includes("⏳ AI service is currently busy")) {
+      const assistantMsg: Message = { role: "assistant", content: aiText, ts: Date.now() };
+      const updated = [...newMsgs, assistantMsg];
+      setMessages(updated);
+      saveHistory(updated);
+    } catch (error: any) {
+      if (error?.name === "RateLimitError" || error?.message?.includes("Rate Limited")) {
         setRetryPrompt(trimmed);
         setRetryCountdown(60);
       } else {
-        const assistantMsg: Message = { role: "assistant", content: aiText, ts: Date.now() };
-        const updated = [...newMsgs, assistantMsg];
+        console.error(error);
+        const errMsg: Message = {
+          role: "assistant",
+          content: "🔧 Something went wrong. Please try again in a moment.",
+          ts: Date.now()
+        };
+        const updated = [...newMsgs, errMsg];
         setMessages(updated);
         saveHistory(updated);
       }
-    } catch (error) {
-      console.error(error);
-      const errMsg: Message = {
-        role: "assistant",
-        content: "🔧 Something went wrong. Please try again in a moment.",
-        ts: Date.now()
-      };
-      const updated = [...newMsgs, errMsg];
-      setMessages(updated);
-      saveHistory(updated);
     } finally {
       setLoading(false);
     }
