@@ -205,7 +205,7 @@ Analyze carefully and return ONLY valid JSON (no markdown, no explanation):
   "jobTitle": "Software Developer"
 }`;
 
-    const parsed = await callAIForJSON(prompt) as AnalysisResult;
+    const parsed = await callAIForJSON(prompt, 'upload') as AnalysisResult;
 
     // Validate and normalize fields
     return {

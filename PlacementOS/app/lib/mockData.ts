@@ -68,10 +68,40 @@ export const mockRoadmapData = {
   overallProgress: 0
 };
 
+export const mockAnalysisData = {
+  overallScore: 72,
+  breakdown: {
+    skills: 75,
+    experience: 68,
+    education: 80,
+    keywords: 65,
+    tone: 72
+  },
+  missingKeywords: ["Docker", "AWS", "REST API"],
+  strengths: [
+    "Good React experience mentioned",
+    "Projects are relevant to the role"
+  ],
+  improvements: [
+    "Add cloud platform experience",
+    "Quantify achievements with numbers"
+  ],
+  suggestions: [
+    "Add Docker containerization to skills section",
+    "Mention any AWS or GCP projects you have done",
+    "Change worked on to led, built, developed, designed",
+    "Add GitHub profile link if not present",
+    "Add metrics: increased performance by X%, reduced time by Y%"
+  ],
+  atsScore: 68,
+  jobTitle: "Software Developer"
+};
+
 export const getMockFallback = (type: string) => {
   switch(type) {
     case 'interview': return mockInterviewData;
     case 'roadmap': return mockRoadmapData;
+    case 'upload': return mockAnalysisData;
     default: return { fallback: true, message: "Mock data not defined for this type" };
   }
 };
